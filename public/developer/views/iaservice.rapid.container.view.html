@@ -1,0 +1,20 @@
+<style>
+    .bg-black {
+        background-color: #282828 !important;
+    }
+</style>
+<div class="card m-t--30 m-r--15 m-l--15 m-b-0 " style="height: calc(100vh - 70px)">
+    <div class="header m-b--20" style="border-bottom-width: 0">
+        <span align="" class="ia-medium-title " id="rapidservicetitle">Visual Console</span>
+    </div>
+    <div class="body">
+        <iframe name="containerframe" id="containerframe" style="height: 80vh; top:0; width: 100%"
+                frameborder="0"></iframe>
+    </div>
+</div>
+<tag sspage-load="/dialogs/audio_upload.html" sspage-cache="true"></tag>
+<script>
+    window.swal = swal;
+    var id = (new URLSearchParams(localStorage.getItem("sspage").split('?')[1])).get('id');
+    document.getElementById("containerframe").src = "/developer/views/iaservice.rapid.edit.view.html?id=" + id;
+</script>

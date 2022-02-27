@@ -1,0 +1,13 @@
+https://stackoverflow.com/questions/39913842/security-key-and-cert-for-mosca-mqtt-broker
+
+>openssl genrsa -des3 -out tls-key.pem 1024
++Enter pass phrase for tls-key.pem:1234567890
+>openssl req -new -key tls-key.pem -out server.csr
+>cp tls-key.pem tls-key.pem.org
+>openssl rsa -in tls-key.pem.org -out tls-key.pem
+>openssl x509 -req -days 365 -in server.csr -signkey tls-key.pem -out tls-cert.pem
+
+
+
+
+////subject=/C=CA/ST=VANCOUVER, BC/L=VANCOUVER/O=IA/OU=IAPlatform/CN=IAPlatform/emailAddress=info@internetanywhere.io

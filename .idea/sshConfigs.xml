@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="SshConfigs">
+    <configs>
+      <sshConfig host="54.190.58.239" id="1f853d1b-1919-415e-a22c-9d1b2c714dae" keyPath="D:\Mehdi Projects\InternetAnyWhere Co\iabroker SSL\EC2 amaz serv\EC2NodejsBIpriv.ppk" port="22" customName="IA amazon" nameFormat="CUSTOM" username="ec2-user">
+        <option name="customName" value="IA amazon" />
+      </sshConfig>
+    </configs>
+  </component>
+</project>

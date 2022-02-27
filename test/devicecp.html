@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Device Captive Portal</title>
+</head>
+<body>
+<!--
+<form id="bdashbord" style="" action="https://localhost/customer" target="_blank" >
+    <input name="MacAddress" type="hidden" id="MacAddress" value="11:11:11:11:11:11">
+    <input name="DeviceType" type="hidden" id="DeviceType" value="MOTION_DETECTOR">
+    <button type="submit" class="buttonia">IA Dashboard</button>
+</form>
+
+<audio src="http://ice41.securenetsystems.net/KIRN" controls></audio>
+
+<audio controls="" id="player1" onpause="var x = {state: 'PAUSED'}; x = JSON.stringify(x); pub( x);" onplay="var x = {state: 'PLAYING'}; x = JSON.stringify(x); pub( x);" onended="var x = {state: 'IDLE'}; x = JSON.stringify(x); pub( x);" onvolumechange="var x = {};if(this.muted){x.silent=true}else{x.silent=false} x.volume=this.volume*100; x = JSON.stringify(x);pub( x);" src="http://node-21.zeno.fm/ndqw2pfrcseuv?rj-ttl=5&amp;rj-tok=AAABcdmG0UIAljizFtycKkwv5A"></audio>
+-->
+<!--
+<a id="download">Download</a>
+<button id="stop">Stop</button>
+<script>
+    let shouldStop = false;
+    let stopped = false;
+    const downloadLink = document.getElementById('download');
+    const stopButton = document.getElementById('stop');
+
+    stopButton.addEventListener('click', function() {
+        shouldStop = true;
+    });
+
+    const handleSuccess = function(stream) {
+        const options = {mimeType: 'audio/webm'};
+        const recordedChunks = [];
+        const mediaRecorder = new MediaRecorder(stream/*, options*/);
+
+        mediaRecorder.addEventListener('dataavailable', function(e) {
+            if (e.data.size > 0) {
+                recordedChunks.push(e.data);
+            }
+
+            if(shouldStop === true && stopped === false) {
+                mediaRecorder.stop();
+                stopped = true;
+            }
+        });
+
+        mediaRecorder.addEventListener('stop', function() {
+            downloadLink.href = URL.createObjectURL(new Blob(recordedChunks));
+            downloadLink.download = 'acetest.wav';
+        });
+
+        mediaRecorder.start();
+    };
+
+    navigator.mediaDevices.getUserMedia({ audio: true, video: false })
+        .then(handleSuccess);
+
+</script>--->
+
+<audio  controls >
+    <source src="http://headend1.iranseda.ir/liveHLS/radio-varzesh.m3u8" type="application/x-mpegURL">
+</audio>
+
+<!-- CSS  -->
+<link href="https://vjs.zencdn.net/7.2.3/video-js.css" rel="stylesheet">
+
+
+<!-- HTML -->
+<video id='hls-example'  class="video-js vjs-default-skin" width="400" height="300" controls>
+    <source type="application/x-mpegURL" src="http://www.streambox.fr/playlists/test_001/stream.m3u8">
+</video>
+
+
+<!-- JS code -->
+<!-- If you'd like to support IE8 (for Video.js versions prior to v7) -->
+<script src="https://vjs.zencdn.net/ie8/ie8-version/videojs-ie8.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/videojs-contrib-hls/5.14.1/videojs-contrib-hls.js"></script>
+<script src="https://vjs.zencdn.net/7.2.3/video.js"></script>
+
+<script>
+    var player = videojs('hls-example');
+    player.play();
+</script>
+
+<!--
+<script>
+    if (navigator.mediaDevices) {
+        console.log('getUserMedia supported.');
+
+        var constraints = { audio: true };
+        var chunks = [];
+
+        navigator.mediaDevices.getUserMedia(constraints)
+            .then(function(stream) {
+
+                var mediaRecorder = new MediaRecorder(stream);
+
+                visualize(stream);
+
+                record.onclick = function() {
+                    mediaRecorder.start();
+                    console.log(mediaRecorder.state);
+                    console.log("recorder started");
+                    record.style.background = "red";
+                    record.style.color = "black";
+                }
+
+                stop.onclick = function() {
+                    mediaRecorder.stop();
+                    console.log(mediaRecorder.state);
+                    console.log("recorder stopped");
+                    record.style.background = "";
+                    record.style.color = "";
+                }
+
+                mediaRecorder.onstop = function(e) {
+                    console.log("data available after MediaRecorder.stop() called.");
+
+                    var clipName = prompt('Enter a name for your sound clip');
+
+                    var clipContainer = document.createElement('article');
+                    var clipLabel = document.createElement('p');
+                    var audio = document.createElement('audio');
+                    var deleteButton = document.createElement('button');
+
+                    clipContainer.classList.add('clip');
+                    audio.setAttribute('controls', '');
+                    deleteButton.innerHTML = "Delete";
+                    clipLabel.innerHTML = clipName;
+
+                    clipContainer.appendChild(audio);
+                    clipContainer.appendChild(clipLabel);
+                    clipContainer.appendChild(deleteButton);
+                    soundClips.appendChild(clipContainer);
+
+                    audio.controls = true;
+                    var blob = new Blob(chunks, { 'type' : 'audio/ogg; codecs=opus' });
+                    chunks = [];
+                    var audioURL = URL.createObjectURL(blob);
+                    audio.src = audioURL;
+                    console.log("recorder stopped");
+
+                    deleteButton.onclick = function(e) {
+                        evtTgt = e.target;
+                        evtTgt.parentNode.parentNode.removeChild(evtTgt.parentNode);
+                    }
+                }
+
+                mediaRecorder.ondataavailable = function(e) {
+                    chunks.push(e.data);
+                }
+            })
+            .catch(function(err) {
+                console.log('The following error occurred: ' + err);
+            })
+    }
+</script>-->
+
+
+</body>
+</html>

@@ -1,0 +1,1 @@
+(function() {    var toc =  [{"name":"Install A New Service","type":"item","tilePath":"","url":"Services/Install_A_New_Service.htm"},{"name":"Service Card","type":"item","tilePath":"","url":"Services/Service_Card.htm"}];    window.rh.model.publish(rh.consts('KEY_TEMP_DATA'), toc, { sync:true });    })();

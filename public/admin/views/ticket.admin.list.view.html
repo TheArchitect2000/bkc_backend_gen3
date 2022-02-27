@@ -1,0 +1,427 @@
+<style type="text/css">
+    .bg-silver {
+        background-color: #ebebeb;
+        height: 10pc;
+        padding-top: 1pc;
+    }
+
+    .bg-silver img {
+        height: 60%;
+    }
+
+    .topbar > div {
+        padding-right: 5px;
+        padding-left: 5px;
+
+    }
+
+    .questionlist {
+        border-top: 1px solid grey;
+    }
+    .questionlist a {
+        margin-top: .3pc;
+        margin-bottom: .3pc;
+        display: block;
+        color: #4c4c4c;
+
+    }
+
+    .accordion span {
+        float: left;
+        font-size: x-large;
+        margin-top: -6px;
+        /*font-xweight: bold;*/
+    }
+
+    /*.accordion {
+        background-color: #efefef;
+    }
+
+    .accordion.collapsed {
+        background-color: white;
+    }*/
+
+    .accordion span, .accordion div {
+        color: #d42021;
+    }
+
+    .accordion.collapsed div {
+        color: inherit;
+    }
+    .accordion.collapsed span {
+        transform: rotate(-90deg);
+        color: inherit;
+    }
+
+    .correspondence-list {
+        padding-left: 24%;
+    }
+
+    /*.correspondence-list > div {
+        !* border: 2px solid; *!
+        width: 70%;
+        margin-left: 24%;
+    }*/
+
+    .correspondence-list div.user-text{
+        padding: .5pc;
+        margin: .3pc;
+        font-weight: normal;
+        color: #6e6b5e;
+        background-color: #f9f9f9;
+    }
+
+    .row div {
+        margin-bottom: 0 !important;
+        /*padding-bottom: 0 !important;*/
+        /*background-color: red;*/
+    }
+
+    .correspondence-list div.user-text .supportteam{
+        display: none;
+    }
+
+    .correspondence-list div.ia-text {
+        border-left : 4px solid #d42021;
+        margin: .3pc;
+        padding: .5pc;
+        padding-left: 1pc;
+        background-color: #ebebeb;
+        font-weight: normal;
+        color: #4c4c4c;
+    }
+
+    .correspondence-list div.date {
+        float: right;
+        right: 0;
+        font-weight: normal;
+        color: #999580;
+        /*margin-top: -1pc;*/
+        font-size: small;
+    }
+
+    .correspondence-list textarea, .correspondence-list input {
+        border-width: 1px;
+        outline-style: none;
+        padding: 10px !important;
+        text-indent: 0 !important;
+        width: 100%;
+        border-radius: 0;
+        font-weight: normal;
+    }
+
+    .correspondence-list div.Text {
+        max-width: 80%;
+    }
+
+    .Status[Status="In Progress"]{
+        color: #25b9bc !important;
+    }
+    .Status[Status="Pending"]{
+        color: orangered !important;
+    }
+    .Status[Status="Closed"]{
+        color: silver !important;
+    }
+    .Status[Status="Open"]{
+        color: #25b9bc !important;
+    }
+    .Status[Status="Replied"]{
+        color: green !important;
+    }
+</style>
+<script>
+    /*var ticketsxx = [
+        {
+            "_id": "1232323",
+            "Title": "Why I cant?",
+            "Status": "Replied",
+            "updatedAt": "34 Jul 2020",
+            "Correspondence": [
+                {
+                    "Text": "when I want to I cant do,fdasjf das;f ka;skfjda;skf ja;skfjeiajfeawieurp ;kfjdsfiejf; kj;fjiejafkdaj f;iae dasfja sf;dkajs f;kdasjf; kdajs;fkjeiarpwiup eirpeiwurpieu prieupriuepqw iruewpiru",
+                    "Sender": "U",
+                    "sentAt": "34 Jul 2020"
+                },
+                {
+                    "Text": "because you don't know anything and you are stupid",
+                    "Sender": "IA",
+                    "sentAt": "34 Jul 2020"
+                },
+                {
+                    "Text": "but I know",
+                    "Sender": "U",
+                    "sentAt": "34 Jul 2020"
+                },
+                {
+                    "Text": "because you don't know anything and you are stupid",
+                    "Sender": "IA",
+                    "sentAt": "34 Jul 2020"
+                }
+            ]
+        },
+        {
+            "_id": "2223232",
+            "Title": "Status of devices in panel not shown",
+            "Status": "Wait",
+            "updatedAt": "45 Jul 2020",
+            "Correspondence": [
+                {
+                    "Text": "Hi to everybody, every time I want to check last Status of devices in panel there is not any Status at devices cards, why ?",
+                    "Sender": "U",
+                    "sentAt": "12 Jul 2020"
+                },
+                {
+                    "Text": "Hi Marcin,Thanks for letting us know about your situation. I can understand that it’s frustrating to lose a feature that you’ve come to rely on like that. While it’s not something we plan to replace, I can give you a bit more detail about why we made the change and how it will hopefully benefit you in the long term.",
+                    "Sender": "IA",
+                    "sentAt": "1 days ago"
+                },
+                {
+                    "Text": "No not changed after I checked it again, Can you help me more???",
+                    "Sender": "U",
+                    "sentAt": "3 Minutes ago"
+                },
+            ]
+        },
+        {
+            "_id": "33434",
+            "Title": "what is it?",
+            "Status": "Closed",
+            "updatedAt": "1 Jul 2020",
+            "Correspondence": [
+                {
+                    "Text": "when I want to I cant do,fdasjf das;f ka;skfjda;skf ja;skfjeiajfeawieurp ;kfjdsfiejf; kj;fjiejafkdaj f;iae",
+                    "Sender": "U",
+                    "sentAt": "34 Jul 2020"
+                }
+            ]
+        },
+        {
+            "_id": "444343443",
+            "Title": "Please say me why it is fdsaf fdasjfdie fdisaf",
+            "Status": "Suspend",
+            "updatedAt": "55 Jul 2020",
+            "Correspondence": [
+                {
+                    "Text": "when I want to I cant do,fdasjf das;f ka;skfjda;skf ja;skfjeiajfeawieurp ;kfjdsfiejf; kj;fjiejafkdaj f;iae",
+                    "Sender": "U",
+                    "sentAt": "34 Jul 2020"
+                }
+            ]
+        }
+
+    ];*/
+
+    var showticketid = null;
+
+    function hexToBase64(str) {
+        return btoa(String.fromCharCode.apply(null,
+            str.replace(/\r|\n/g, "").replace(/([\da-fA-F]{2}) ?/g, "0x$1 ").replace(/ +$/, "").split(" "))
+        );
+    }
+
+    function afterloadtickets() {
+        ssbindRenderLevel('tickets');
+        ssbindRenderLevel('Correspondencelevel',true);
+        if(showticketid)
+            $('a[href^="#'+showticketid+'"]').click();
+    }
+
+    
+    function addTicket(ticketid, newstatus) {
+        var tick = {};
+        if(ticketid === 0){
+            tick.isnew = true;
+            tick.Title = $('#newtitle').val();
+            tick.Text = $('#newtext').val();
+        } else {
+            tick.isnew = false;
+            tick.ticketid = ticketid;
+            tick.Text = $('textarea[ticketid="'+ticketid+'"]').val();
+            tick.Status = newstatus;
+            if(newstatus){
+                tick.Text = 'Not Empty';
+            }else{
+                tick.Status = 'Replied';
+            }
+            showticketid = ticketid;
+        }
+        if (tick.isnew) {
+            if(tick.Title === '') {
+                swal.fire({
+                    title: "Warning",
+                    html: 'Please fill <b>Title</b> field',
+//                    timer: 2000,
+//                icon: "warning",
+                    imageUrl: "images/error.png",
+                    imageWidth: 50,
+                    showConfirmButton: true
+                });
+                return;
+            }
+        }
+
+        if(tick.Text === ''){
+            swal.fire({
+                title: "Warning",
+                html: 'Please type your message',
+//                    timer: 2000,
+//                icon: "warning",
+                imageUrl: "images/error.png",
+                imageWidth: 50,
+                showConfirmButton: true
+            });
+            return;
+        }
+
+
+        $.post('/iaticket', tick, function (response) {
+//            swal.fire("Ticket added", "OK! Your device is installed successfully.", "success", {closeOnClickOutside: false});
+            //updateDevices(()=>{show_sspage("/customer/views/iadevice.customer.list.view.html","subscribedevices()")});
+            load_sspage($('#loadtag'));
+//            newform.reset();
+            if(response.newId)
+                showticketid = response.newId;
+        }).fail(function (response) {
+            /*
+             swal.fire("Error", response.responseJSON ? response.responseJSON.message : response.responseText, "", {closeOnClickOutside: false, //html: true,imageUrl: "images/error.png",
+             imageWidth: 50});
+             */
+            swal.fire({
+                title: "Error",
+                html: '<div class="align-left">'+response.responseJSON ? response.responseJSON.message : response.responseText +"</div>" ,
+//                    timer: 2000,
+//                icon: "error",
+                imageUrl: "images/error.png",
+                imageWidth: 50,
+                showConfirmButton: true
+            });
+        });
+    }
+</script>
+<div class="">
+    <section class="card"><!--centerpan col-lg-9 col-md-10 col-sm-10 col-xs-9-->
+        <div class="header">
+            <span class="ia-head">
+                <!--<span class="icon2 device-icon"></span>-->
+                <span class="">Tickets</span>
+            </span>
+            <span class="header-dropdown " style="top: 20px">
+                <button class="btn-link ia-medium-title" sspage="/admin/views/ticket.admin.list.view.html">Refresh</button>
+                    <!--<i class="mdi mdi-magnify m-r&#45;&#45;25" style="font-size: 17px"></i>
+                    <input id="filter_name" placeholder="Search" type="search"
+                           style="background-color: transparent; text-indent: 1.6pc; border: 1px solid silver">-->
+        </span>
+        </div>
+        <div class="body">
+            <div class="panel-group" id="accordion">
+
+                <!--new ticket-->
+                <!--<div class="panel panel-default1">
+                    <div class="panel-heading m-l&#45;&#45;15">
+                        <h4 class="panel-title p-l-0 p-r-0 ">
+                            <div class="accordion collapsed " >
+
+                                <div class="row">
+                                    <div class="col-sm-1 font-13 col-grey"></div>
+                                    <div class="col-sm-2 font-13 col-grey" ></div>
+                                    <div class="col-sm-5 font-13 font-bold" ></div>
+                                    <div class="col-sm-2 font-13 font-bold" ></div>
+                                    <div class="col-sm-2 font-13 col-grey align-right" >
+                                        <a class="ia-medium-title col-red btn-link waves-effect" href="#newticket" data-toggle="collapse" data-parent="#accordion" id="shownew" >New Ticket</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </h4>
+                    </div>
+
+                    <div class="panel-collapse collapse" id="newticket">
+                        <div class="panel-bodyXX p-l-0 p-r-0">
+                            <div class=" font-13 font-bold correspondence-list p-b-20 p-r-10">
+                                <span class="col-grey">Note that it would take a few hours to get respond from our support team.</span>
+                                <br><br>
+                                <form id="newform">
+                                <input id="newtitle" placeholder="Title of Ticket ..." maxlength="50">
+                                <br><br>
+                                <textarea id="newtext" class="text-left" placeholder="Type your message here ..." maxlength="1000" rows="6"></textarea>
+                                </form>
+                                <div class="align-right">
+                                <button class="btn col-red btn-link ia-big-title text-right waves-effect" onclick="newform.reset();$('#shownew').click()">Cancel</button>
+                                <button class="btn btn-primary-ia ia-big-title text-right waves-effect" onclick="addTicket(0)">Send</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>-->
+
+                <!--header-->
+                <div class="panel panel-default1 b-b-1 col-grey">
+                    <div class="panel-heading m-l--15">
+                        <h4 class="panel-title p-l-0 p-r-0">
+                            <a data-toggle="" data-parent=""  class=" ">
+                                <div class="row">
+                                    <div class="col-sm-1 font-13 "><span class="mdi mdi-play col-white"></span></div>
+                                    <div class="col-sm-2 font-13 col-grey">#</div>
+                                    <div class="col-sm-5 font-13 col-grey">Title</div>
+                                    <div class="col-sm-2 font-13 col-grey align-center">Status</div>
+                                    <div class="col-sm-2 font-13 col-grey align-right">Last Update</div>
+                                </div>
+                            </a>
+                        </h4>
+                    </div>
+                </div>
+
+                <tag id="loadtag" sspage-load-json="/iaticket/admin" sspage-load-json-var="tickets" sspage-load-after="afterloadtickets()"></tag>
+                <!--tickets list-->
+                <div class="panel panel-default1" ssfor="tickets" sslevel="tickets">
+                    <div class="panel-heading m-l--15">
+                        <h4 class="panel-title p-l-0 p-r-0 ">
+                            <a data-toggle="collapse" data-parent="#accordion" class="accordion collapsed btn-link waves-effectXX" ssbind="href:'#'+tickets[ssIndex]._id" sslevel="tickets">
+
+                                <div class="row">
+                                    <div class="col-sm-1 font-13 col-grey">
+                                        <span class="mdi mdi-chevron-down"></span>
+                                    </div>
+                                    <div class="col-sm-2 font-13 col-grey" ssbind="text:hexToBase64(tickets[ssIndex]._id).substr(10).toUpperCase()" sslevel="tickets"></div>
+                                    <div class="col-sm-5 font-13 font-bold" ssbind="text:tickets[ssIndex].Title" sslevel="tickets"></div>
+                                    <div class="col-sm-5 font-13 font-bold" ssbind="text:tickets[ssIndex].customer" sslevel="tickets"></div>
+                                    <div class="col-sm-2 font-13 col-grey Status align-center" ssbind="text:tickets[ssIndex].Status;Status:tickets[ssIndex].Status" sslevel="tickets"></div>
+                                    <div class="col-sm-2 font-13 col-grey align-right" ssbind="text:moment(tickets[ssIndex].updatedAt).fromNow();title:tickets[ssIndex].updatedAt" sslevel="tickets"></div>
+                                </div>
+                            </a>
+                        </h4>
+                    </div>
+
+                    <div class="panel-collapse collapse" ssbind="id:tickets[ssIndex]._id" sslevel="tickets">
+                        <div class="panel-bodyXX ">
+                            <div class=" font-13 font-bold correspondence-list">
+                                <div ssfor="tickets[ssIndex].Correspondence with cccc " sslevel="Correspondencelevel">
+                                    <div sslevel="Correspondencelevel"
+                                         ssbind="class:tickets[ssIndex].Correspondence[cccc].Sender=='U'?'user-text':'ia-text'" >
+                                        <b class="supportteam" ssbind="text:tickets[ssIndex].Correspondence[cccc].Sender" sslevel="Correspondencelevel">BKC Support Team</b>
+
+                                        <div sslevel="Correspondencelevel" class="date"
+                                             ssbind="text:moment(tickets[ssIndex].Correspondence[cccc].sentAt).fromNow()" ></div>
+                                        <div sslevel="Correspondencelevel" class="Text"
+                                             ssbind="text:tickets[ssIndex].Correspondence[cccc].Text"></div>
+                                    </div>
+                                </div>
+                                <div class="text-right p-r-5 p-l-5 p-t-20">
+                                    <span>Set <i>Status</i> to</span>
+                                    <button class="btn btn-primary-ia ia-big-title m-b-25 waves-effectXXXX col-cyan" onclick="addTicket(tickets[ssIndex]._id,'In Progress')">In Progress</button>
+                                    <button class="btn btn-primary-ia ia-big-title m-b-25 waves-effectXXXX col-red" onclick="addTicket(tickets[ssIndex]._id,'Pending')">Pending</button>
+                                    <button class="btn btn-primary-ia ia-big-title m-b-25 waves-effectXXXX col-silver" onclick="addTicket(tickets[ssIndex]._id,'Closed')">Closed</button>
+
+                                    <textarea class="text-left" placeholder="Type your message here ..." maxlength="1000" rows="6" ssbind="ticketid:tickets[ssIndex]._id" sslevel="tickets"></textarea>
+                                    <button class="btn btn-primary-ia ia-big-title m-b-25 waves-effectXXXX" onclick="addTicket(tickets[ssIndex]._id)">Send</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+</div>

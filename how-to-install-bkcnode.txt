@@ -1,0 +1,122 @@
+=== How to install a bkc-node on a Centos 7 ======
+1- Install MongoDB 
+( see: https://www.liquidweb.com/kb/how-to-install-mongodb-on-centos-7/ )
+
+note: How to find the mongodb port? 
+$ netstat -an | mongo
+$ sudo lsof -iTCP -sTCP:LISTEN | grep mongo
+
+2- Copy BKC Node databases (iabroker and iasystem) folders on your server (They are already on the emptyDB folder). Then, using the following commands import the empty databses to your Mongodb. These folders are availeb on project GitHub. 
+(Intenral note, "$ mongodump" command can be used to export an existing Monogdb database.)
+$ static ~]# sudo mongorestore --db iabroker --drop /root/db-dump/iabroker
+$ static ~]# sudo mongorestore --db iabroker --drop /root/db-dump/iasystem
+
+3- Install Node.js v11.x  
+$ curl -sL https://rpm.nodesource.com/setup_11.x | bash -
+$ sudo yum install -y nodejs
+
+4- Clone the BKC Node source files.
+(Internal note, remove ^ and ~ from package.json)
+$ git clone https://XXXXXXXXXX@github.com/gramezan/bkc-node.git
+$ sudo npm install -g node-gyp@3.8.0
+$ sudo npm install 
+$ sudo npm install jsonschema@1.2.6
+
+5- Install pm2 (see: https://www.tecmint.com/install-pm2-to-run-nodejs-apps-on-linux-server/ )
+$ sudo npm install -g pm2
+
+6- Https Certificate:
+- Get an SSL certificate for your web server name (e.g., www.bkcnode100.com and bkcnode100.com)
+- Change the certificate format for both the public key (.cert or .crt) and private key (.key) to the .pem format using. (If .key and .crt do not work, convert them to .pem.)
+$ openssl x509 -inform der -in <YOUR CERT FOLDER>/ca_bundle.key -out config/webprivate.pem
+$ openssl x509 -inform der -in <YOUR CERT FOLDER>/ca_bundle.crt -out config/webpublic.pem
+
+- Update the "module.exports.fingerprint" value in /config/which.config.js with the fingerprint of your web server public certififcate.
+- If the BKC node admin wants to distribute BKC tokens between his users, set:
+module.exports.BonusRuntime = "1 1 * * *"; // cron, 1:01AM every day, the bkc node admin distributes BKC tokens between his users
+module.exports.BonusRuntimezone = "America/Vancouver"; // cron, time zone
+Otherwise, comment both lines.
+
+7- Update the /bkc-node/public/share/js/configs.js
+- domainUrl = 'https://panel.<YOUR DOMAIN>';
+- domainName = 'Blocklychain'; <YOUR DOMAIN NAME WITHOUT THE DOT PART (blocklychain.io => blocklychain)>
+- brokerUrl = 'mqtts://panel.<YOUR DOMAIN>:3008';
+
+8- Install nginx web server
+$ yum clean all
+$ yum remove epel-release
+$ yum update
+$ yum install epel-release
+$ yum install nginx -y
+$ nginx -v
+
+- Remove all files in /etc/nginx/default.d/ and /etc/nginx/conf.d/ 
+- Update the following items in /etc/nginx.conf/nginx.config
+-- server_name  <YOUR WEB SERVER NAME like blocklychain.io>;
+-- ssl_certificate  config/webpublic.crt;
+-- ssl_certificate_key config/webprivate.key;
+
+9- Run the BKC node
+$ sudo pm2 start pm2.json
+$ pm2 list 
+$ pm2 show <id>
+
+10- Test the code using https://<YOUR DOMAIN>
+(internal note, install a firewall)
+(internal note, create a docker)
+
+
+=== Installing Ethereum kernel ========= 
+All the information is from: https://www.youtube.com/watch?v=o90L6ksNW6g  and  https://www.youtube.com/watch?v=A5V2jdLi5mI
+
+1- in terminal type "sudo apt install software-properties-common"
+2- in terminal type "sudo add-apt-repository -y ppa:ethereum/ethereum"
+3- in terminal type "sudo apt update"
+4- in terminal type "sudo apt install ethereum"
+5- in terminal type "geth version"
+6- in terminal type "sudo apt install nodejs"
+7- in terminal type "sudo apt install npm"
+8- in terminal type "sudo apt install curl"
+9- in terminal type "sudo apt install -y build-essential"
+10- in terminal type "node -v"
+11- in terminal type "npm - v"
+12- in terminal type "npm uninstall -g truffle"
+13- in terminal type "sudo npm install -g truffle"
+14- in terminal type "truffle version"
+15- in terminal type "wget -qO - https://packagecloud.io/AtomEditor/atom/gpgkey | sudo apt-key add -"
+16- in terminal type "sudo sh -c 'echo "deb [arch=amd64] https://packagecloud.io/AtomEditor/atom/any/ any main" > /etc/apt/sources.list.d/atom.list'"
+17- in terminal type "sudo apt update"
+18- in terminal type "sudo apt install atom"
+19- in terminal type "which atom"
+20- in terminal type "which apm"
+21- in terminal type "apm install language-ethereum"
+
+22- in terminal type "mkdir -p private"
+23- in terminal type "cd private"
+24- in terminal type "puppeth"
+25- choose a name for network
+26- write "2" => 2. Configure new genesis
+27- write "1" => 1. Create new genesis from scratch
+28- write "1" => 1. Ethash - proof-of-work
+29- press Enter => Which accounts should be pre-funded? 0x
+30- in terminal type "yes" => Should the precompile-addresses (0x1 .. 0xff) be pre-funded with 1 wei?
+31- Specify your chain/network ID if you want an explicit one
+32- write "2" => 2. Manage existing genesis
+33- write "2" => 2. Export genesis configurations
+34- press Enter
+35- ctrl + d
+36- in terminal type "geth --datadir . init network_name.json"
+
+37- in terminal type "geth --datadir . account new"
+38- write password for account
+39- repeat password for account
+40- in terminal type "geth --datadir . account list"
+
+41- using SFPS in private folder creat a file named "startnode.sh"
+42- copy and save the text below: (* all the text must be in "one" line)
+geth --networkid 97531 --mine --miner.threads 1 --datadir "." --nodiscover --maxpeers=2 --allow-insecure-unlock --http --http.port "10545" --port "40404" --http.corsdomain "*" --nat "any" --http.api eth,web3,personal,net --unlock 0 --password ./password.sec
+
+43- using SFPS in private folder creat a file named "password.sec"
+44- in "password.sec" write your account password and save the file
+
+45- in terminal type "./startnode.sh"

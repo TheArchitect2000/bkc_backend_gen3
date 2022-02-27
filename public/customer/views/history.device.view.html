@@ -1,0 +1,579 @@
+<style>
+    .topnav {
+        overflow: hidden;
+        white-space: nowrap;
+    }
+
+    .topnav a {
+        color: grey;
+        /*float: left;*/
+        display: inline-block;
+        /*color: #f2f2f2;*/
+        text-align: center;
+        /*padding: 14px 16px;*/
+        text-decoration: none;
+        /*font-size: 17px;*/
+    }
+
+    .active {
+        /*background-color: #4CAF50;*/
+        color: white;
+    }
+
+    .topnav .icon {
+        display: none;
+    }
+
+    /*.dropdown {
+        float: left;
+        overflow: hidden;
+    }
+
+    .dropdown .dropbtn {
+        font-size: 17px;
+        border: none;
+        outline: none;
+        color: white;
+        padding: 14px 16px;
+        background-color: inherit;
+        font-family: inherit;
+        margin: 0;
+    }
+
+    .dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: #f9f9f9;
+        min-width: 160px;
+        !*box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);*!
+        z-index: 1;
+    }
+
+    .dropdown-content a {
+        float: none;
+        color: black;
+        padding: 12px 16px;
+        text-decoration: none;
+        display: block;
+        text-align: left;
+    }
+
+    .topnav a:hover, .dropdown:hover .dropbtn {
+        !*background-color: #555;*!
+        !*color: white;*!
+    }
+
+    .dropdown-content a:hover {
+        background-color: #ddd;
+        color: black;
+    }
+
+    .dropdown:hover .dropdown-content {
+        display: block;
+    }*/
+
+    @media screen and (max-width: 600px) {
+        .topnav a:not(:first-child), .dropdown .dropbtn {
+            display: none;
+        }
+
+        .topnav a.icon {
+            float: right;
+            display: block;
+        }
+
+        ul.logs li .logdate {
+            float: none !important;
+        }
+
+        ul.logs li .logstate {
+            text-align: left !important;
+        }
+    }
+
+    @media screen and (max-width: 600px) {
+        .topnav.responsive {
+            position: relative;
+        }
+
+        .topnav.responsive .icon {
+            position: absolute;
+            right: 20px;
+            top: 20px;
+        }
+
+        .topnav.responsive a {
+            float: none;
+            display: block;
+            text-align: left;
+        }
+
+        /*.topnav.responsive .dropdown {
+            float: none;
+        }
+
+        .topnav.responsive .dropdown-content {
+            position: relative;
+        }
+
+        .topnav.responsive .dropdown .dropbtn {
+            display: block;
+            width: 100%;
+            text-align: left;
+        }*/
+    }
+
+    /*/////*/
+    ul.logs {
+        height: 50vh;
+        overflow: auto;
+        padding: 1pc 0;
+        white-space: nowrap;
+    }
+
+    @media (max-width: 767px) {
+        ul.logs li .logname {
+            width: 31% !important;
+        }
+        .filterbar {
+            position: relative !important;
+        }
+
+        .filterbar .params{
+            float: none !important;
+        }
+    }
+
+    .filterbar .params{
+        float: right;
+    }
+
+    .filterbar label {
+        width: 2.5pc;
+        text-align: left;
+        font-weight: normal;
+    }
+
+    .filterbar input, .filterbar select {
+        border-radius: 3px;
+        border: 1px solid #ddd;
+        /* background-color: #EEEEEE; */
+        font-weight: bold;
+        height: 30px;
+        padding: 2px 5px 2px 5px;
+        width: 150px;
+        margin-bottom: 2px;
+    }
+
+    ul.logs li:nth-child(even) {
+        background: #EEE
+    }
+
+    ul.logs li:nth-child(odd) {
+        background: #FFF
+    }
+
+    ul.logs li {
+        overflow: hidden;
+        text-overflow: unset;
+        padding: .25pc;
+        white-space: nowrap;
+    }
+
+    ul.logs li .logname {
+        width: 43%;
+        display: inline-flex;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-height: 20px;
+        word-break: break-all;
+        white-space: nowrap;
+        color: #666;
+    }
+
+    ul.logs li .logstate {
+        width: 25%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: inline-block;
+        /*text-align: center;*/
+        white-space: nowrap;
+        color: #666;
+    }
+
+    ul.logs li .logdate {
+        width: 30%;
+        color: lightslategrey;
+        white-space: nowrap;
+        float: right;
+        text-align: right;
+        padding-right: .3pc;
+    }
+</style>
+<div class="header">
+        <span class="ia-head">
+            <span class="icon2 activity-icon m-t-5"></span>
+            Daily Activity
+            <!--<span class="btn btn-link bg-light col-grey btn-sm ia-btn-small "
+                  style="position: relative;top: -5px;"
+                  onclick="IA_History._clear()"
+            >Clear</span>-->
+        </span>
+
+    <!--<ul class="header-dropdown m-r&#45;&#45;5">
+        <li class="dropdown">
+            <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                <i class="material-icons">more_vert</i>
+            </a>
+            <ul class="dropdown-menu pull-right">
+                <li><a href="javascript:void(0);" class=" waves-effect waves-block">Clear History</a></li>
+                <li><a href="javascript:void(0);" class=" waves-effect waves-block">Action</a></li>
+                <li><a href="javascript:void(0);" class=" waves-effect waves-block">Another action</a></li>
+                <li><a href="javascript:void(0);" class=" waves-effect waves-block">Something else here</a></li>
+            </ul>
+        </li>
+    </ul>-->
+</div>
+<div class="card" style="overflow-x: auto" id="history-chart-container">
+
+    <div class="body chart-container" style="max-height: 250px">
+        <canvas id="history_device_chart" style="display: block; width: 100%; height: 40vh"></canvas>
+    </div>
+</div>
+<div class="card m-t--30">
+    <div class="header topnav filterbar" id="myTopnav">
+        <span class="active ia-big-title col-red">History</span>
+        <span class="params">
+        <span class="col-grey m-r-20 m-l-20 hidden-xs">&nbsp;&nbsp;&nbsp;&nbsp;</span>
+        <a class="">
+            <i class="mdi mdi-sort-variant" style="font-size: 15px"></i>
+            <label class="col-grey ">Sort</label>
+            <select id="topsort">
+                <option value="LASTACTIVITY">Last Activity</option>
+                <option value="DEVICENAME">Device Name</option>
+                <option value="DEVICESTATE">Device State</option>
+            </select>
+        </a>
+        <span class="col-grey m-r-20  hidden-xs"> </span>
+        <a class="">
+            <i class="mdi mdi-filter" style="font-size: 15px"></i>
+            <label class="col-grey">Filter</label>
+            <select id="topfilter">
+                <option value="ALL">All Devices</option>
+                <option ssfor="home._devices" sslevel="devices"
+                        ssbind="text:home._devices[ssIndex].Name; value:home._devices[ssIndex]._encid"></option>
+            </select>
+        </a>
+        <!--<span class="col-grey m-r-20  hidden-xs"> </span>-->
+        <a class="hidden">
+            <i class="mdi mdi-timetable" style="font-size: 15px"></i>
+            <label class="col-grey" for="toptimefrom">Time</label>
+            <input id="toptimefrom" placeholder="From">
+        </a>
+        <a class="hidden">
+            <i class="mdi mdi-timetable col-white visible-xs" style="font-size: 15px"></i>
+            <label class="col-grey visible-xs" for="toptimeto">&nbsp;</label>
+            <input id="toptimeto" placeholder="To" >
+        </a>
+            <!--&#9776;-->
+        <a href="javascript:void(0);" class="icon mdi mdi-filter font-20" onclick="dropdownmenu()"></a>
+        </span>
+    </div>
+    <div class="">
+        <ul class="logs " style="height: 40px; overflow: hidden">
+            <li>
+                <i class="icon1">&nbsp;&nbsp;</i>
+                <b class="logname col-gray">Device</b>
+                <b class="logstate col-gray">State</b>
+                <b class="logdate col-gray m-r-50">Time</b>
+            </li>
+        </ul>
+        <ul style="list-style-type: none" class="logs" id="historylist">
+            <h4 align="center" class="col-red">Please wait ...</h4>
+            <!--<li ssfor="datax2" sslevel="history">
+                <i sslevel="history"
+                   ssbind="class:devicetemps[datax2[ssIndex].device.DeviceType].icon+' icon1'"></i>
+                <span class="logname" sslevel="history" ssbind="text:datax2[ssIndex].device.Name"></span>
+                <b class="logstate" sslevel="history" ssbind="text:datax2[ssIndex].state"></b>
+                <span class="logdate" sslevel="history"
+                       ssbind="text:moment(datax2[ssIndex].__receivetime).format('DD MMM - HH:mm:ss')"></span>
+            </li>-->
+        </ul>
+        <center>
+            <button onclick="activities_records=activities_records+pagecount;loadActivities(activities_records);" id="olderactivitiesbtn">Older Activities</button>
+            <button onclick="activities_records=activities_records-pagecount;loadActivities(activities_records);" id="neweractivitiesbtn">Newer Activities</button>
+        </center>
+    </div>
+</div>
+<script src="/share/plugins/chartjs/Chart.min.js"></script>
+<script>
+    var prehighlightedbar = null;
+    var chartconfig = {
+        type: 'bar',
+        data: {
+            labels: [/*"January", "February", "March", "April", "May", "June", "July"*/],
+            datasets: [/*{
+             label: "My First dataset",
+             data: [65, 59, 80, 81, 56, 55, 40],
+             backgroundColor: 'silver'
+             }, {
+             label: "My Second dataset",
+             data: [28, 48, 40, 19, 86, 27, 90],
+             backgroundColor: 'rgba(233, 30, 99, 0.8)'
+             }*/]
+        },
+        options: {
+            /*title: {
+                display: true,
+                text: 'َDActivities'
+            },*/
+            responsive: true,
+            maintainAspectRatio: false,
+            legend: false,
+            scales: {
+                yAxes: [{
+                    gridLines: {
+                        display: false,
+                        drawBorder: false,
+                    },
+                    ticks: {
+                        display: false,
+                    },
+                    scaleLabel: {
+                        display: true,
+                        labelString: 'Activities'
+                    }
+                }],
+                xAxes: [{
+                    scaleLabel: {
+                        display: true,
+                        labelString: 'Days'
+                    },
+                    gridLines: {
+                        display: false,
+                    },
+//                barPercentage: .1,
+//                categoryPercentage: .1,
+                    barThickness: 10,
+//                maxBarThickness: 1,
+//                minBarLength: 2,
+//                    barThickness: 12,
+                    ticks: {
+                        autoSkip: false,
+                        maxRotation: 0,
+                    }
+                }]
+            },
+            'onClick': function (evt, item) {
+                var element = this.getElementAtEvent(evt)[0];
+                if(element) {
+                    element.custom = element.custom || {};
+                    if (prehighlightedbar)
+                        prehighlightedbar.custom.backgroundColor = '#d42021';
+                    prehighlightedbar = element;
+                    this.update();
+                    element.custom.backgroundColor = '#000';
+                }
+
+//                this.render(0,true);
+//                console.log ('legend onClick', evt);
+//                console.log('legd item', item);
+                if(item[0]) {
+                    var d = hisdates[Object.keys(hisdates)[item[0]._index]].date;
+                    toptimefrom.value = d;
+                    toptimeto.value = d;
+                    sortHistory();
+                }
+            }
+        }
+    };
+    var datax = [];
+    var datax2 = [];
+    var hisdates = {};
+
+    var pagecount = 50;
+
+    function sortHistory() {
+
+        datax2 = [...datax];
+
+        if(topsort.value ==='LASTACTIVITY') {
+            datax2.sort((a, b) => b.__receivetime - a.__receivetime);
+        } else if(topsort.value ==='DEVICENAME') {
+            datax2.sort((a, b) => { if(a.device&&b.device) return a.device.Name.localeCompare(b.device.Name);else return true; });
+        } else if(topsort.value ==='DEVICESTATE') {
+            datax2.sort((a, b) => { if(a.state&&b.state) return a.state.localeCompare(b.state); else return true;});
+        }
+
+        if(topfilter.value !== 'ALL'){
+            datax2 = datax2.filter((a)=>a.device && (a.DeviceEncId===topfilter.value) )
+        }
+
+        if(toptimefrom.value !== '' || toptimeto.value !== ''){
+//            console.error('tiiiiiiiiiiii',toptimefrom.value || undefined , toptimeto.value)
+            datax2 = datax2.filter(function(a){
+                return moment(a.__receivetime).isBetween(toptimefrom.value || undefined , toptimeto.value || undefined , 'day', '[]')
+            })
+        }
+
+        //ssbindRenderLevel('history');
+        var list = $('#historylist');
+        list.empty();
+        datax2.forEach((dx)=>{
+            if(dx.state)
+            list.append(`<li>
+                <i class="${devicetemps[dx.device.DeviceType].icon} icon1"></i>
+                <span class="logname" >${dx.device.Name}</span>
+                <b class="logstate">${dx.state}</b>
+                <span class="logdate" >${moment(dx.__receivetime).format('DD MMM - HH:mm:ss')}</span>
+            </li>`)
+        })
+        if(datax2.length===0){
+            list.append(`<li>
+                <span class="logname" >Empty</span>
+            </li>`)
+        }
+
+    }
+    $(function () {
+
+        ssbindRenderLevel('devices');
+        $('#topsort').change(sortHistory);
+        $('#topfilter').change(sortHistory);
+        $('#toptimeto').attr('max',moment(Date.now()).format('YYYY-MM-DD')).focus(function(){$('#toptimeto').attr('type','date')}).focusout(function () {$('#toptimeto').attr('type','text')}).change(sortHistory);
+        $('#toptimefrom').focus(function(){$('#toptimefrom').attr('type','date')}).focusout(function () {$('#toptimefrom').attr('type','text')}).change(sortHistory);
+
+        /* from IA_History.devices
+        //datax:
+        for (var dev in IA_History.devices) {
+            var his = IA_History.devices[dev];
+            for (var h of his) {
+                var item = {...h};
+                item.deviceeid = dev;
+                item.device = home._devices.find(dvc => dvc._encid === dev);
+                item.receivedate = moment(item.__receivetime).format('MMM DD');
+                if(!item.state && item.command){
+                    item.state = item.command;
+                }
+                if(item.state)
+                    datax.push(item)
+            }
+        }*/
+
+        //new datax from iaactivity
+        //load activities
+//        if(!activityloadtime){
+            loadActivities(0)
+//        }
+
+
+    })
+
+
+    var activities_records = 0;
+    function loadActivities(activities_records) {
+        $('#olderactivitiesbtn').attr("disabled", true);
+        $('#neweractivitiesbtn').attr("disabled", true);
+        var chart = null;
+        $.getJSON('/iaactivity/home/'+activities_records, function (activities) {
+            datax = [];
+            datax2 = [];
+            hisdates = {};
+            chartconfig.data.datasets = [];
+            chartconfig.data.labels = [];
+            for (var his of activities) {
+                var item = {...his};
+                if(item.isDevice) {
+                    item.deviceeid = item.DeviceId;
+                    //item.device = home._devices.find(dvc => dvc._encid === (item.username || item.DeviceEncId));
+                }
+                item.receivedate = moment(item.__receivetime).format('MMM DD');
+                if(!item.state && item.command){
+                    item.state = item.command;
+                }else
+                if(!item.state && item.event){
+                    item.state = item.event;
+                }else
+                if(!item.state && item.current){
+                    item.state = 'current='+item.current;
+                }
+                if(item.isDevice)
+                    datax.push(item)
+            }
+            //hisdates
+            for (let c of datax) {
+                let rdate = c.receivedate;
+                if (!hisdates[rdate])
+                    hisdates[rdate] = {
+                        date: moment(c.__receivetime).format('YYYY-MM-DD'),
+                        events: 1
+                    };
+                else
+                    hisdates[rdate].events++;
+            }
+            //labels of chart:
+            var chartlabels = Object.keys(hisdates);
+            /*chartlabels = [];
+            for(var i=0; i<140; i++){
+                chartlabels.push(i)
+            }*/
+//            console.log(chartlabels);
+            var container = document.getElementById('history-chart-container');
+            $('.chart-container').css('min-width',chartlabels.length*50+'px');
+            chartconfig.data.labels = chartlabels;
+            //data of chart:
+            var chartdata = Object.values(hisdates).map(his => his.events);
+            /*chartdata = [];
+            for(var i=0 ; i<140; i++){
+                chartdata.push(i*2);
+            }*/
+
+//            console.log(chartdata);
+            chartconfig.data.datasets.push({
+                label: "Activity",
+                data: chartdata,
+                backgroundColor: '#d42021'
+            });
+            //draw chart:
+            try {
+                chart = new Chart(document.getElementById("history_device_chart").getContext("2d"), chartconfig);
+            } catch (e) {
+
+            }
+            if(chartconfig.data.labels.length > 0)
+                container.scrollLeft = container.scrollWidth;
+            else if(chartconfig.data.labels.length === 0){
+                $('#history-chart-container div.chart-container').html('<div class="body">No activity yet.</div>')
+            }
+            //show History:
+            setTimeout(sortHistory, 300);
+            $('#olderactivitiesbtn').attr("disabled", false);
+            $('#neweractivitiesbtn').attr("disabled", false);
+            if(activities.length < pagecount){
+                $('#olderactivitiesbtn').hide();
+            } else {
+                $('#olderactivitiesbtn').show();
+            }
+
+            if(activities_records <= 0){
+                $('#neweractivitiesbtn').hide();
+            } else {
+                $('#neweractivitiesbtn').show();
+            }
+
+
+        })
+    }
+
+    function dropdownmenu() {
+        /*var x = document.getElementById("myTopnav");
+         if (x.className === "topnav") {
+         x.className += " responsive";
+         } else {
+         x.className = "topnav";
+         }*/
+        $('#myTopnav').toggleClass('responsive');
+        $('#myTopnav .icon').toggleClass('mdi-filter mdi-close');
+    }
+</script>
+

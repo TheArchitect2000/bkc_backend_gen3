@@ -1,0 +1,277 @@
+<!--uses ssbind and sspage tags-->
+<style>
+    .card .header .header-dropdown {
+        position: absolute;
+        top: 5px;
+        right: 10px;
+        list-style: none;
+    }
+
+    .device .data {
+        font-size: 2pc;
+        font-weight: bold;
+        margin: 1pc 0 1pc 0
+    }
+
+
+
+    .device > .body {
+        height: 200px;
+    }
+
+    .device .commands {
+        margin: 1pc 0 1pc 0;
+    }
+
+    .log {
+        overflow-wrap: break-word;
+        font-size: small;
+        background-color: #a2a1a17d;
+        padding: .5pc;
+        margin-top: .5pc;
+        border-radius: .3pc;
+    }
+
+    /*span.online, span.offline {
+        display: inline-block;
+        width: 14px;
+        height: 14px;
+        border-radius: 50%;
+        !*box-shadow: 1px 1px 2px 0px rgba(94, 92, 96, 0.77);*!
+    }*/
+
+    span.onoffline.online {
+        background-color: limegreen !important;
+    }
+
+    span.onoffline {
+        display: inline-block;
+        width: 14px;
+        height: 14px;
+        border-radius: 50%;
+
+    }
+
+    span.onoffline.SENSOR {
+        background-color: transparent;
+    }
+
+    span.onoffline.ACTUATOR {
+        background-color: red;
+    }
+
+
+    div.devicelist {
+        /*background-image: url("images/illustration_device.svg");*/
+        /*background-repeat: no-repeat;*/
+        /*background-size: 50%;*/
+        /*background-position: center;*/
+        /*height: 100vh;*/
+
+    }
+
+    div.devicelist > div {
+        /*min-width: 280px;*/
+        height: 18pc;
+    }
+
+
+    /*span.offline:after {
+        content: "Offline";
+        display: inline-block;
+        position: relative;
+        left: 20px;
+        top: -3px;
+        color: red;
+    }*/
+
+    .commands.offline {
+        pointer-events: none;
+        opacity: .35;
+    }
+
+    ul.devicetypes {
+        position: absolute;
+    }
+    .devicetypes li {
+        font-size: small;
+        color: grey;
+        white-space: nowrap;
+    }
+
+    .devicetypes li b{
+        font-size: smaller;
+        color: black;
+    }
+
+    .device.onmessage {
+        box-shadow: 0px 0px 18px 0px #2196f3;
+    }
+
+</style>
+<script>
+//    var home_audio_files = devicetypes
+</script>
+<div class="">
+    <section class="card"><!--centerpan col-lg-9 col-md-10 col-sm-10 col-xs-9-->
+        <div class="header">
+            <span class="ia-head">
+                <span class="icon2 device-icon"></span>
+                <span class="hidden-xs">Vendor Device Types</span>
+                <span class="badge"
+                      ssbind="text:(devicetypes.length) +' Device Type' + (devicetypes.length>1 ?'s':'')"></span>
+                <span id="mqttconnectionicon" ssbind="text:mqttconnected ? '' : 'Connecting...'"></span>
+
+            </span>
+
+            <span class="header-dropdown btn btn-link m-t--5 " style="top: 20px"
+                  sspage="../vendor/views/iadevicetype.vendor.new.view.html"
+                  sspage-back="/vendor/views/iadevicetype.vendor.list.view.html"
+                  sspage-load-after="">
+                    <span class="icon1 icon-newdevice "></span>
+                    <b class="device-name hidden-xs ">New Device Type</b>
+            </span>
+        </div>
+        <div class="body row devicelist collapse">
+            <div class="col-lg-3 col-md-3 col-sm-4 col-xs-12"
+                 ssfor="devicetypes" ssnextlevelxxx="datalevel"
+                 ssemptylist='<center><button sspage="../vendor/views/iadevicetype.vendor.new.view.html"
+                  sspage-back="/vendor/views/iadevicetype.vendor.list.view.html" class= "btn btn-primary-ia ia-bigger-title"><span class="icon2 icon-newdevice-white "></span> New Device Type</button><div class="col-grey m-t-5">Click here to create your own device type</div><br> <img class=bgimg src=images/illustration_device.svg></center>'
+                 sspage-load-jsonX="/iadevice/home/"
+                 sspage-load-json-varX="devicetypes"
+                 sspage-load-afterX="ssbindRenderThis('devicetypes');$('.devicelist').show();ssbindRenderLevel('commands', true)">
+
+                <div class="device card btn-link">
+                    <div class="header">
+
+                        <!--<ul class="header-dropdown m-r&#45;&#45;5">
+                            <li class="dropdown">
+                                <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown"
+                                   role="button"
+                                   aria-haspopup="true" aria-expanded="false">
+                                    <i class="material-icons">more_vert</i>
+                                </a>
+                            </li>
+                        </ul>-->
+                    </div>
+                    <div class="body align-center pointer" sspage="/vendor/views/iadevicetype.vendor.edit.view.html?id=ssObject[_id]"
+                         ssbind1="class: 'info-box-2 hover-expand-effect ' + devicetypes[ssIndex].color">
+
+                        <div class=" icon-big ">
+                            <!--<i ssbind="class:devicetypes[ssIndex].DeviceType"></i>-->
+                            <img ssbind="src:devicetypes[ssIndex].Icon" class="img-responsive">
+
+                        </div>
+
+                        <div class=" text-center m-t-25">
+                            <b class="device-name ia-medium-title col-grey" ssbind="text:devicetypes[ssIndex].DeviceType"></b>
+                            <br>
+                            <span class="device-name ia-medium-title " ssbind="text:devicetypes[ssIndex].DeviceName"></span>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </section>
+</div>
+
+<script>
+
+
+    function getmyval(_id, item) {
+        var val = window.localStorage[_id];
+        if(val){
+            val = JSON.parse(val);
+            if(item){
+                if(val[item]){
+                    return val[item];
+                }else{
+                    return null;
+                }
+            }else{
+                return val;
+            }
+        }else{
+            return null
+        }
+    }
+
+    function deletedevicetype(_id, name) {
+        swal.fire({title: "Attention", html: "Do you want to remove device \""+name+"\" ?", //icon: "warning",
+            imageUrl: "images/error.png",
+            imageWidth: 50,
+            showCancelButton: true,
+            confirmButtonText: 'Remove'
+        }).then((result) => {
+            if (result.value) {
+                $.ajax({
+                    url: '/iadevice/' + _id,
+                    type: 'DELETE',
+                    complete: function (result) {
+                        swal.fire({
+                            title: "Device Type Removed",
+                            html: "Device Type removed successfully from smart home",
+//                    timer: 2000,
+                            icon: "success",
+                            showConfirmButton: true
+                        });
+                        updateDeviceTypes();
+                        show_sspage()
+                    }
+                });
+            }
+        });
+    }
+
+    /*function updatedevice(_id, name) {
+        swal.fire({
+            title: "Rename Device Type",
+            html: "Please set true name for your device",
+            icon: "warning",
+            input: 'text',
+            inputValue: name,
+//            imageUrl: "images/error.png",
+//            imageWidth: 50,
+            showCancelButton: true,
+            confirmButtonText: 'Save',
+            inputValidator: (value) => {
+                if (!value) {
+                    return 'Plase set true name for device'
+                }
+            }
+        }).then((result) => {
+            if (result.value) {
+                $.ajax({
+                    url: '/iadevice/' + _id,
+                    type: 'PUT',
+                    data: { newname: result.value},
+                    cache: false,
+                    dataType: "json",
+                    complete: function (result) {
+                        swal.fire({
+                            title: "Device Type Changed",
+                            html: "Device name changed successfully",
+//                    timer: 2000,
+                            icon: "success",
+                            showConfirmButton: true
+                        });
+                        updateDeviceTypes();
+                        show_sspage()
+                    }
+                });
+            }
+        });
+    }*/
+
+    updateDeviceTypes(function () {
+        ssbindRenderThis('devicetypes');
+        $('.devicelist').show();
+        ssbindRenderLevel('datalevel', true);
+        ssbindRenderLevel('commands', true);
+        ssbindRenderLevel('controllers', true);
+    }, true);
+
+</script>

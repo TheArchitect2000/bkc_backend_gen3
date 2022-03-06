@@ -6,9 +6,9 @@ try {
     console.error('which.server load error 1',e);
 }
 
-var domainUrl = 'https://socialmediaminers.com';
-var brokerUrl = 'mqtts://socialmediaminers.com:3008'; //secure https or wss
-var domainName = 'socialmediaminers';
+var domainUrl = 'https://<YOUR DOMAIN>';
+var brokerUrl = 'mqtts://<YOUR DOMAIN>:3008'; //secure https or wss
+var domainName = 'Blocklychain';
 var developmentMode = false;
 
 try {

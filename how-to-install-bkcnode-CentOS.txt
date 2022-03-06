@@ -9,7 +9,7 @@ $ sudo lsof -iTCP -sTCP:LISTEN | grep mongo
 2- Copy BKC Node databases (iabroker and iasystem) folders on your server (They are already on the emptyDB folder). Then, using the following commands import the empty databses to your Mongodb. These folders are availeb on project GitHub. 
 (Intenral note, "$ mongodump" command can be used to export an existing Monogdb database.)
 $ static ~]# sudo mongorestore --db iabroker --drop /root/db-dump/iabroker
-$ static ~]# sudo mongorestore --db iabroker --drop /root/db-dump/iasystem
+$ static ~]# sudo mongorestore --db iasystem --drop /root/db-dump/iasystem
 
 3- Install Node.js v11.x  
 $ curl -sL https://rpm.nodesource.com/setup_11.x | bash -

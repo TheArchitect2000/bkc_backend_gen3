@@ -1,0 +1,192 @@
+=== How to install a bkc-node on a Ubuntu 20 ======
+
+1- Install MongoDB
+(https://www.digitalocean.com/community/tutorials/how-to-install-mongodb-on-ubuntu-20-04)
+
+Step 1 — Installing MongoDB
+$ curl -fsSL https://www.mongodb.org/static/pgp/server-4.4.asc | sudo apt-key add -
+$ apt-key list
+$ echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu focal/mongodb-org/4.4 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-4.4.list
+$ sudo apt update
+$ sudo apt install -y mongodb-org
+
+Step 2 — Starting the MongoDB Service and Testing the Database
+$ sudo systemctl start mongod.service
+$ sudo systemctl status mongod
+$ sudo systemctl enable mongod
+$ mongo --eval 'db.runCommand({ connectionStatus: 1 })'
+
+Step 3 — Managing the MongoDB Service (If you need, not necessary)
+note: How to find the mongodb port?  $ sudo lsof -iTCP -sTCP:LISTEN | grep mongo
+$ sudo systemctl status mongod
+$ sudo systemctl stop mongod
+$ sudo systemctl start mongod
+$ sudo systemctl restart mongod
+$ sudo systemctl disable mongod
+$ sudo systemctl enable mongod
+
+2- Copy BKC Node databases (iabroker and iasystem) folders on your server (They are already on the emptyDB folder). Then, using the following commands import the empty databses to your Mongodb. These folders are availeb on project GitHub. 
+(Intenral note, "$ mongodump" command can be used to export an existing Monogdb database.)
+$ sudo mongorestore --db iabroker --drop /root/db-dump/iabroker
+$ sudo mongorestore --db iasystem --drop /root/db-dump/iasystem
+note: If you need unzip your files, you can use these commands:
+$ sudo apt install unzip
+$ unzip <your file>.zip
+
+3- Install Node.js v11.x  
+First, we will install the PPA in order to get access to its packages.
+$ cd ~
+$ curl -sL https://deb.nodesource.com/setup_16.x -o nodesource_setup.sh
+Refer to the NodeSource documentation for more information on the available versions.
+Inspect the contents of the downloaded script with nano (or your preferred text editor):
+$ nano nodesource_setup.sh
+When you are satisfied that the script is safe to run, exit your editor, then run the script with sudo:
+$ sudo bash nodesource_setup.sh
+The PPA will be added to your configuration and your local package cache will be updated automatically.
+You can now install the Node.js package in the same way you did in the previous section:
+$ sudo apt install nodejs
+Verify that you’ve installed the new version by running node with the -v version flag:
+$ node -v
+
+4- Clone the BKC Node source files.
+(Internal note, remove ^ and ~ from package.json)
+$ git clone https://XXXXXXXXXX@github.com/gramezan/bkc-node.git
+$ cd home/bkc-node-test
+$ sudo npm install -g node-gyp@3.8.0
+$ sudo npm install 
+$ sudo npm install jsonschema@1.2.6
+
+5- Install pm2 (see: https://www.tecmint.com/install-pm2-to-run-nodejs-apps-on-linux-server/ )
+$ sudo npm install -g pm2
+
+6- Install nginx web server  https://phoenixnap.com/kb/how-to-install-nginx-on-ubuntu-20-04  or https://www.linuxcapable.com/how-to-install-nginx-with-lets-encrypt-tls-ssl-on-ubuntu-20-04/
+$ sudo apt update
+$ sudo apt -y install nginx
+$ systemctl status nginx
+
+- Update the nginx.conf in /etc/nginx/nginx.config (The configuration file is at the bottom of this page)
+
+7- Https Certificate:
+- Get an SSL certificate for your web server name (e.g., www.bkcnode100.com and bkcnode100.com)
+- Change the certificate format for both the public key (.cert or .crt) and private key (.key) to the .pem format using. (If .key and .crt do not work, convert them to .pem.)
+- Install Openssl (https://idroot.us/install-openssl-ubuntu-20-04/)
+
+$ openssl rsa -outform der -in /home/bkc-node-test/config/private.key -out /home/bkc-node-test/config/private.pem
+$ openssl x509 -outform der -in /home/bkc-node-test/config/certificate.crt -out /home/bkc-node-test/config/certificate.pem
+$ openssl rsa -outform der -in /home/bkc-node-test/config/iabroker.certificate.key -out /home/bkc-node-test/config/iabroker.certificate.pem
+$ openssl x509 -outform der -in /home/bkc-node-test/config/iabroker.certificate.crt -out /home/bkc-node-test/config/iabroker.certificate.pem
+
+- Update the "module.exports.fingerprint" value in /config/which.config.js with the fingerprint of your web server public certififcate.
+- If the BKC node admin wants to distribute BKC tokens between his users, set:
+module.exports.BonusRuntime = "1 1 * * *"; // cron, 1:01AM every day, the bkc node admin distributes BKC tokens between his users
+module.exports.BonusRuntimezone = "America/Vancouver"; // cron, time zone
+Otherwise, comment both lines.
+-Update SSL certificate in nginx.conf ( in the SSL folder in etc/SSL )
+
+(note: you must copy all certificates in the two folders /home/bkc-node-test/config/  and  etc/SSL)
+
+
+8- Update the /bkc-node/public/share/js/configs.js
+- domainUrl = 'https://<YOUR DOMAIN>';
+- domainName = 'Blocklychain'; <YOUR DOMAIN NAME WITHOUT THE DOT PART (blocklychain.io => blocklychain)>
+- brokerUrl = 'mqtts://<YOUR DOMAIN>:3008';
+
+
+9- Run the BKC node
+$ sudo pm2 start pm2.json
+$ pm2 list 
+$ pm2 show <id>
+
+
+
+
+
+
+
+nginx.conf:
+
+user www-data;
+worker_processes auto;
+pid /run/nginx.pid;
+include /etc/nginx/modules-enabled/*.conf;
+
+events {
+	worker_connections 1024;	
+}
+
+http {
+    log_format  main  '$remote_addr - $remote_user [$time_local] "$request" '
+                      '$status $body_bytes_sent "$http_referer" '
+                      '"$http_user_agent" "$http_x_forwarded_for"';
+    access_log  /var/log/nginx/access.log  main;
+
+    sendfile            on;
+    tcp_nopush          on;
+    tcp_nodelay         on;
+    keepalive_timeout   65;
+    types_hash_max_size 2048;
+
+    include             /etc/nginx/mime.types;
+    default_type        application/octet-stream;
+
+       include /etc/nginx/conf.d/*.conf;
+
+
+    server {
+        gzip on;
+        listen 80;    
+        server_name  _;
+        root         /usr/share/nginx/html;
+		
+	ssl_certificate  ssl/webpublic.pem;
+	ssl_certificate_key ssl/webprivate.pem;
+
+	server_name  panel.cpvanda.com;
+	
+        # Load configuration files for the default server block.
+        include /etc/nginx/default.d/*.conf;
+
+      }
+	
+    	server {
+	   gzip on;
+           listen       443 ssl; 
+         ssl_certificate  ssl/webpublic.pem;
+	 ssl_certificate_key ssl/webprivate.pem;
+
+
+	   location / {
+		proxy_pass http://localhost:50500;
+		proxy_http_version 1.1;
+		proxy_set_header Upgrade $http_upgrade;
+		proxy_set_header Connection 'upgrade';
+		proxy_set_header Host $host;
+		proxy_cache_bypass $http_upgrade;
+		
+		add_header "Pragma" "no-cache";
+		add_header "Expires" "-1";
+		add_header Last-Modified $date_gmt;
+                add_header Cache-Control 'no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0';
+                if_modified_since off;
+                expires off;
+                etag off;
+	    }
+	}
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

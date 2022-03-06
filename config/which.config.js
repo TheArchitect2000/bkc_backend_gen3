@@ -15,8 +15,8 @@ module.exports.fingerprint = '68:A3:34:A2:8B:80:C1:8F:38:EC:9C:3F:E3:7E:85:F9:46
 let brokerconfig = {};
 
 brokerconfig = {
-        SECURE_KEY : 'config/webprivate.key',
-        SECURE_CERT : 'config/webpublic.crt',
+        SECURE_KEY : 'config/webprivate.pem',
+        SECURE_CERT : 'config/webpublic.pem',
         SECURE_KEY20 : 'config/iabroker.certificate.key',
         SECURE_CERT20 : 'config/iabroker.certificate.crt'
 };

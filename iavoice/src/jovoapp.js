@@ -60,7 +60,7 @@ app.setHandler({
     },*/
 
     async LAUNCH() {
-        console.log(linelog, 'LAUNCH HHHHHHHHHHHHHHHHHHHHHHHHHHHHH');
+        console.log(linelog, 'LAUNCH');
         await iabclient.methods.whoisme({
             data: {
                 check : true,//for check user , if no check key means it is first login
@@ -135,7 +135,7 @@ app.setHandler({
     },
 
     END() {
-        console.log(linelog, 'END END END END END END END END END ');
+        console.log(linelog, 'END');
         // Triggered when a session ends abrupty or with AMAZON.StopIntent
     },
 
@@ -144,8 +144,8 @@ app.setHandler({
     },*/
 
     LoginIntent() {
-        this.ask('Welcome to Blocklychain. Unfortunately, I cannot recognize you, To introduce yourself to me, please read your voice password for me',
-            'To find your voice password, please go to your Blocklychain panel, go to the Setting page, go to the "Voice Command" tab.');
+        this.ask('Welcome to Blocklychain. Unfortunately, I cannot recognize you. To introduce yourself to me, please read your voice password.',
+            'To find your voice password, please go to your Blocklychain panel, go to the "Setting" and then, go to the "Voice Command" tab.');
     },
 
     /*async LoginIntent() {
@@ -158,7 +158,7 @@ app.setHandler({
     RootIntent() {
         // return this.check_user();
         // console.log(linelog,'user is ',this.$user.isNew(), this.$user.getId(), linelog);
-        this.ask('What I can to do now?', 'How can I help you?');
+        this.ask('What can I do for you?', 'How can I help you?');
     },
 
     MyNameIsIntent() {
@@ -181,23 +181,23 @@ app.setHandler({
             if (data.valid) {
                 thes.$user.$data.iauser = data;
                 // iavoiceUsers[thes.$user.getId()] = data;
-                thes.ask('Hey ' + data.FirstName + ', nice to meet you here. I can detect you from now on.','What I can to do now?');
+                thes.ask('Hey ' + data.FirstName + ', nice to meet you here. I can recognize you now.','What can I do for you?');
                 //save iavoiceUsers to file
 
                 // fs.writeFileSync('iavoiceUsers.json',JSON.stringify(iavoiceUsers));
             } else {
                 delete thes.$user.$data.iauser;
-                thes.ask('Unfortunately I can not detect you. please try again.','If you now has your password say like :"My password is 11 22"');
+                thes.ask('Unfortunately I cannot recognize you. Please try again.','If you have a password, say it like "My password is 11 22"');
             }
         }).catch(err=>{
             console.error('err1', err);
             // iavoiceUsers[thes.$user.getId()] = data;
-            thes.tell('Unfortunately I can not detect you. please try later.');
+            thes.tell('Unfortunately I am not able to recognize you. Please send an email to BKC Node administrator.');
         });
     },
 
     Unhandled() {
-        console.warn('Unhandled voice request');
+        console.warn('Unhandled voice request.');
         console.log(this.$inputs);
         // return this.toIntent('LAUNCH');
     },
@@ -227,22 +227,22 @@ app.setHandler({
             let response = data1.response;
 
             if(data.done){
-                let mes = 'The status of this device is unclear!';
+                let mes = 'The status of this device is unknown for me.';
                 console.log(data);
                 if(!data.lastState || data.lastState==='undefined'){
 
                 } else if(!data.lastState.Connected){
-                    mes ='device '+devicename+' is not connected!';
+                    mes ='Device '+devicename+' is not connected.';
                 } else if(data.lastState.state) {
                     mes = devicename + ' state is '+ data.lastState.state
                 }
-                thes.ask(mes, 'Is there another order?')
+                thes.ask(mes, 'Do you want anything else?')
             } else {
-                thes.ask('I could not check status of '+ devicename+'. '+data.message, 'Can I get another help?');
+                thes.ask('I cannot check the status of '+ devicename+'. '+data.message, 'Do you want anything else?');
             }
         }).catch(err=>{
             console.error(err);
-            thes.tell('Unfortunately I could not check status of '+ devicename);
+            thes.tell('Unfortunately I cannot check the status of '+ devicename);
         });
     },
 
@@ -264,10 +264,10 @@ app.setHandler({
             let response = data1.response;
 
             if(data.done){
-                let mes = 'The status of devices is unclear!';
+                let mes = 'The status of devices are not clear.';
                 console.log(data);
                 if(data.devices){
-                    mes = 'you have '+ data.devices.length+' devices in your smart home named ';
+                    mes = 'You have '+ data.devices.length+' devices in your account called ';
                     let i = 1;
                     for(let dev of data.devices){
                         if(i > 1)
@@ -276,13 +276,13 @@ app.setHandler({
                         mes += '"'+dev.Name+'"'
                     }
                 }
-                thes.ask(mes,'What else I can to do ?')
+                thes.ask(mes,'What else I can do for you?')
             } else {
-                thes.ask('I could not check list of devices','Do you have new order?');
+                thes.ask('I could not check devices list.','Do you want anything else?');
             }
         }).catch(err=>{
             console.error(err);
-            thes.tell('Unfortunately I could not check status of '+ devicename);
+            thes.tell('Unfortunately I could not check the status of '+ devicename);
         });
     },
 
@@ -304,20 +304,20 @@ app.setHandler({
             if(data.done){
                 console.log(data);
                 if(!data.lastState){
-                    thes.ask('I tried to turn on ' + devicename+'. The status of this device is unclear!','What I can to do now?');
+                    thes.ask('I tried to turn on ' + devicename+'. But, the status of this device is not known!', 'Do you want anything else?');
                 } else if(!data.lastState.Connected){
-                    thes.ask('device '+devicename+' is not connected!', 'What I can to do?');
+                    thes.ask('Device '+devicename+' is not connected!', 'What can I do for you now?');
                 } else {
                     let mes = '';
                     if(data.lastState.state === 'ON') {
-                        mes = 'OK I turned on ' + devicename+'.';
+                        mes = 'OK, I turned on ' + devicename+'.';
                     } else {
                         mes = 'I tried to turn on ' + devicename+'.';
                     }
                     thes.tell(mes);
                 }
             } else {
-                thes.ask('I could not turn on '+ devicename+'. '+data.message, 'What I can to do now?');
+                thes.ask('I could not turn on '+ devicename+'. '+data.message, 'Can I help you on something else?');
             }
         }).catch(err=>{
             console.error(err);
@@ -343,18 +343,18 @@ app.setHandler({
             if(data.done){
                 console.log(data);
                 if(!data.lastState.Connected){
-                    thes.ask('device '+devicename+' is not connected!', 'What I can to do now?');
+                    thes.ask('Device '+devicename+' is not connected!', 'Do you need anything else?');
                 } else {
                     let mes = '';
                     if(data.lastState.state === 'OFF') {
-                        mes = 'OK I turned off ' + devicename+'.';
+                        mes = 'OK, I turned off ' + devicename+'.';
                     } else {
                         mes = 'I tried to turn off ' + devicename+'.';
                     }
                     thes.tell(mes);
                 }
             } else {
-                thes.ask('I could not turn off '+ devicename, 'What else I can to do?');
+                thes.ask('I could not turn off '+ devicename, 'Is there anything else that I can help you on?');
             }
         }).catch(err=>{
             console.error('err2 ', err);
@@ -380,22 +380,22 @@ app.setHandler({
             if(data.done){
                 console.log(data);
                 if(!data.lastState.Connected){
-                    thes.ask('device '+devicename+' is not connected!', 'What I can to do now?');
+                    thes.ask('Device '+devicename+' is not connected!', 'Do you need anything else?');
                 } else {
                     let mes = '';
                     if(data.lastState.state === 'PLAYING') {
-                        mes = 'OK ' + devicename+' is playing now.';
+                        mes = 'OK, ' + devicename+' is playing now.';
                     } else {
-                        mes = ' Aha, ' + devicename+' may start playing now.';
+                        mes = devicename+' may start playing now.';
                     }
                     thes.tell(mes);
                 }
             } else {
-                thes.ask('I could not to play '+ devicename, 'What I can to do now?');
+                thes.ask('I could not play '+ devicename, 'Is there anything else I can do for you?');
             }
         }).catch(err=>{
             console.error('err2 ', err);
-            thes.tell('Unfortunately I could not to play '+ devicename);
+            thes.tell('Unfortunately I could not play '+ devicename);
         });
     },
 
@@ -417,22 +417,22 @@ app.setHandler({
             if(data.done){
                 console.log(data);
                 if(!data.lastState.Connected){
-                    thes.ask('device '+devicename+' is not connected!', 'What I can to do?');
+                    thes.ask('Device '+devicename+' is not connected!', 'What else you do you need?');
                 } else {
                     let mes = '';
                     if(data.lastState.state === 'PAUSED') {
-                        mes = 'OK ' + devicename+' is paused now.';
+                        mes = 'OK, ' + devicename+' is paused now.';
                     } else {
-                        mes = ' It appears ' + devicename+' is paused.';
+                        mes = 'It seems ' + devicename+' is paused.';
                     }
                     thes.tell(mes);
                 }
             } else {
-                thes.ask('I could not to pause '+ devicename, 'What I can to do?');
+                thes.ask('I could not pause '+ devicename, 'Do you need anything else?');
             }
         }).catch(err=>{
             console.error('err2 ', err);
-            thes.tell('Unfortunately I could not to pause '+ devicename);
+            thes.tell('Unfortunately I could not pause '+ devicename);
         });
     }
 });

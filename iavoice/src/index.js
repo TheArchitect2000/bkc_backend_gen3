@@ -12,10 +12,10 @@ const fs = require('fs');
 /*///important no need to ssl hear
 * because ssl is in iadomains and then dispatch to here
 *
-* fulfillment in google action is https://iabroker.internetanywhere.io/webhook
+* fulfillment in google action is https://iabroker.internetanywhere.io/webhook_google
 * endpoint for alexa is https://iabroker.internetanywhere.io/webhook_alexa
 *
-* fulfillment in google action is https://panel.blocklychain.io/webhook
+* fulfillment in google action is https://panel.blocklychain.io/webhook_google
 * endpoint for alexa is https://panel.blocklychain.io/webhook_alexa
 *
 * */
@@ -43,7 +43,7 @@ const fs = require('fs');
     });
 
     // Webhook.post('/webhook', async (req, res) => {
-    Webhook.post(['/webhook','/webhook_alexa'], async (req, res) => {
+    Webhook.post(['/webhook_google','/webhook_alexa'], async (req, res) => {
         console.info('start webhook', req.headers, req.url, req.path);
         await app.handle(new ExpressJS(req, res));
     });

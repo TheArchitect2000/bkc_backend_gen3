@@ -119,11 +119,11 @@
                     App
                 </a>
             </li>
-<!--            <li role="presentation" ssif="whichserver=='blocklychain'">
+            <li role="presentation" ssif="enableVoice">
                 <a href="#iavoicetab" data-toggle="tab" aria-expanded="true">
                     Voice Command
                 </a>
-            </li>  -->
+            </li>
         </ul>
 
         <!-- Tab panes -->
@@ -191,7 +191,7 @@
                                         <img src="images/works-with-amazon-alexa.png" class="img-responsive">
                                     </div>
                                 </div>-->
-                                In Blocklychain, you can control your smart home devices with your voice via smart speakers like Google Home (Google Nest) and Amazon Alexa, or even by Google Assistant or Amazon Alexa app on your smart phone.
+                                Blocklychain allows you to control your smart home devices with your voice using smart speakers such as Google Home (Google Nest) and Amazon Alexa, or from your smartphone using apps such as Google Assistant and Amazon Alexa.
 
                                 <div class="m-t-15" id="prelogins" sspage-load-json="/iavoice/getprelogins" sspage-load-json-var="prelogins" sspage-load-after="ssbindRenderLevel('prelogins')">
                                     <div ssif="prelogins.length>0">
@@ -222,7 +222,7 @@
                                 </div>
                                 <div id="passwordcollapse" class="panel-collapse collapse">
                                     <div class="panel-body ">
-                                        After you open Blocklychain in <i>Google Assistant</i> or <i>Amazon Alexa</i> for first time, they don't recognize you, therefor they ask you to say your own Password, then say bellow password to them:
+                                        The first time you open Blocklychain in Google Assistant or Amazon Alexa, they don't recognize you, so they ask you for your own password. You need to say it like this:
                                         <br>
 
                                         <div id="iavpp" class="collapse">
@@ -311,7 +311,7 @@
                                         <h4 class="panel-title p-l-0 p-r-0">
                                             <a data-toggle="collapse" data-parent="#accordion" href="#collapse2" class="accordion collapsed">
                                                 <span class="mdi mdi-comment-question-outline"></span>
-                                                How to login at IA voice place?
+                                                How to login at Blocklychain voice place?
                                             </a>
                                         </h4>
                                     </div>
@@ -322,12 +322,10 @@
                                                     ..., Blocklychain
                                                 </usr>
                                                 <iav>
-                                                    Welcome to Blocklychain. For I can recognize you, Please read password aloud for me.
-                                                    <comment>after a while may say</comment>
-                                                    For finding voice password please go to your Blocklychain panel, setting page, then go to "Voice Command" tab, there is a "password"
+                                                    Welcome to Blocklychain ... To introduce yourself to me, please read your voice password.
                                                 </iav>
                                                 <usr>
-                                                    <comment>(after getting new password from panel) user says<br> for example </comment>
+                                                    <comment>After getting a new password from the BKC Panel, the user says for example:</comment>
                                                     2345
                                                     <or/>
                                                     my password is 2345
@@ -337,7 +335,7 @@
                                                     my secret is 2 3 4 5
                                                 </usr>
                                                 <iav>
-                                                    Hey <b ssbind="text:JSON.parse($.cookie('customerb')).FirstName"></b>, nice to meet you here. I can detect you from now on.
+                                                    Hey <b ssbind="text:JSON.parse($.cookie('customerb')).FirstName"></b>, nice to meet you here. I can recognize you now.
                                                 </iav>
                                             </conversation>
                                         </div>
@@ -348,14 +346,14 @@
                                         <h4 class="panel-title p-l-0 p-r-0">
                                             <a data-toggle="collapse" data-parent="#accordion" href="#collapse3" class="accordion collapsed">
                                                 <span class="mdi mdi-comment-question-outline"></span>
-                                                How to check a device status?
+                                                How to check a device state?
                                             </a>
                                         </h4>
                                     </div>
                                     <div id="collapse3" class="panel-collapse collapse">
                                         <div class="panel-body p-l-0 p-r-0">
                                             <conversation>
-                                                <comment>Suppose you have a power plug named <b>Power kitchen</b></comment>
+                                                <comment>Suppose you have a smart plug called <b>Power kitchen</b></comment>
 
                                                 <usr>
                                                     <b>Power kitchen</b> state
@@ -371,9 +369,9 @@
                                                 <iav>
                                                     <b>Power kitchen</b> state is ON
                                                     <or> may sometimes</or>
-                                                    The status of this device is unclear!
+                                                    The status of this device is unknown for me.!
                                                     <comment>if it could not to check says</comment>
-                                                    Unfortunately I could not check status of <b>Power kitchen</b>
+                                                    Unfortunately I cannot check the status of <b>Power kitchen</b>
                                                 </iav>
                                             </conversation>
                                         </div>
@@ -391,12 +389,12 @@
                                     <div id="collapse4" class="panel-collapse collapse">
                                         <div class="panel-body p-l-0 p-r-0">
                                             <conversation>
-                                                <comment>Suppose you have a power plug named <b>Power kitchen</b></comment>
+                                                <comment>Suppose you have a power plug called <b>Power kitchen</b></comment>
                                                 <usr>
                                                     ..., open Blocklychain
                                                 </usr>
                                                 <iav>
-                                                    What I can to do now?
+                                                    What can I do for you?
                                                 </iav>
                                                 <usr>
                                                     turn on <b>Power kitchen</b>
@@ -404,11 +402,11 @@
                                                     <b>Power kitchen</b> on
                                                 </usr>
                                                 <iav>
-                                                    OK I turned on <b>Power kitchen</b>
-                                                    <or> maybe says</or>
+                                                    OK, I turned on <b>Power kitchen</b>
+                                                    <or>Maybe says</or>
                                                     I tried to turn on <b>Power kitchen</b>
-                                                    <comment>if the device was not connected to BKC network for any reason</comment>
-                                                    device <b>Power kitchen</b> is not connected!
+                                                    <comment>If the device was not connected to BKC network for any reason</comment>
+                                                    Device <b>Power kitchen</b> is not connected!
                                                 </iav>
                                             </conversation>
                                         </div>
@@ -419,14 +417,14 @@
                                         <h4 class="panel-title p-l-0 p-r-0">
                                             <a data-toggle="collapse" data-parent="#accordion" href="#collapse5" class="accordion collapsed">
                                                 <span class="mdi mdi-comment-question-outline"></span>
-                                                How to Play/Pause an IA Speaker?
+                                                How to Play/Pause an BKC Smart Speaker?
                                             </a>
                                         </h4>
                                     </div>
                                     <div id="collapse5" class="panel-collapse collapse">
                                         <div class="panel-body p-l-0 p-r-0">
                                             <conversation>
-                                                <comment>Suppose you have a speaker named <b>Good Speaker</b></comment>
+                                                <comment>Suppose you have a speaker called <b>Good Speaker</b></comment>
                                                 <usr>
                                                     Hey Google, talk Blocklychain to play <b>Good Speaker</b>
                                                     <or/>
@@ -440,9 +438,9 @@
 
                                                 </usr>
                                                 <iav>
-                                                    OK <b>Good Speaker</b> is playing now
+                                                    OK, <b>Good Speaker</b> is playing now
                                                     <or> maybe says</or>
-                                                    Aha, <b>Good Speaker</b> may start playing now
+                                                    <b>Good Speaker</b> may start playing now
                                                 </iav>
                                             </conversation>
                                         </div>

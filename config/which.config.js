@@ -21,4 +21,8 @@ brokerconfig = {
         SECURE_CERT20 : 'config/iabroker.certificate.crt'
 };
 
+// change this true if you are going to enable Alex or Google Assitant for your IoT devices.
+// Please read /iavoice/README.md to know how to setup the voice setting.
+let enableVoice = false;
+
 module.exports = brokerconfig;

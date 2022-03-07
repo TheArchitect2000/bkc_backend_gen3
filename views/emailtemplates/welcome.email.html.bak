@@ -120,7 +120,7 @@
             <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px;">
                 <tr>
                     <td bgcolor="#ffffff" align="center" valign="top" style="padding: 40px 20px 20px 20px; border-radius: 4px 4px 0px 0px; color: #111111; font-family: 'Lato', Helvetica, Arial, sans-serif; font-size: 48px; font-weight: 400; letter-spacing: 4px; line-height: 48px;">
-                        <h1 style="font-size: 48px; font-weight: 400; margin: 2;">Password reset</h1>
+                        <h1 style="font-size: 48px; font-weight: 400; margin: 2;">Welcome</h1>
                         <img src="#logourl#" width="125" height="120" style="display: block; border: 0px;" />
                     </td>
                 </tr>
@@ -132,11 +132,7 @@
             <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px;">
                 <tr>
                     <td bgcolor="#ffffff" align="left" style="padding: 20px 30px 40px 30px; color: #666666; font-family: 'Lato', Helvetica, Arial, sans-serif; font-size: 18px; font-weight: 400; line-height: 25px;">
-                        <p style="margin: 0;">Hi #FirstName#, <br><br>
-
-                            We received a request to reset your password. If you have not submitted this request, please ignore this email.<br>
-
-                            Otherwise, please click this button to reset your password:</p>
+                        <p style="margin: 0;">Hey #FirstName#,<br>Thanks for registering for an account on #domainName#!Before we get started, we just need to confirm that this is you. Click below to verify your email address:</p>
                     </td>
                 </tr>
                 <tr>
@@ -146,56 +142,23 @@
                                 <td bgcolor="#ffffff" align="center" style="padding: 20px 30px 60px 30px;">
                                     <table border="0" cellspacing="0" cellpadding="0">
                                         <tr>
-                                            <td align="center" style="border-radius: 3px;" bgcolor="#d42021"><a href="#href#" target="_blank" style="font-size: 20px; font-family: Helvetica, Arial, sans-serif; color: #ffffff; text-decoration: none; color: #ffffff; text-decoration: none; padding: 15px 25px; border-radius: 2px; border: 1px solid #d42021; display: inline-block;">Reset Password</a></td>
+                                            <td align="center" style="border-radius: 3px;" bgcolor="#d42021"><a href="#href#" target="_blank" style="font-size: 20px; font-family: Helvetica, Arial, sans-serif; color: #ffffff; text-decoration: none; color: #ffffff; text-decoration: none; padding: 15px 25px; border-radius: 2px; border: 1px solid #d42021; display: inline-block;">Verify Email</a></td>
                                         </tr>
                                     </table>
                                 </td>
                             </tr>
                         </table>
                     </td>
-                </tr> <!-- COPY -->
+                </tr>
 
                 <tr>
-                    <td bgcolor="#ffffff" align="left" style="padding: 0px 30px 20px 30px; color: #666666; font-family: 'Lato', Helvetica, Arial, sans-serif; font-size: 18px; font-weight: 400; line-height: 25px;">
-                        <p style="margin: 0;">If you have any questions, just reply to this email, we're always happy to help.</p>
-                    </td>
-                </tr>
-                <tr>
                     <td bgcolor="#ffffff" align="left" style="padding: 0px 30px 40px 30px; border-radius: 0px 0px 4px 4px; color: #666666; font-family: 'Lato', Helvetica, Arial, sans-serif; font-size: 18px; font-weight: 400; line-height: 25px;">
-                        <p style="margin: 0;">Cheers,<br><br>Blocklychain Team</p>
-                    </td>
-                </tr>
-                <tr>
-                    <td bgcolor="#ffffff" align="left" style="padding: 0px 30px 40px 30px; border-radius: 0px 0px 4px 4px; color: #666666; font-family: 'Lato', Helvetica, Arial, sans-serif; font-size: 18px; font-weight: 400; line-height: 25px;">
-                        <p style="margin: 0;"><br><br>(Please check your email spam folder if you do not see our email in your email inbox.)</p>
+                        <p style="margin: 0;">Cheers,<br>Blocklychain Team</p>
                     </td>
                 </tr>
             </table>
         </td>
     </tr>
-    <!--<tr>
-        <td bgcolor="#f4f4f4" align="center" style="padding: 30px 10px 0px 10px;">
-            <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px;">
-                <tr>
-                    <td bgcolor="#FFECD1" align="center" style="padding: 30px 30px 30px 30px; border-radius: 4px 4px 4px 4px; color: #666666; font-family: 'Lato', Helvetica, Arial, sans-serif; font-size: 18px; font-weight: 400; line-height: 25px;">
-                        <h2 style="font-size: 20px; font-weight: 400; color: #111111; margin: 0;">Need more help?</h2>
-                        <p style="margin: 0;"><a href="#" target="_blank" style="color: #d42021;">We&rsquo;re here to help you out</a></p>
-                    </td>
-                </tr>
-            </table>
-        </td>
-    </tr>
-    <tr>
-        <td bgcolor="#f4f4f4" align="center" style="padding: 0px 10px 0px 10px;">
-            <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px;">
-                <tr>
-                    <td bgcolor="#f4f4f4" align="left" style="padding: 0px 30px 30px 30px; color: #666666; font-family: 'Lato', Helvetica, Arial, sans-serif; font-size: 14px; font-weight: 400; line-height: 18px;"> <br>
-                        <p style="margin: 0;">If these emails get annoying, please feel free to <a href="#" target="_blank" style="color: #111111; font-weight: 700;">unsubscribe</a>.</p>
-                    </td>
-                </tr>
-            </table>
-        </td>
-    </tr>-->
     <tr>
         <td  align="center">
             <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px;">

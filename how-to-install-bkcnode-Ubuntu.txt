@@ -87,6 +87,8 @@ Otherwise, comment both lines.
 
 
 8- Update the /bkc-node/public/share/js/configs.js
+
+- fingerprint = '<YOUR FINGERPRINT>'
 - domainUrl = 'https://<YOUR DOMAIN>';
 - domainName = 'Blocklychain'; <YOUR DOMAIN NAME WITHOUT THE DOT PART (blocklychain.io => blocklychain)>
 - brokerUrl = 'mqtts://<YOUR DOMAIN>:3008';
@@ -145,6 +147,8 @@ http {
 	
         # Load configuration files for the default server block.
         include /etc/nginx/default.d/*.conf;
+
+        return 301 https://$host$request_uri;
 
       }
 	

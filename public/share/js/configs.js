@@ -1,5 +1,3 @@
-
-
 var fingerprint = '<YOUR FINGERPRINT>'
 var domainUrl = 'https://<YOUR DOMAIN>';
 var brokerUrl = 'mqtts://<YOUR DOMAIN>:3008'; //secure https or wss

@@ -5,9 +5,6 @@ var brokerUrl = 'mqtts://panel.cpvanda.com:3008'; //secure https or wss
 var domainName = 'cpvanda';
 var developmentMode = false;
 
-
-
-
 exports.domainUrl = domainUrl;
 exports.domainName = domainName;
 exports.fingerprint = fingerprint;

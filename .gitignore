@@ -113,5 +113,5 @@ config/webpublic.crt
 config/iabroker.certificate.key
 config/iabroker.certificate.crt
 public/share/js/configs.js
-public/share/images/logo-bkcnode.png
-public/share/images/logo-h-bkcnode.png
+public/share/images/logo-cpvanda.png
+public/share/images/logo-h-cpvanda.png

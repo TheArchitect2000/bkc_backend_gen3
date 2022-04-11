@@ -102,3 +102,16 @@ dist
 
 # TernJS port file
 .tern-port
+
+# Project configuration files
+config/which.config.js
+config/email.config.js
+config/webprivate.pem
+config/webprivate.key
+config/webpublic.pem
+config/webpublic.crt
+config/iabroker.certificate.key
+config/iabroker.certificate.crt
+public/share/js/config/configs.js
+public/share/js/images/logo-bkcnode.png
+public/share/js/images/logo-h-bkcnode.png

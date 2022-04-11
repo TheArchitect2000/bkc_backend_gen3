@@ -1,11 +1,11 @@
 let mailconfig = {};
 
 mailconfig = {
-    host: 'mail.bkcnode.com',
+    host: 'mail.cpvanda.com',
     port: 587,
     auth: {
-        user: 'panel@bkcnode.io',
-        pass: 'Hello123'
+        user: 'admin@cpvanda.com',
+        pass: 'salam1234'
     },
     tls: {rejectUnauthorized: false},
     templates: 'views/emailtemplates/'

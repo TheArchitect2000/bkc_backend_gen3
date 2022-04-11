@@ -104,14 +104,14 @@ dist
 .tern-port
 
 # Project configuration files
-config/which.config.js
 config/email.config.js
-config/webprivate.pem
 config/webprivate.key
-config/webpublic.pem
+config/webprivate.pem
 config/webpublic.crt
-config/iabroker.certificate.key
+config/webpublic.pem
+config/which.config.js
 config/iabroker.certificate.crt
+config/iabroker.certificate.key
 public/share/js/configs.js
 public/share/images/logo-cpvanda.png
 public/share/images/logo-h-cpvanda.png

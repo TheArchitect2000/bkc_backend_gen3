@@ -1,4 +1,5 @@
-# How to install an Ethereum Node on BKC
+# ًًRunning BKC node on Ethereum blockchain
+
 All the information is from: https://www.youtube.com/watch?v=o90L6ksNW6g  and  https://www.youtube.com/watch?v=A5V2jdLi5mI
 
  ## 1-Install 

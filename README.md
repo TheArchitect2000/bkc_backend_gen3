@@ -102,6 +102,7 @@ $ sudo apt -y install nginx
 $ systemctl status nginx
 ```
 
+### Update the nginx.conf in /etc/nginx/nginx.config
 
 ```codenginx
 user www-data;

@@ -43,7 +43,7 @@ const fs = require('fs');
     });
 
     // Webhook.post('/webhook', async (req, res) => {
-    Webhook.post(['/webhook_google','/webhook_alexa'], async (req, res) => {
+    Webhook.post(['/webhook','/webhook_alexa'], async (req, res) => {
         console.info('start webhook', req.headers, req.url, req.path);
         await app.handle(new ExpressJS(req, res));
     });

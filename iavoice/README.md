@@ -11,10 +11,12 @@ In order to enable voice commands via Alexa or Google Assistant for a node, foll
 2. Run the code on the server using NodeJs or PM2.
 ```sh
 $ cd iavoice
-
+$ npm install
 $ node src/index.js
 ## Alternative
 $ pm2 start src/index.js
+## You can see logs
+$ pm2 log <Number>
 ```
 3. Update your Nginx web server config file to redirect https traffic from `https://your.node.server/webhook_alexa` and `https://your.node.server/webhook_google`
    to port 4122 like bellow
@@ -35,6 +37,7 @@ $ pm2 start src/index.js
 9. In the certificate box, select the "My development endpoint has a certificate from a trusted certificate authority" item.
 10. Click the "Save Endpoints" button.
     ![img.png](assets/alexa-endpoints.png)
+    
 
 ### 3. Google Assistant Setting
 1. Create a <a href="https://dialogflow.cloud.google.com/">Google developer account</a>.
@@ -47,3 +50,11 @@ $ pm2 start src/index.js
 7. Go to the "Fullfillment" menu and set your webhook URL to `https://your.node.server/webhook_google`
    ![dialogflow-fullfillment](assets/dialogflow-fullfill.png)
 8. Click the "SAVE" button on the bottom of the page.
+![img.png](assets/e1.jpg)
+9. Click the "Integration" link.
+![img.png](assets/e2.jpg)
+10. Click the "MANAGE ASSISTANCE APP" button on the bottom of the page.
+![img.png](assets/e3.jpg)
+11. Set your project by Develop and Deploy.
+![img.png](assets/e4.jpg)
+11. Test your project.

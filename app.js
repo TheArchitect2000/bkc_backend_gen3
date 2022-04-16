@@ -30,8 +30,8 @@ app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
 app.use(bodyParser.json({ limit: '50mb' }))
 
 // view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
+//app.set('views', path.join(__dirname, 'views'));
+//app.set('view engine', 'jade');
 
 // app.use(express.json());
 // app.use(express.urlencoded({ extended: false }));
@@ -144,7 +144,9 @@ app.use(function(err, req, res, next) {
   console.error('error handler', err.message);
   // render the error page
   res.status(err.status || 500);
-  res.render('error');
+  //res.render('error');
+  res.json({error:err});
+
 });
 
 

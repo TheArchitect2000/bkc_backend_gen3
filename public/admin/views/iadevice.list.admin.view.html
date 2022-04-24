@@ -1,0 +1,121 @@
+<!--uses ssbind and sspage tags-->
+<style>
+    td span.onoffline.online {
+        background-color: limegreen !important;
+    }
+
+    td span.onoffline {
+        display: inline-block;
+        width: 14px;
+        height: 14px;
+        border-radius: 50%;
+
+    }
+
+    td span.onoffline.SENSOR {
+        background-color: transparent;
+    }
+
+    td span.onoffline.ACTUATOR {
+        background-color: red;
+    }
+
+    .onedevice {
+        /*display: flex*/
+    }
+    .onedevice > td {
+        /*border-right: 1px solid grey;*/
+        padding: 4px;
+        color: #b1b1b1;
+    }
+    .onedevice > td span.val{
+        display: block;
+        color: #3b4560;
+    }
+</style>
+<script>
+    function filterdevices(devtype) {
+        $('#message').text('');
+        if(devtype){
+            $('table.devices tr').hide();
+            $('table.devices tr.'+devtype).fadeIn();
+            if(devices.filter(d=>d.DeviceType===devtype).length ===0){
+                $('#message').text('No device by type '+devtype)
+            }
+        } else {
+            $('table.devices tr').fadeIn()
+        }
+    }
+</script>
+<header>Installed Devices</header>
+<div class="btn-group m-b-20" style="display: flex">
+    <div class="btn btn-link" onclick="filterdevices()" ssbind="html:'All<br>'+devices.length" sslevel="devicetemps"></div>
+    <div ssfor="devicetemps" class="btn btn-link" ssbind="html:'ssIndex<br>'+devices.filter(d=>d.DeviceType=='ssIndex').length" sslevel="devicetemps" onclick="filterdevices('ssIndex')">..</div>
+</div>
+<table class="devices" border="1" width="100%" bordercolor="#e0e0e0">
+    <tr
+    ssbind="class:devices[ssIndex].DeviceType+ ' onedevice'"
+     ssfor="devices"
+     sspage-load-json="/iadevice?noRemoved=true"
+     sspage-load-json-var="devices"
+     sspage-load-after="ssbindRenderThis('devices');ssbindRenderLevel('devicetemps')">
+
+    <td class="">
+        <br>
+        <img height="22px" ssbind="src:devicetemps[devices[ssIndex].DeviceType].icon">
+    </td>
+    <td>
+        <br>
+        <span ssbind="class: (devices[ssIndex]._online ? 'onoffline online ' : 'onoffline offline ') + devicetemps[devices[ssIndex].DeviceType].type"></span>
+    </td>
+    <td>
+        Device Type:
+        <span class="val"><b ssbind="text:devices[ssIndex].DeviceType">...</b> <small></small></span>
+    </td>
+    <td>
+        Device Title:
+        <span class="val"><b ssbind="text:devices[ssIndex].Name">...</b> <small></small></span>
+    </td>
+    <td>
+        Customer:
+        <span class="val"><b ssbind="text:devices[ssIndex].HomeId.CustomerId.FirstName+' '+devices[ssIndex].HomeId.CustomerId.LastName">...</b><br><small ssbind="text:devices[ssIndex].HomeId.CustomerId.Username"></small></span>
+    </td>
+    <!--<div>
+        MAC:
+        <span class="val"><b ssbind="text:devices[ssIndex].MAC">...</b> <small></small></span>
+    </div>-->
+    <td>
+        Add Device Time:
+        <span class="val"><b ssbind="text:moment(devices[ssIndex].createdAt).format('YYYY-MMM-DD dd HH:mm')">...</b> <!--<b class="mdi mdi-timer"></b>--></span>
+    </td>
+    <!--<div>
+        <nobr>Last State:</nobr>
+        <span class="val font-bold" ssbind="text:devices[ssIndex]._lastState ? devices[ssIndex]._lastState.state || devices[ssIndex]._lastState.event || devices[ssIndex]._lastState.command : ''"></span>
+    </div>-->
+    <td>
+        <nobr>Last State Time:</nobr>
+        <span class="val font-bold" ssbind="text:devices[ssIndex]._lastState ? moment(devices[ssIndex]._lastState.__receivetime).format('YYYY-MMM-DD dd HH:mm') : ''"></span>
+    </td>
+    <td ssif="!devices[ssIndex]._online">
+        <nobr>Disconnect Time:</nobr>
+        <span class="val font-bold" ssbind="text:devices[ssIndex]._lastState ? moment(devices[ssIndex]._lastState.CloseTime).format('YYYY-MMM-DD dd HH:mm') : ''"></span>
+    </td>
+    <td ssif="devices[ssIndex]._online">
+        <nobr>Connect Time:</nobr>
+        <span class="val font-bold" ssbind="text:devices[ssIndex]._lastState ? moment(devices[ssIndex]._lastState.ConnectionTime).format('YYYY-MMM-DD dd HH:mm') : ''"></span>
+    </td>
+    <!--<div>
+        MQTT Messages
+        <span class="val"><b>26 582</b> <b class="mdi mdi-access-point"></b></span>
+    </div>
+    <div>
+        Battery
+        <span class="val"><b>40%</b> <b class="mdi mdi-battery-40"></b></span>
+    </div>
+    <div>
+        Status
+        <span class="val"><b ssbind="text:devices[ssIndex].IsActive?'ACTIVE':'NON ACTIVE'"></b> </span>
+    </div>-->
+</tr>
+</table>
+<div id="message" class="col-red"></div>

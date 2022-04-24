@@ -1,0 +1,1 @@
+(function() {    var toc =  [{"name":"BKC Token Card","type":"item","tilePath":"","url":"BKC_Token/Token_Card.htm"},{"name":"Wallet","type":"item","tilePath":"","url":"BKC_Token/Wallet.htm"}];    window.rh.model.publish(rh.consts('KEY_TEMP_DATA'), toc, { sync:true });    })();

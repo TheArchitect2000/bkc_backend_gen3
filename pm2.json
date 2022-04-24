@@ -1,0 +1,9 @@
+{
+    "apps" : [
+        {
+            "name"        : "BKC system",
+            "script"      : "bin/iabroker-server",
+            "log_date_format" : "YYYY-MM-DD HH:mm:ss Z"
+        }
+    ]
+}

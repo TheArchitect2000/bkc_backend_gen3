@@ -1,0 +1,107 @@
+<!--uses ssbind and sspage tags-->
+<div class="container-fluid">
+    <div class="block-header">
+        <h2>BKC Vendors</h2>
+    </div>
+    <div class="row">
+
+        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12"
+             ssfor="vendors"
+             sspage-load-json="/iavendor"
+             sspage-load-json-var="vendors"
+             sspage-load-after="ssbindRenderThis('vendors')">
+            <div class="card">
+                <div class="header">
+                    <h2>
+                        <i class="material-icons">business</i>
+                        <span ssbind="text:vendors[ssIndex].Name || 'No Name'"></span>
+                    </h2>
+                    <!--<ul class="header-dropdown m-r&#45;&#45;5">
+                        <li class="dropdown">
+                            <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                <i class="material-icons">more_vert</i>
+                            </a>
+                            <ul class="dropdown-menu pull-right">
+                                <li><a href="javascript:void(0);" class=" waves-effect waves-block"><i class="material-icons">cast_connected</i> Provided Devices</a></li>
+                                <li><a href="javascript:void(0);" class=" waves-effect waves-block"><i class="material-icons">cast</i> Provided Services</a></li>
+                                <li><a href="javascript:void(0);" class=" waves-effect waves-block"><i class="material-icons">edit</i> Edit Information</a></li>
+                            </ul>
+                        </li>
+                    </ul>-->
+                </div>
+                <div class="body">
+                    <dl>
+                        <dt>Name:</dt>
+                        <dd ssbind="text:vendors[ssIndex].Name || ''"></dd>
+
+                        <dt>Owner:</dt>
+                        <dd ssbind="text:vendors[ssIndex].Owner || ''"></dd>
+
+                        <dt>Create Time:</dt>
+                        <dd ssbind="text:vendors[ssIndex].createdAt"></dd>
+
+                        <dt>Address:</dt>
+                        <dd>
+                            <div class="row">
+                                <div class="col-md-4 col-xs-4" ssbind="text:vendors[ssIndex].Country || ''">
+                                    jjjj
+                                </div>
+                                <div class="col-md-4 col-xs-4" ssbind="text:vendors[ssIndex].Province || ''">
+                                    jjjj
+                                </div>
+                                <div class="col-md-4 col-xs-4" ssbind="text:vendors[ssIndex].City || ''">
+                                    jjjj
+                                </div>
+                                <div class="col-md-4 col-xs-4" ssbind="text:vendors[ssIndex].Street || ''">
+                                    jjjj
+                                </div>
+                                <div class="col-md-4 col-xs-4" ssbind="text:vendors[ssIndex].ZipCode || ''">
+                                    jjjj
+                                </div>
+                            </div>
+                        </dd>
+
+
+
+                        <!--<dt>Current Status:</dt>
+                        <dd>
+                            <div class="switch">
+                                <label>NOT ACTIVE<input type="checkbox" ssbind="checked:vendors[ssIndex].IsActive"  disabled><span class="lever switch-col-light-blue"></span>ACTIVE</label>
+                            </div>
+                        </dd>-->
+                    </dl>
+                </div>
+                <!--<div class="body">
+                    <div class="row">
+                        <div class="col-md-4 col-xs-4">
+                            <div class="text-center col-blue-grey">
+                                <i class="material-icons">cast</i><br>
+                                <span class="text">Provided Devices</span>
+                                <h3 class="number count-to" data-from="0" data-to="125" data-speed="1000" data-fresh-interval="20">0</h3>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 col-xs-4">
+                            <div class="text-center col-blue">
+                                    <i class="material-icons">cast_connected</i><br>
+                                    <span class="text">Active Devices</span>
+                                    <h3 class="number count-to" data-from="0" data-to="125" data-speed="1000" data-fresh-interval="20">0</h3>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 col-xs-4">
+                            <div class="text-center col-red">
+                                <i class="material-icons">developer_board</i><br>
+                                <span class="text">Provided Services</span>
+                                <h3 class="number count-to" data-from="0" data-to="125" data-speed="1000" data-fresh-interval="20">0</h3>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>-->
+
+            </div>
+        </div>
+
+    </div>
+</div>

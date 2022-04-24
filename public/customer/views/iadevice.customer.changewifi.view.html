@@ -1,0 +1,416 @@
+<!--uses ssbind and sspage tags-->
+<style>
+    .device {
+        height: 8pc;
+        background-color: #DDDDDD;
+    }
+
+    .device:hover {
+        background-color: #cccccc;
+    }
+
+    /* HIDE RADIO */
+    [type=radio] {
+        position: absolute;
+        opacity: 0;
+        width: 0;
+        height: 0;
+    }
+
+    /* IMAGE STYLES */
+    label {
+        cursor: pointer;
+    }
+
+    .content {
+        margin-top: .6pc;
+    }
+
+    [type=radio] + div {
+        /*box-shadow: 0 0 1px 5px #d5dae0;*/
+        /*text-shadow: 1px 1px 4px #000000;*/
+        -webkit-box-shadow: 2px 2px 5px 0px rgba(94, 92, 96, 0.77);
+        -moz-box-shadow: 2px 2px 5px 0px rgba(94, 92, 96, 0.77);
+        box-shadow: 2px 2px 5px 0px rgba(94, 92, 96, 0.77);
+    }
+
+    [type=radio]:disabled + div {
+        -webkit-box-shadow: 0;
+        -moz-box-shadow: 0;
+        box-shadow: 0px 0px 0px 0px rgba(255, 255, 255, 0.75);
+        /*background-color: rgba(0, 0, 0, 0.2) !important;*/
+        color: #bbbbbb;
+    }
+
+    /* CHECKED STYLES */
+    [type=radio]:checked + div {
+        box-shadow: 0 0 1px 5px #d42021;
+    }
+</style>
+<script>
+
+    function passeye() {
+        if($('#wifipass').attr('type')==='password'){
+            $('#wifipass').attr('type', 'text');
+            $('#wifipasseye').removeClass('mdi-eye-outline').addClass('mdi-eye-off-outline');
+        } else {
+            $('#wifipass').attr('type', 'password');
+            $('#wifipasseye').removeClass('mdi-eye-off-outline').addClass('mdi-eye-outline');
+        }
+    }
+    var installWizardStep = 1;
+
+    $('#backbtn').hide();
+//    $('#nextbtn').hide();
+
+    function nextStep() {
+
+        if(installWizardStep>=6) return;
+
+        installWizardStep++;
+
+        //must be after installWizardStep++;
+        if(installWizardStep === 3) {
+            c1();
+            return false;
+        }
+
+        if(installWizardStep >= 4) {
+            $('#nextbtn').hide();
+//            $('#adddevicebtn').show();
+        } else {
+            $('#nextbtn').show();
+//            $('#adddevicebtn').hide();
+        }
+
+        $('#backbtn').show();
+
+        if(installWizardStep === 2) {
+            $('.turnon').hide();
+            $('.turnon.'+$('[name=devicetype]:checked').val()).fadeIn();
+        } else if(installWizardStep === 3) {
+            if (!devicename.checkValidity()) {
+                swal.fire({
+                    title: "Warning",
+                    text: devicename.validationMessage,
+                    html: "<b>Device Name:</b>"+devicename.validationMessage,
+//                    timer: 2000,
+//                icon: "warning",
+                    imageUrl: "images/error.png",
+                    imageWidth: 50,
+                    showConfirmButton: true
+                });
+                installWizardStep --;
+                return;
+            }
+        } else if(installWizardStep === 4) {
+            $('#backbtn').hide();
+        }
+
+        $('.step').hide();
+        $('.step'+installWizardStep).fadeIn();
+    }
+
+    function preStep() {
+        if(installWizardStep<=1) return;
+        installWizardStep--;
+
+        if(installWizardStep === 1) {
+            $('#backbtn').hide();
+//            $('#nextbtn').hide();
+        } else {
+            $('#backbtn').show();
+        }
+
+        $('.step').hide();
+        $('.step'+installWizardStep).fadeIn();
+    }
+
+    var connection = window.navigator.connection    ||
+        window.navigator.mozConnection ||
+        null;
+    if (connection === null) {
+        // API not supported :(
+    } else {
+        connection.onchange = function () {
+            console.log('changed!');
+        }
+    }
+
+    var w1 = null;
+    var w2 = null;
+    var timeouts = {timeout1 : 1};
+
+
+    //to prevent duplicate set event
+    if(typeof eventlistnersadded === 'undefined') {
+        eventlistnersadded = 'eventlistnersadded';
+
+        window.addEventListener('offline', function (e) {
+            console.log('offline');
+        });
+
+        window.addEventListener('online', function (e) {
+            console.log('online');
+        });
+
+        window.addEventListener('message', event => {
+            var p = JSON.parse(event.data);
+            console.error('onmessage', p);
+
+            if (p.CONNECTED === 'checking') {
+                alert('chccj')
+            } else if (p.CONNECTED === true) {
+                clearTimeout(timeouts.timeout3);
+                clearTimeout(timeouts.timeout4);
+                $('#wifistatus').text('WiFi Connected');
+                //if(w1) w1.close();
+                if (w2) w2.close();
+                w1.location.href = 'http://192.168.100.100/p4';//for reset ESP
+                //w1 = window.open("http://192.168.100.100/p4", 'w1', 'toolbar=no,titlebar=no,status=no,menubar=no,scrollbars=no,resizable=no,left=200, top=200,width=200px,height=200px,visible=none, alwaysLowered=on,close=no');
+//            w.document.write("<head><title>IA Device Connection</title></head><body style='background-color: #d42021; color: white'>Connecting to IoT Device...</body>");
+//            var s = "<html><head><meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'><title>IA Device Connection</title></head><body style='background-color: #d42021; color: white'>4- Restarting device...</body></html>";
+//            w1.document.write(s);
+                setTimeout(function () {
+                    w1.close();
+                }, 2000);
+
+                swal.fire("WiFi Changed", "OK, change to WiFi of device performed successfully.", "success", {closeOnClickOutside: false});
+                nextStep();
+                $('#cancelbtn').text('Done');
+                setTimeout(function () {
+                    show_sspage('/customer/views/iadevice.customer.list.view.html')
+                }, 15000);
+
+                ////try to addDevice
+                //$('#nextbtn').prop('disabled', false);
+            } else if (p.CONNECTED === false) {
+                clearTimeout(timeouts.timeout3);
+                clearTimeout(timeouts.timeout4);
+                swal.fire("Device not connected to WiFi", `
+<div class="align-left m-l-30 small">There is a problem in connecting to your WiFi.<br>
+Please check<br>
+- Your WiFi password is corrected.<br>
+- Your WiFi router is on and working properly.<br>
+- Your device is no far more than 3 meters from the router.<br>
+- Nothing is blocked the WiFi waves.</div>`, "error", {closeOnClickOutside: true});
+                $('#wifistatus').text('Check WiFi');
+                $('#wifistatus').prop('disabled', false);
+                if (w1) w1.close();
+                if (w2) w2.close();
+            }
+
+            if (p.MAC) {
+                clearTimeout(timeouts.timeout1);
+                //set mac address
+                $('#devicecode').val(p.MAC);
+                $('#wifistatustext').html('A Device by type <i>' + p.DEVICETYPE + '</i> detected with MAC address ');
+                //list of WiFis
+                $('#wifilist').empty();
+                var list = $("#wifilist");
+                $.each(p.WIFI, function (index, item) {
+                    list.append(new Option(item, item));
+                });
+                w1.close();
+                $('.step').hide();
+                $('.step3').fadeIn();
+            }
+        });
+    }
+
+    function c1() {
+        $('#nextbtn').hide();
+        $('#backbtn').hide();
+        sspageLock();
+        if(w1 === null || w1.closed) {//get wifi list and mac address and device type
+            timeouts.timeout1 = setTimeout(function () {
+                if(w1) {
+                    w1.close();
+//                    preStep();
+                    sspageUnlock();
+                    installWizardStep = 2;
+                    $('#nextbtn').show();
+                    $('#backbtn').show();
+                    swal.fire("Not connected to device", "Please connect to device access point, then click the <b>Next</b> button.", "error", {closeOnClickOutside: true});
+                }
+            },7000);
+
+            w1 = window.open("http://192.168.100.100/p1", 'w1', 'toolbar=no,titlebar=no,status=no,menubar=no,scrollbars=no,resizable=no,left=200, top=200,width=200px,height=200px,visible=none, alwaysLowered=on,close=no');
+            var s = "<html><head><meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'><title>Device Connection</title></head><body style='background-color: #d42021; color: white'>Connecting to IoT Device...</body><script type='text/javascript'>window.location='http://192.168.100.100/p1'; </"+"script></html>";
+            try {
+                if(w1)
+                    w1.document.write(s);
+            }catch (e){
+                console.error('EEEEEEEEEEEEEEEE',e)
+            }
+            /*w1.onerror = function (message, source, lineno, colno, error) {
+                alert(message);
+                console.error(error)
+            };*/
+
+
+
+            $('#wifistatus').prop('disabled', false);
+            $('#wifistatus').text('Check Wi-Fi');
+        }
+
+        /*$.ajax({
+            url: "http://192.168.1.1/p1",
+            dataType: 'jsonp',  //use jsonp data type in order to perform cross domain ajax
+            crossDomain: true,
+//            data: data,
+            success: function (f) {
+                swal.fire({
+                    title: f.a,
+                    html: 'Please select <b>device type</b>'+f.b})
+            },
+            error: function (err) {
+                console.error(err)
+            }
+        }).done(function () {
+            console.log('done')
+        });*/
+    }
+
+    function c2() {
+        var user = $('#wifilist').val();
+        var pass = $('#wifipass').val();
+
+        if(!user || !pass ){
+            swal.fire("Warning", "Please choose a Wi-Fi and set password correctly!", "warning", {closeOnClickOutside: true});
+            return;
+        }
+
+        $('#wifistatus').prop('disabled', true);
+        $('#wifistatus').text('Connecting...');
+
+
+        if(w1 === null || w1.closed) { //set wifi ssid and password
+            timeouts.timeout3 = setTimeout(function () {
+                w1.location.href = 'http://192.168.100.100/p3';
+                /*var s = "<html><head><meta http-equiv='refresh' content='30; url=\"http://192.168.100.100/p3\"'><meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'><title>IA Device Connection</title></head><body style='background-color: #d42021; color: white'>2- Checking connection to WiFi "+$('#wifilist').val()+"...<br></body><script type='text/javascript'>window.location='http://192.168.100.100/p3' </"+"script></html>";
+                try {
+                    w1.document.write(s);
+                }catch (e){
+                    console.error('EEEEEEEEEEEEEEEE2',e)
+                }*/
+                timeouts.timeout4 = setTimeout(function () {
+                    w1.close();
+                    swal.fire("Device is not connected to Wi-Fi", `<div class="align-left m-l-30 small">Device could not connect to selected Wi-Fi.<br>
+Please check<br>
+- Your Wi-Fi password is correct.<br>
+- Your Wi-Fi router is on and is working properly.<br>
+- Your device is no far more than 3 meters from the router.<br>
+- Nothing is blocked the Wi-Fi waves.</div>`, "warning", {closeOnClickOutside: true});
+                    $('#wifistatus').prop('disabled', false);
+                    $('#wifistatus').text('Check Wi-Fi');
+                },6000);
+            },35000);
+
+            var u = 'http://192.168.100.100/p2?user='+user+'&pass='+pass;
+            w1 = window.open(u, 'w1', 'toolbar=no,titlebar=no,status=no,menubar=no,scrollbars=no,resizable=no,left=200, top=200,width=200px,height=200px,visible=none, alwaysLowered=on,close=no');
+        }
+
+    }
+
+</script>
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+    <div class="card" style="min-height: 80vh">
+        <div class="header">
+            <div class="m-l--40*">
+            <i class="icon2 icon-newdevice" style="vertical-align: top"></i>
+            &nbsp;&nbsp;<span class="ia-bigger-title col-red">Change Wi-Fi Wizard</span>
+            </div>
+
+        </div>
+
+        <div class="body step step1">
+            <div class="input-group input-group-lg">
+                <span class="ia-big-title col-red">1. Turn on the device</span>
+                <br>
+                <!--<span class="col-grey">Please turn on the device</span>-->
+                <br><br>
+
+                <blockquote>
+                    At first, Please be sure password of WiFi modem is changed before and the device could not be connected to it anymore. then turn on the device and let the device tries to connect to WiFi.
+                </blockquote>
+            </div>
+        </div>
+
+        <div class="body collapse step step2">
+            <span class="ia-big-title col-red">2. Change your Wi-Fi</span>
+            <br>
+            <span class="col-grey">Go to the Wi-Fi setting on your mobile/laptop and change Wi-Fi network to <b sslevelX="DevWi-Fi" ssbind="text:devicetemps[devices[(new URLSearchParams(localStorage.getItem('sspage').split('?')[1])).get('deviceIndex')].DeviceType].title.replace(' ','_') || '???'">"Wi-Fi-Device-Namex"</b>.</span>
+            <br><br>
+            <blockquote class="">Make sure your mobile/laptop is connected to Wi-Fi network named <b sslevelX="DevWi-Fi" ssbind="text:devicetemps[devices[(new URLSearchParams(localStorage.getItem('sspage').split('?')[1])).get('deviceIndex')].DeviceType].title.replace(' ','_') || '???'">"Wi-Fi-Device-Namex"</b>. Then, click on the Next button.</blockquote>
+
+            <div class="body text-center">
+                <img src="images/wifiandroid.gif" class="img-responsive visible-xs" style="max-height: 70vh">
+                <img src="images/wifidesktop.gif" class="img-responsive hidden-xs" style="max-height: 30vh">
+            </div>
+        </div>
+
+        <div class="body collapse step step3">
+
+                <span class="ia-big-title col-red">3. Set your home Wi-Fi</span>
+                <br>
+                <span class="col-grey">Choose your home Wi-Fi from the list below.</span>
+                <br><br>
+
+                <div>
+                    <label for="wifilist">Available Wi-Fi List:</label>
+                    <input type="checkbox" class="chk-col-red filled-in" onclick="" id="manuallywifi" onchange="if(!this.checked){$('#manuallywifidiv').hide();$('#listwifidiv').show()}else{$('#manuallywifidiv').show();$('#listwifidiv').hide()}"><label for="manuallywifi">Manually</label>
+                    &nbsp;
+                    <div class="collapse" id="manuallywifidiv">
+                        <input class="form-control" placeholder="Wi-Fi SSID" id="wifissid">
+                    </div>
+                    <div class="align-right" id="listwifidiv">
+                        <button class="btn btn-link ia-btn-small ia-small-btn" onclick="c1token()"><span class="mdi mdi-refresh"></span> Rescan networks</button>
+
+                        <select id="wifilist" size="6" class="form-control">
+                            <!--<option>Network1</option><option>Network1</option>-->
+                        </select>
+                    </div>
+                    <br>
+                    <label for="wifipass">Wi-Fi Password: <button class="btn btn-link ia-btn-small ia-small-btn"><span class="col-grey font-20 mdi mdi-eye-outline" aria-hidden="true" id="wifipasseye" onclick="passeye()"></span></button></label>
+                    <input id="wifipass" type="password" class="form-control" placeholder="Password of Wi-Fi" autocomplete="wifi-password">
+
+                    <br>
+                    <button class="btn btn-primary-ia ia-big-title" onclick="c2()" id="wifistatus">Connect</button>
+                    <br><br>
+                    <span id="wifistatustext">Device not detected yet.</span>
+                    <input type="hidden" class="btn-link disabled collapse devicecode1 "
+                           id="devicecode"
+                           size="17"
+                           required
+                           maxlength="17"
+                           minlength="17"
+                           pattern="^([0-9A-F]{2}[:-]){5}([0-9A-F]{2})$"
+                           >
+                </div>
+        </div>
+
+        <div class="body collapse step step4">
+
+            <span class="ia-big-title col-red">4. Congratulation</span>
+            <br>
+            <!--<span class="col-grey">How should your IoT device access the Internet?</span>-->
+            <br><br>
+            <h3>Wi-Fi setting in the device changed successfully.</h3>
+        </div>
+
+        <div class="foot text-right">
+            <button class="btn btn-link ia-big-title col-red bg-white" id="cancelbtn"
+                    onclick="sspageUnlock()"
+                    sspage="../customer/views/iadevice.customer.list.view.html" sspage-load-after="localStorage.removeItem('NewDeviceType');localStorage.removeItem('NewMacAddress');">
+                Cancel
+            </button>
+            <button class="btn btn-primary-ia ia-big-title" onclick="preStep()" id="backbtn"> Back  </button>
+            <button class="btn btn-primary-ia ia-big-title" onclick="nextStep()" id="nextbtn"> Next </button>
+        </div>
+    </div>
+</div>
+<!--
+<script>
+    $(devicecode).inputmask('##:##:##:##:##:##', { placeholder: '__:__:__:__:__:__' })
+</script>-->

@@ -1,0 +1,266 @@
+<!--uses ssbind and sspage tags-->
+<style>
+    span.onoffline.online {
+        background-color: limegreen !important;
+    }
+
+    span.onoffline {
+        display: inline-block;
+        width: 14px;
+        height: 14px;
+        border-radius: 50%;
+
+    }
+
+    span.onoffline.SENSOR {
+        background-color: transparent;
+    }
+
+    span.onoffline.ACTUATOR {
+        background-color: red;
+    }
+</style>
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"
+     sspage-load-json="/iahome/[sspagesearch.id]" sspage-load-json-var="home"
+     sspage-load-after="ssbindRenderThis('home')">
+    <div class="card" style="min-height: 80vh">
+        <div class="header">
+            <h2>
+                <i class="material-icons">home</i>
+                <span ssbind="text:home.Name"></span>
+            </h2>
+            <!--<ul class="header-dropdown m-r&#45;&#45;5">
+                <li class="dropdown">
+                    <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                       aria-haspopup="true" aria-expanded="false">
+                        <i class="material-icons">more_vert</i>
+                    </a>
+                    <ul class="dropdown-menu pull-right">
+                        <li><a href="javascript:void(0);" sspage="views/iahome.view.html?id=ssObject[_id]"
+                               class=" waves-effect waves-block"><i class="material-icons">edit</i> Edit</a></li>
+                        <li><a href="javascript:void(0);" class=" waves-effect waves-block">Another action</a></li>
+                        <li><a href="javascript:void(0);" class=" waves-effect waves-block">Something else here</a></li>
+                    </ul>
+                </li>
+            </ul>-->
+        </div>
+        <div class="body">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="">
+                        <!-- Nav tabs -->
+                        <ul class="nav nav-tabs tab-col-red" role="tablist">
+                            <li role="presentation" class="">
+                                <a href="#main_with_icon_title" data-toggle="tab" aria-expanded="false">
+                                    <i class="material-icons">home</i> HOME INFO
+                                </a>
+                            </li>
+                            <li role="presentation" class="active">
+                                <a href="#home_with_icon_title" data-toggle="tab" aria-expanded="true">
+                                    <i class="material-icons">cast</i> DEVICES
+                                </a>
+                            </li>
+                            <li role="presentation" class="disabled">
+                                <a hrefXX="#profile_with_icon_title" data-toggleXX="tab" aria-expanded="false">
+                                    <i class="material-icons">face</i> OWNER
+                                </a>
+                            </li>
+                            <li role="presentation" class="disabled">
+                                <a hrefXX="#settings_with_icon_title" data-toggleXX="tab" aria-expanded="false">
+                                    <i class="material-icons">developer_board</i> SERVICES
+                                </a>
+                            </li>
+                            <!--<li role="presentation" class="disabled">
+                                <a href="#messages_with_icon_title" data-toggle="tab" aria-expanded="false">
+                                    <i class="material-icons">email</i> MESSAGES
+                                </a>
+                            </li>-->
+                            <li role="presentation" class="disabled">
+                                <a hrefXX="#settings_with_icon_title" data-toggleXX="tab" aria-expanded="false">
+                                    <i class="material-icons">settings</i> SETTINGS
+                                </a>
+                            </li>
+                        </ul>
+
+                        <!-- Tab panes -->
+                        <div class="tab-content">
+                            <div role="tabpanel" class="tab-pane fade" id="main_with_icon_title">
+                                <!--<small ssbind="text:home._id ; class: home.IsActive ? 'badge bg-light-blue' : 'badge bg-blue-grey'"></small>-->
+                                <div class="row">
+                                    <div class="col-md-8">
+                                        <dl>
+                                            <dt>Name:</dt>
+                                            <dd ssbind="text:home.Name || 'No Name'"></dd>
+
+                                            <!--<dt>Address:</dt>
+                                            <dd>
+                                                <div class="row">
+                                                    <div class="col-md-4 col-xs-4" ssbind="text:home.Address.Country">
+                                                        jjjj
+                                                    </div>
+                                                    <div class="col-md-4 col-xs-4" ssbind="text:home.Address.City">
+                                                        jjjj
+                                                    </div>
+                                                    <div class="col-md-4 col-xs-4" ssbind="text:home.Address.ZipCode">
+                                                        jjjj
+                                                    </div>
+                                                </div>
+                                            </dd>-->
+
+                                            <!--<dt>GPS:</dt>
+                                            <dd ssbind="text:home.GPS"></dd>-->
+
+                                            <dt>Create Time:</dt>
+                                            <dd ssbind="text:home.createdAt"></dd>
+
+                                            <dt>Current Status:</dt>
+                                            <dd>
+                                                <div class="switch">
+                                                    <label>NOT ACTIVE<input type="checkbox" ssbind="checked:home.IsActive" disabled><span
+                                                            class="lever switch-col-light-blue"></span>ACTIVE</label>
+                                                </div>
+                                            </dd>
+                                        </dl>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="body">
+                                            <div class="row">
+                                                <div class="col-md-4 col-xs-4">
+                                                    <div class="text-center col-amber">
+                                                        <i class="material-icons">cast_connected</i><br>
+                                                        <span class="text">Devices</span>
+                                                        <h3 class="number count-to" data-from="0" ssbind="text:home._devices.length" data-speed="1000"
+                                                            data-fresh-interval="20"></h3>
+                                                    </div>
+                                                </div>
+
+                                                <!--<div class="col-md-4 col-xs-4">
+                                                    <div class="text-center col-green">
+                                                        <i class="material-icons">message</i><br>
+                                                        <span class="text">MQTT</span>
+                                                        <h3 class="number count-to" data-from="0" data-to="125" data-speed="1000"
+                                                            data-fresh-interval="20">0</h3>
+                                                    </div>
+                                                </div>-->
+
+                                                <div class="col-md-4 col-xs-4">
+                                                    <div class="text-center col-red">
+                                                        <i class="material-icons">developer_board</i><br>
+                                                        <span class="text">Services</span>
+                                                        <h3 class="number count-to" data-from="0" ssbind="text:home._installedServices.length" data-speed="1000"
+                                                            data-fresh-interval="20">0</h3>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                            </div>
+                            <div role="tabpanel" class="tab-pane fade active in" id="home_with_icon_title">
+                                <header>Home Devices</header>
+                                <div class="body">
+                                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12"
+                                         ssfor="homedevices"
+                                         sspage-load-json="/iadevice/home/[sspagesearch.id]"
+                                         sspage-load-json-var="homedevices"
+                                         sspage-load-after="ssbindRenderThis('homedevices')">
+
+                                        <div class="card device">
+                                            <!--ssbind="class: homedevices[ssIndex].IsActive ? 'body '+devicetemps[homedevices[ssIndex].DeviceType || 'UNKNOWN'].color : 'body bg-grey'"-->
+                                            <div class="body">
+                                                <div class="info-box-2XX hover-expand-effectXX" >
+                                                    <span ssbind="class: (homedevices[ssIndex]._online ? 'onoffline online ' : 'onoffline offline ') + devicetemps[homedevices[ssIndex].DeviceType].type"></span>
+                                                    <div class="icon">
+                                                        <!--<i ssbind="class:devicetemps[homedevices[ssIndex].DeviceType || 'UNKNOWN'].icon" ></i>-->
+                                                        <img ssbind="src:devicetemps[homedevices[ssIndex].DeviceType].icon">
+                                                    </div>
+
+
+                                                </div>
+                                                <!--<div class="sparkline" data-type="line" data-spot-radius="4" data-highlight-spot-color="rgb(233, 30, 99)" data-highlight-line-color="#fff" data-min-spot-color="rgb(255,255,255)" data-max-spot-color="rgb(255,255,255)" data-spot-color="rgb(255,255,255)" data-offset="90" data-width="100%" data-height="92px" data-line-width="2" data-line-color="rgba(255,255,255,0.7)" data-fill-color="rgba(0, 188, 212, 0)">
+                                                    12,10,9,6,5,6,10,5,7,5,12,13,7,12,11
+                                                </div>-->
+                                                <ul class="dashboard-stat-list">
+                                                    <li>
+                                                        Title:
+                                                        <span class="pull-right"><b ssbind="text:homedevices[ssIndex].Name">...</b> <small></small></span>
+                                                    </li>
+                                                    <li>
+                                                        MAC:
+                                                        <span class="pull-right"><b ssbind="text:homedevices[ssIndex].MAC">...</b> <small></small></span>
+                                                    </li>
+                                                    <li>
+                                                        Add device at:
+                                                        <span class="pull-right"><b ssbind="text:moment(homedevices[ssIndex].createdAt).format('YYYY-MMM-DD dd HH:mm')">...</b> <!--<b class="mdi mdi-timer"></b>--></span>
+                                                    </li>
+                                                    <li>
+                                                        <nobr>Last State:</nobr>
+                                                        <span class="pull-right font-bold" ssbind="text:homedevices[ssIndex]._lastState ? homedevices[ssIndex]._lastState.state || homedevices[ssIndex]._lastState.event || homedevices[ssIndex]._lastState.command : ''"></span>
+                                                    </li>
+                                                    <li>
+                                                        <nobr>Disconnect Time:</nobr>
+                                                        <span class="pull-right font-bold" ssbind="text:homedevices[ssIndex]._lastState ? moment(homedevices[ssIndex]._lastState.CloseTime).format('YYYY-MMM-DD dd HH:mm') : ''"></span>
+                                                    </li>
+                                                    <li>
+                                                        <nobr>Connect Time:</nobr>
+                                                        <span class="pull-right font-bold" ssbind="text:homedevices[ssIndex]._lastState ? moment(homedevices[ssIndex]._lastState.ConnectionTime).format('YYYY-MMM-DD dd HH:mm') : ''"></span>
+                                                    </li>
+                                                    <!--<li>
+                                                        MQTT Messages
+                                                        <span class="pull-right"><b>26 582</b> <b class="mdi mdi-access-point"></b></span>
+                                                    </li>
+                                                    <li>
+                                                        Battery
+                                                        <span class="pull-right"><b>40%</b> <b class="mdi mdi-battery-40"></b></span>
+                                                    </li>
+                                                    <li>
+                                                        Status
+                                                        <span class="pull-right"><b ssbind="text:homedevices[ssIndex].IsActive?'ACTIVE':'NON ACTIVE'"></b> </span>
+                                                    </li>-->
+                                                </ul>
+                                                <!--<button class="btn btn-danger" onclick="deletedevice(homedevices[ssIndex]._id)">Delete</button>-->
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div role="tabpanel" class="tab-pane fade" id="profile_with_icon_title">
+                                <b>Profile Content</b>
+                                <p>
+                                    Lorem ipsum dolor sit amet, ut duo atqui exerci dicunt, ius impedit mediocritatem an. Pri ut tation electram moderatius.
+                                    Per te suavitate democritum. Duis nemore probatus ne quo, ad liber essent aliquid
+                                    pro. Et eos nusquam accumsan, vide mentitum fabellas ne est, eu munere gubergren
+                                    sadipscing mel.
+                                </p>
+                            </div>
+                            <div role="tabpanel" class="tab-pane fade" id="messages_with_icon_title">
+                                <b>Message Content</b>
+                                <p>
+                                    Lorem ipsum dolor sit amet, ut duo atqui exerci dicunt, ius impedit mediocritatem an. Pri ut tation electram moderatius.
+                                    Per te suavitate democritum. Duis nemore probatus ne quo, ad liber essent aliquid
+                                    pro. Et eos nusquam accumsan, vide mentitum fabellas ne est, eu munere gubergren
+                                    sadipscing mel.
+                                </p>
+                            </div>
+                            <div role="tabpanel" class="tab-pane fade" id="settings_with_icon_title">
+                                <b>Settings Content</b>
+                                <p>
+                                    Lorem ipsum dolor sit amet, ut duo atqui exerci dicunt, ius impedit mediocritatem an. Pri ut tation electram moderatius.
+                                    Per te suavitate democritum. Duis nemore probatus ne quo, ad liber essent aliquid
+                                    pro. Et eos nusquam accumsan, vide mentitum fabellas ne est, eu munere gubergren
+                                    sadipscing mel.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+
+    </div>
+</div>

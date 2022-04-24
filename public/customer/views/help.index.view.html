@@ -1,0 +1,168 @@
+<style type="text/css">
+    .bg-silver-1 {
+        background-color: #ebebeb;
+        height: 10pc;
+        padding-top: 1pc;
+    }
+
+    .bg-silver-1 img {
+        height: 60%;
+    }
+
+    .topbar > div {
+        padding-right: 5px;
+        padding-left: 5px;
+
+    }
+
+    .topbar .btn-link:hover {
+        cursor: pointer;
+    }
+
+    .questionlist {
+        border-top: 1px solid grey;
+    }
+    .questionlist a {
+        margin-top: .3pc;
+        margin-bottom: .3pc;
+        display: block;
+        color: #4c4c4c;
+
+    }
+</style>
+<div class="">
+    <section class="card"><!--centerpan col-lg-9 col-md-10 col-sm-10 col-xs-9-->
+        <div class="header">
+            <span class="ia-head">
+                <!--<span class="icon2 device-icon"></span>-->
+                <span class="">Help & Support</span>
+            </span>
+            <span class="header-dropdown " style="top: 20px">
+
+                    <i class="mdi mdi-magnify m-r--25" style="font-size: 17px"></i>
+                    <input id="filter_name" placeholder="Search" type="search"
+                           style="background-color: transparent; text-indent: 1.6pc; border: 1px solid silver">
+        </span>
+        </div>
+        <div class="body">
+            <div class="row topbar">
+                <div class="col-sm-4 col-xs-4">
+                    <div class="bg-silver-1 text-center btn-link">
+                        <img src="images/YouTube.png">
+                        <br>
+                        <b class="ia-medium-title"><span class="hidden-xs">Watch </span>Tutorials</b>
+                        <!--<span class="hidden-xs">
+                        <br>
+                        on YouTube
+                        </span>-->
+                    </div>
+                </div>
+                <div class="col-sm-4 col-xs-4">
+                    <div class="bg-silver-1 text-center btn-link">
+                        <a href="https://youtube.com/channel/UCTwvapCsk8u3iLa5-yze8lQ">
+                        <img src="images/Take a Tour.png">
+                        <br>
+                        <b class="ia-medium-title">Take a Tour</b>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-sm-4 col-xs-4">
+                    <div class="bg-silver-1 text-center btn-link"
+                         sspage="/customer/views/ticket.index.view.html"
+                         sspage-back="/customer/views/help.index.view.html">
+                        <img src="images/Ticket.png">
+                        <br>
+                        <b class="ia-medium-title"><span class="hidden-xs">Submit a </span>Ticket</b>
+                    </div>
+                </div>
+            </div>
+            <br><br>
+            <div class="row questions" id="question-div">
+                <!--<div class="col-sm-6">
+                    <div class="head ia-medium-title col-red">Account</div>
+                    <div class="questionlist">
+                        <a href="../ia-panel-doc/index.htm#t=Devices%2FDevice_Cards.htm" target="_ia_help">Create a new account</a>
+                        <a href="../ia-panel-doc/index.htm#t=IABT_Token%2FWallet.htm" target="_ia_help">Edit existing account</a>
+                        <a hrefXX="#" sspageXX="#">Change home information</a>
+                    </div>
+                </div>
+
+                <div class="col-sm-6">
+                    <div class="head ia-medium-title col-red">Devices</div>
+                    <div class="questionlist">
+                        <a hrefXX="#" sspageXX="#">Types of devices</a>
+                        <a hrefXX="#" sspageXX="#">Add new device to BKC Control Panel</a>
+                        <a hrefXX="#" sspageXX="#">Device card description</a>
+                        <a hrefXX="#" sspageXX="#">States of devices</a>
+                        <a hrefXX="#" sspageXX="#">Remove a device from BKC Control Panel</a>
+                    </div>
+                </div>
+
+                <div class="col-sm-6">
+                    <div class="head ia-medium-title col-red">Services</div>
+                    <div class="questionlist">
+                        <a hrefXX="#" sspageXX="#">What is Service Market</a>
+                        <a hrefXX="#" sspageXX="#">Install a service from Service Market</a>
+                        <a hrefXX="#" sspageXX="#">List of installed services</a>
+                        <a hrefXX="#" sspageXX="#">How to create your own Service</a>
+                        <a hrefXX="#" sspageXX="#">How to disable or enable a service</a>
+                        <a hrefXX="#" sspageXX="#">Remove a service</a>
+                    </div>
+                </div>
+
+                <div class="col-sm-6">
+                    <div class="head ia-medium-title col-red">Activities</div>
+                    <div class="questionlist">
+                        <a hrefXX="#" sspageXX="#">Cases of activities</a>
+                        <a hrefXX="#" sspageXX="#">Devices activities</a>
+                        <a hrefXX="#" sspageXX="#">User activities</a>
+                        <a hrefXX="#" sspageXX="#">Services activities</a>
+                    </div>
+                </div>-->
+
+                <div class="col-sm-6" ssfor="helpitems" sslevel="help_level_1" ssnextlevelxx="help_level_2">
+                    <div class="head ia-medium-title col-red">ssIndex</div>
+                    <div class="questionlist">
+                        <a ssfor="helpitems['ssIndex'] with ss2Index" sslevel="help_level_2" ssbind="text:helpitems['ssIndex'][ss2Index][0];href:helpitems['ssIndex'][ss2Index][1]" target="_ia_help">----</a>
+                    </div>
+                </div>
+
+            </div>
+
+            <!--<div >
+                <iframe sandboxx="allow-scripts" src="../ia-panel-doc/index.htm" style="width: 100%; height: 100%;min-height: 400px"></iframe>
+            </div>-->
+            <div>
+                <br>
+                <br>
+                <br>
+                <a class="ia-medium-title col-black">Troubleshooting</a>
+                <br>
+                <a class="ia-medium-title col-black">Index</a>
+            </div>
+        </div>
+    </section>
+</div>
+<script>
+    var helpurl = "../../ia-panel-doc/";
+    $.get(helpurl+"sitemap.xml", function (xml) {
+//        window.xxx = xml;
+        var jx = {};
+        for(var x of xml.getElementsByTagName('url')){
+            var t = x.getElementsByTagName('loc')[0].textContent;
+            var group = t.split('/')[0].replaceAll('_',' ');
+            if(!jx[group])
+                jx[group] = [];
+
+            var link = t.split('/')[1];
+            if(link) {
+                link = link.replaceAll('_', ' ').replaceAll('.htm','');
+                jx[group].push([link, helpurl + t]);
+            }
+        }
+        window.helpitems = jx;
+        ssbindRenderLevel('help_level_1', true);
+        ssbindRenderLevel('help_level_2', true);
+//        $("#question-div").text(JSON.stringify(jx))
+    })
+</script>

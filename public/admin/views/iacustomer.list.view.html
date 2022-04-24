@@ -1,0 +1,117 @@
+<!--uses ssbind and sspage tags-->
+<div class="container-fluid">
+    <div class="block-header">
+        <h2>Customers</h2>
+    </div>
+    <div class="row">
+
+        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12"
+             ssfor="customers"
+             sspage-load-json="/iacustomer"
+             sspage-load-json-var="customers"
+             sspage-load-after="ssbindRenderThis('customers')">
+            <div class="card">
+                <div class="header">
+                    <h2>
+                        <i class="material-icons">person</i>
+                        <span ssbind="text:customers[ssIndex].FirstName+' '+customers[ssIndex].LastName || 'No Name'"></span>
+                    </h2>
+                    <!--<ul class="header-dropdown m-r&#45;&#45;5">
+                        <li class="dropdown">
+                            <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                <i class="material-icons">more_vert</i>
+                            </a>
+                            <ul class="dropdown-menu pull-right">
+                                <li><a href="javascript:void(0);" class=" waves-effect waves-block"><i class="material-icons">cast_connected</i> Provided Devices</a></li>
+                                <li><a href="javascript:void(0);" class=" waves-effect waves-block"><i class="material-icons">cast</i> Provided Services</a></li>
+                                <li><a href="javascript:void(0);" class=" waves-effect waves-block"><i class="material-icons">edit</i> Edit Information</a></li>
+                            </ul>
+                        </li>
+                    </ul>-->
+                </div>
+                <div class="body">
+                    <dl>
+                        <dt>Name:</dt>
+                        <dd ssbind="text:customers[ssIndex].Name || ''"></dd>
+
+                        <dt>Owner:</dt>
+                        <dd ssbind="text:customers[ssIndex].Owner || ''"></dd>
+
+                        <dt>Create Time:</dt>
+                        <dd ssbind="text:customers[ssIndex].createdAt"></dd>
+
+                        <dt>Address:</dt>
+                        <dd>
+                            <div class="row">
+                                <div class="col-md-4 col-xs-4" ssbind="text:customers[ssIndex].Country || ''">
+                                    jjjj
+                                </div>
+                                <div class="col-md-4 col-xs-4" ssbind="text:customers[ssIndex].Province || ''">
+                                    jjjj
+                                </div>
+                                <div class="col-md-4 col-xs-4" ssbind="text:customers[ssIndex].City || ''">
+                                    jjjj
+                                </div>
+                                <div class="col-md-4 col-xs-4" ssbind="text:customers[ssIndex].Street || ''">
+                                    jjjj
+                                </div>
+                                <div class="col-md-4 col-xs-4" ssbind="text:customers[ssIndex].ZipCode || ''">
+                                    jjjj
+                                </div>
+                            </div>
+                        </dd>
+
+
+
+                        <dt>Current Status:</dt>
+                        <dd>
+                            <div class="switch">
+                                <label>NOT ACTIVE<input type="checkbox" ssbind="checked:customers[ssIndex].IsActive;customer:customers[ssIndex]._id" onclick="changeActive($(this).attr('customer') , this.checked)"  ><span class="lever switch-col-light-blue"></span>ACTIVE</label>
+                            </div>
+                        </dd>
+                    </dl>
+                </div>
+                <!--<div class="body">
+                    <div class="row">
+                        <div class="col-md-4 col-xs-4">
+                            <div class="text-center col-blue-grey">
+                                <i class="material-icons">cast</i><br>
+                                <span class="text">Provided Devices</span>
+                                <h3 class="number count-to" data-from="0" data-to="125" data-speed="1000" data-fresh-interval="20">0</h3>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 col-xs-4">
+                            <div class="text-center col-blue">
+                                    <i class="material-icons">cast_connected</i><br>
+                                    <span class="text">Active Devices</span>
+                                    <h3 class="number count-to" data-from="0" data-to="125" data-speed="1000" data-fresh-interval="20">0</h3>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 col-xs-4">
+                            <div class="text-center col-red">
+                                <i class="material-icons">developer_board</i><br>
+                                <span class="text">Provided Services</span>
+                                <h3 class="number count-to" data-from="0" data-to="125" data-speed="1000" data-fresh-interval="20">0</h3>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>-->
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script>
+    function changeActive(customerId, isActive){
+        $.post('/iacustomer/activation', {customerId, isActive},function (rep) {
+            swal.fire("Success", "Status changed successfully", "success");
+        }).fail(function (response) {
+            swal.fire("Error", response.message, "error");
+        });
+    }
+</script>

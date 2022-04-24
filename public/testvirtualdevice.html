@@ -1,0 +1,478 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <title>Virtual Device</title>
+    <script src="javascripts/mqtt.min.js"></script>
+    <script src="share/js/which.server.js"></script>
+    <script src="share/js/configs.js"></script>
+    <script>
+
+        var commandcallback = null;
+
+        var interval_1;
+
+        console.log = function (t, t1, t2) {
+
+            if (t1)
+                t = t + '<br>' + t1;
+            if (t2)
+                t = t + '<br>' + t2;
+            consolex.innerHTML = t + '<br>'+consolex.innerHTML;
+        }
+
+        var mac = localStorage.getItem("MyMAC");
+        if (!mac) {
+            mac = genmac();// window.prompt('Mac address?', genmac());
+            localStorage.setItem("MyMAC", mac);
+        }
+        var hashMac = btoa(mac);
+
+        var password = null;
+        var deviceId = null;
+
+        //        var brokerUrl = from configs.js 'mqtt://localhost:3001';
+
+        var client = {};
+
+
+        function connect() {
+            var needpassword = true;
+            var tu;
+            password = localStorage.getItem("MyPassword");
+            deviceId = localStorage.getItem("MyDeviceId");
+
+            if (password) {
+                //if device get its own password before
+                console.log('Good I have my own Password');
+                needpassword = false;
+                tu = {
+                    clientId: deviceId,
+                    username: deviceId,
+                    password: password,
+                    clean: true
+//                    resubscribe: true
+                };
+            } else {
+                //initial get password
+                needpassword = true;
+                console.log('I Need Password');
+                tu = {
+                    clientId: hashMac,
+                    username: hashMac,
+                    password: 'I_HAVE_NO_PASSWORD',
+                    clean: true,//false
+//                    resubscribe: true
+                };
+            }
+
+            client = mqtt.connect(brokerUrl, tu);
+
+            client.on('connect', function () {
+                console.log('Connected!');
+                if (needpassword) {
+                    subscribe(hashMac);
+                } else {
+                    subscribe(deviceId);
+                }
+//                var x = {state: 'PAUSED'}; x = JSON.stringify(x); pub( x);
+            });
+
+            client.on('disconnected', function () {
+                console.log('Disconnected');
+            });
+
+            client.on('error', function (err) {
+                console.log('Errored', err);
+                if(err.code === 5) reset();
+            });
+
+            client.on('close', function () {
+                console.log('Closed');
+                client.end();
+                window.location.reload();
+            });
+
+            client.on('message', function (topic, message, packet) {
+                var newmessage = message.toString();
+                newmessage = JSON.parse(newmessage);
+                console.log('on message', topic, message, packet);
+
+                if (needpassword && newmessage.hasOwnProperty('YOUR_DEVICEID')) {
+                    var mydeviceid = newmessage.YOUR_DEVICEID;
+                    var mypassword = newmessage.YOUR_PASSWORD;
+                    console.log('hoorai my password is ', mypassword);
+                    console.log('and my deviceid is ', mydeviceid);
+                    localStorage.setItem("MyPassword", mypassword);
+                    localStorage.setItem("MyDeviceId", mydeviceid);
+                    console.log('I need restart');
+
+                    client.end();
+                    //connect();
+                }
+
+                if (newmessage.hasOwnProperty('RESET')) {
+                    reset();
+                }
+
+                if (newmessage.hasOwnProperty('FIRM_UPDATE')) {
+                    console.log('update to ', newmessage.FIRM_UPDATE);
+                    setTimeout(function (){
+                        pub(JSON.stringify({FV: newmessage.FIRM_UPDATE}))
+                    }, 1000)
+                }
+
+                //check commands
+//                newmessage = JSON.parse(newmessage);
+                if(newmessage.command) {
+                    if(commandcallback){
+                        commandcallback(newmessage);
+                    }
+                }
+            });
+        }
+
+        function publish(topic, payload) {
+            client.publish(
+                topic,
+                payload,
+                {
+                    qos: 0//if more than 0 repeated disconnect when publish to another topic
+                },
+                function (err) {
+                    if (err) {
+                        console.error('publish:', err);
+                    } else {
+                        console.log('published:', topic, payload)
+                    }
+                }
+            );
+        }
+
+        function pub(x) {
+            publish(localStorage.getItem('MyDeviceId'),x);
+        }
+
+        function subscribe(topic) {
+            client.subscribe(topic, function (err) {
+                if (err) {
+                    console.error('subscribe:', err);
+                } else {
+                    console.log('subscribed:', topic)
+                }
+            })
+        }
+
+        function reset() {
+            if(!confirm('Are you sure for reset this device?')) return;
+            localStorage.removeItem("MyPassword");
+            localStorage.removeItem("MyDeviceId");
+            localStorage.removeItem("MyMAC");
+            console.log("Device resetttted");
+            window.location.reload()
+        }
+
+        function genmac() {
+            return "XX:XX:XX:XX:XX:XX".replace(/X/g, function () {
+                return "0123456789ABCDEF".charAt(Math.floor(Math.random() * 16))
+            });
+        }
+
+        function copyme() {
+            /* Get the text field */
+            var copyText = document.getElementById("macx");
+
+            /* Select the text field */
+            copyText.select();
+
+            /* Copy the text inside the text field */
+            document.execCommand("copy");
+
+            /* Alert the copied text */
+        }
+    </script>
+    <style>
+        button {
+            background-color: burlywood;
+            /*border: 1px solid;*/
+            /*border-radius: 10px;*/
+            margin: 3px;
+            padding: 6px;
+            width: 8pc;
+            height: 3pc;
+        }
+        .bg-yellow {
+            background-color: yellow;
+            color: black;
+        }
+
+        .bg-black {
+            background-color: black;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+<h1 align="center">BKC VIRTUAL DEVICE</h1>
+<div>
+    <button onclick="consolex.innerText= '';">Clear<br>Screen</button>&nbsp;
+    <button onclick="reset()">Device Reset (NEW MAC)</button>
+</div>
+<div>
+    <!--<input id="topicx" placeholder="topic"> <input id="payloadx" placeholder="payload">-->
+    <!--<button onclick="publish(topicx.value, payloadx.value)">Publish</button>-->
+    <!--&nbsp;-->
+    <!--&nbsp;-->
+    <!--&nbsp;-->
+    <!--<button onclick="interval_1=setInterval(function() {
+        if(typeof battery == 'undefined') battery = 100;
+        battery -= 5;
+        if(battery <= 0) battery = 100;
+        var x = Math.floor(Math.random() * 100);
+        var textArray = ['10 MIN', '1 DAY', 'NoOne', 'Detected'];
+        var state = Math.floor(Math.random()*textArray.length);
+        x = {state: textArray[state], battery: battery};
+        x = JSON.stringify(x);
+      pub( x)
+    },2000)">Publish<br><b>Motion Detector</b>
+    </button>-->
+    <button onclick=pub('{"state":"Detected","battery":"80"}')><b>Motion Detector</b> Send Detect
+    </button>
+
+    &nbsp;
+    <button onclick="interval_1=setInterval(function() {
+        if(typeof battery == 'undefined') battery = 100;
+        battery -= 5;
+        if(battery <= 0) battery = 100;
+        var x = Math.floor(Math.random() * 100);
+        var y = Math.floor(Math.random() * 100);
+        x = {temperature: x, humidity:y, battery: battery};
+        x = JSON.stringify(x);
+      pub( x)
+    },5000)">Publish <b>temp & hum</b>
+    </button>
+
+    &nbsp;
+    <button onclick="interval_1=setInterval(function() {
+        if(typeof battery == 'undefined') battery = 100;
+        battery -= 5;
+        if(battery <= 0) battery = 100;
+        var textArray = ['CLOSED', 'OPEN', 'LOCKED'];
+        var state = Math.floor(Math.random()*textArray.length);
+        var x = Math.floor(Math.random() * 100);
+        x = {state: textArray[state], battery: battery};
+        x = JSON.stringify(x);
+      pub( x)
+    },2000)">Publish<br><b>Door Sensor</b>
+    </button>
+
+    <button onclick=pub('{"state":"pressed"}')><b>IA Shortcut</b> Send Pressed
+    </button>
+
+
+    &nbsp;
+    <button id="light_switch" onclick="
+    commandcallback = function(mes) {
+        if(mes.command=='TURN_ON'){
+            light_switch.classList.add('bg-yellow')
+            light_switch.classList.remove('bg-black');
+            var x = {state: 'ON'};
+            x = JSON.stringify(x);
+            pub( x);
+        }else{
+            light_switch.classList.add('bg-black')
+            light_switch.classList.remove('bg-yellow');
+            var x = {state: 'OFF'};
+            x = JSON.stringify(x);
+            pub( x);
+        }
+    }
+    ">
+        <b>Light Switch</b>
+    </button>
+
+    &nbsp;
+    <div id="power_plug">
+    <button  onclick="
+    commandcallback = function(mes) {
+        if(mes.command=='TURN_ON'){
+            power_plug.classList.add('bg-yellow')
+            power_plug.classList.remove('bg-black');
+            var x = {state: 'ON'};
+            x = JSON.stringify(x);
+            pub( x);
+        }
+        if(mes.command=='TURN_OFF'){
+            power_plug.classList.add('bg-black')
+            power_plug.classList.remove('bg-yellow');
+            var x = {state: 'OFF'};
+            x = JSON.stringify(x);
+            pub( x);
+        }
+        if(mes.command=='SET_OPTION'){
+            power_plug.classList.add('bg-black')
+            power_plug.classList.remove('bg-yellow');
+            var x = mes;
+            delete x.command;
+            x = JSON.stringify(x);
+            pub( x);
+        }
+    }
+    "><b>Power Plug</b>
+    </button>
+        <button id="turnon" onclick="turnon.disabled=true;turnoff.disabled=false;
+            power_plug.classList.add('bg-yellow');
+            power_plug.classList.remove('bg-black');
+            var x = {state: 'ON'};
+            x = JSON.stringify(x);
+            pub( x);">Turn On</button>
+        <button id="turnoff" onclick="turnon.disabled=false;turnoff.disabled=true;
+            power_plug.classList.add('bg-black');
+            power_plug.classList.remove('bg-yellow');
+            var x = {state: 'OFF'};
+            x = JSON.stringify(x);
+            pub( x);">Turn Off</button>
+        <button onclick="
+        var newcur = 0;
+        interval_1=setInterval(function() {
+        var newcur = Math.round(Math.random() * (4 - 0.1) + 0.1);
+        var x = {current: newcur};
+        x = JSON.stringify(x);
+        pub( x);
+        /*for(var i=0 ; i<10000; i++){
+        consolex.innerText= '';
+        newcur ++;
+        var x = {current: newcur};
+        x = JSON.stringify(x);
+        pub( x);
+        }*/
+        },5000)">Priodic Send Current 5s</b>
+        </button>
+    </div>
+
+    <div id="ia_speaker">
+        <button  onclick="
+            commandcallback = function(mes) {
+                if(mes.command=='STOP'){
+                    player.src = '';
+                    var x = {state: 'IDLE'};
+                    x = JSON.stringify(x);
+                    pub( x);
+                } else if(mes.command=='PLAY'){
+                    if(player.src !== mes['file-url'])
+                        player.src = mes['file-url'];
+                    player.play();
+
+                } else if(mes.command=='PAUSE'){
+                    player.pause();
+
+                } else if(mes.command=='SILENT'){
+                    player.muted = true;
+                } else if(mes.command=='VOLUME_TO'){
+                    player.volume = mes['volume']/100;
+                } else if(mes.command=='NO-SILENT'){
+                    player.muted = false;
+                }
+            }
+            "><b>IA-SPEAKER</b>
+        </button>
+        <!--<input type="range" min="0" max="100" step="10" onchange="var x = {volume: this.value};
+            x = JSON.stringify(x);
+            pub( x);">
+        <button onclick="
+            var x = {silent: true};
+            x = JSON.stringify(x);
+            pub( x);">Silent</button>
+        <button onclick="
+            var x = {silent: false};
+            x = JSON.stringify(x);
+            pub( x);">No Silent</button>-->
+        <button onclick="
+            var x = {state: 'ERROR', error:'An Error Reason'};
+            x = JSON.stringify(x);
+            pub( x);">ERROR</button>
+        <audio controls id="player"
+               onerror="var x = {state: 'ERROR'}; x = JSON.stringify(x); pub( x);"
+               onpause="var x = {state: 'PAUSED'}; x = JSON.stringify(x); pub( x);"
+               onplay="var x = {state: 'PLAYING'}; x = JSON.stringify(x); pub( x);"
+               onended="var x = {state: 'IDLE'}; x = JSON.stringify(x); pub( x);"
+               onvolumechange="var x = {};if(this.muted){x.silent=true}else{x.silent=false} x.volume=this.volume*100; x = JSON.stringify(x);pub( x);" ></audio>
+
+
+    </div>
+
+    <div >
+        <button id="cooling_tower" onclick="
+    commandcallback = function(mes) {
+        if(mes.command=='TURN_ON'){
+            cooling_tower.classList.add('bg-yellow')
+            cooling_tower.classList.remove('bg-black');
+            var x = {state: 'ON'};
+            x = JSON.stringify(x);
+            pub( x);
+        }
+        if(mes.command=='RESET'){
+            cooling_tower.classList.add('bg-yellow')
+            cooling_tower.classList.remove('bg-black');
+            var x = {state: 'ON'};
+            x = JSON.stringify(x);
+            pub( x);
+        }
+        if(mes.command=='TURN_OFF'){
+            cooling_tower.classList.add('bg-black')
+            cooling_tower.classList.remove('bg-yellow');
+            var x = {state: 'OFF'};
+            x = JSON.stringify(x);
+            pub( x);
+        }
+        if(mes.command=='SET_OPTION'){
+            // cooling_tower.classList.add('bg-black')
+            // cooling_tower.classList.remove('bg-yellow');
+            // var x = mes;
+            // delete x.command;
+            // x = JSON.stringify(x);
+            // pub( x);
+            console.log(JSON.stringify(mes))
+        }
+    }
+    "><b>Cooling Tower</b>
+        </button>
+        <button id="turnon2" onclick="turnon2.disabled=true;turnoff2.disabled=false;
+            cooling_tower.classList.add('bg-yellow');
+            cooling_tower.classList.remove('bg-black');
+            var x = {state: 'ON'};
+            x = JSON.stringify(x);
+            pub( x);">Turn On</button>
+        <button id="turnoff2" onclick="turnon2.disabled=false;turnoff2.disabled=true;
+            cooling_tower.classList.add('bg-black');
+            cooling_tower.classList.remove('bg-yellow');
+            var x = {state: 'OFF'};
+            x = JSON.stringify(x);
+            pub( x);">Turn Off</button>
+    </div>
+
+
+    &nbsp;
+    <button onclick="clearInterval(interval_1)">Stop<br>Publish</button>
+</div>
+<div id="consolex" style="font-family: monospace;
+    color: burlywood;
+    background: black;
+    padding: 2pc;
+    font-size: 1pc;
+    border: 2pc solid;
+    border-radius: 2pc;
+"></div>
+
+<script>
+    console.log('<h1>MAC: <input style="font-size: x-large; border: none; background: transparent; color: white" id="macx" value="' + mac + '" onclick="copyme()"></h1>');
+    try {
+        connect();
+    } catch (e) {
+        localStorage.removeItem("MyPassword")
+        console.error(e)
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,191 @@
+<style>
+    .right-card .btn-group-2 label {
+        border:  1px solid grey;
+        color: grey;
+        padding: 3px !important;
+        border: 1px solid silver !important;
+        box-shadow: none !important;
+        margin: 1px !important;
+    }
+    .right-card .btn-group-2 label.active {
+        color: white;
+        background-color: #d42021;
+        border: 1px solid #d42021 !important;
+    }
+
+    .right-card .btn-group-2 label {
+        width: 31%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .right-card .btn-group-2 {
+        text-align: left;
+    }
+
+    .right-card .btn-group-2  label.btn {
+        height: 1.5pc;
+    }
+
+    @media (max-width: 1200px) {
+        .right-card .btn-group-2 label {
+            width: 45%;
+
+        }
+    }
+
+    @media (max-width: 767px) {
+        .right-card .btn-group-2 label {
+            width: 100%;
+
+        }
+
+        .right-pan::-webkit-scrollbar {
+            width: 0px;
+        }
+    }
+
+    .right-pan {
+        background-color: #EEEEEE;
+        position: sticky;
+        height: calc(100vh - 68px);
+        top: 68px;
+        border-left: 1px solid #d8d5d5;
+        padding: 0;
+        overflow-x: hidden;
+        overflow-y: auto;
+    }
+
+    .right-card {
+        padding: 0 1vw;
+        margin-bottom: 4pc;
+    }
+
+    .right-card .icon, .right-card h1 {
+        font-size: 6vw;
+        margin-bottom: -.5pc;
+    }
+
+    .right-card .title {
+        background-color: #EEEEEE;
+        color: grey;
+        padding: 0 .5pc;
+        position: relative;
+        top: -27px;
+        /*font-size: large;*/
+    }
+
+    .right-card hr {
+        display: block;
+        content: "";
+        border-top: 1px solid darkgrey;
+        margin: 1pc 0;
+        z-index: -1;
+    }
+
+
+
+    .right-card .footer {
+        margin-top: -1.2pc ;
+    }
+
+
+</style>
+
+<div class="right-card">
+    <div class="icon">
+        <i sslevel="guard" ssbind="class:'mdi ' + ( ((typeof home != 'undefined') && home.Guard) ? 'col-red mdi-security':'col-green mdi-shield-off' )"></i>
+    </div>
+    <hr>
+    <span class="title">Guard</span>
+    <div class="footer">
+        <div class="switch">
+            <label><span class="hidden-xs">Disarmed</span><input type="checkbox" ssbind="checked:(typeof home != 'undefined') ? home.Guard : null"
+                                                                 id="guardcheck"
+                                                                 onchange="changeHomeGuard(this.checked);ssbindRenderLevel('guard')"><span
+                    class="lever switch-col-red"></span><span class="hidden-xs">Armed</span> </label>
+        </div>
+    </div>
+
+</div>
+<div class="right-card collapse">
+    <h1>&nbsp;24&deg;<sup>c</sup></h1>
+    <hr>
+    <span class="title">Temperature</span>
+    <div class="footer btn-group-2 btn-group-xs" data-toggle="buttons">
+        <label class="btn">
+            <input type="radio" name="t1" autocomplete="off" checked value="1">Cold
+        </label>
+        <label class="btn active">
+            <input type="radio" name="t1" autocomplete="off" value="2">Normal
+        </label>
+        <label class="btn">
+            <input type="radio" name="t1" autocomplete="off" value="3">Warm
+        </label>
+    </div>
+</div>
+<div class="right-card collapse">
+    <div class="icon">
+        <i class="mdi mdi-lightbulb-on-outline"></i>
+    </div>
+    <hr>
+    <span class="title">Lighting Mode</span>
+    <div class="footer btn-group-2 btn-group-xs" data-toggle="buttons">
+        <label sslevel="lightmodes" ssfor="lightmodes" class="btn">
+            <input type="radio" name="t1" autocomplete="off" checked value="1"><span ssbind="text:lightmodes[ssIndex]" sslevel="lightmodes"></span>
+        </label>
+    </div>
+</div>
+
+<script>
+    var lightmodes = ["Dark", "Night", "Daylight", "Party", "Romantic", "Cinema"];
+    ssbindRenderLevel('guard')
+    ssbindRenderLevel('lightmodes');
+
+    function toggleRightPan(action) {
+        if(!document.querySelector('.rightpan'))
+            return;
+        if(typeof action === 'undefined') {
+            if (localStorage.getItem('collapseright') === 'hidden') {
+                action = 'open'
+            } else {
+                action = 'close'
+            }
+        }
+
+        if(action === 'open'){
+            $('.centerpan').addClass("col-xs-9");
+            $('.rightpan').show();
+            localStorage.setItem('collapseright', 'visible');
+            JL().info("swipe open right");
+        } else if(action ==='close'){
+            $('.rightpan').hide();
+            $('.centerpan').removeClass("col-xs-9");
+            localStorage.setItem('collapseright', 'hidden');
+            JL().info("swipe close right");
+        }
+    }
+
+    function redrawRightPan() {
+        if(localStorage.getItem('collapseright')==='hidden'){
+            $('.rightpan').hide();
+            $('.centerpan').removeClass("col-xs-9");
+        }/* else {
+            $('.centerpan').addClass("col-xs-9");
+            $('.rightpan').show();
+        }*/
+    }
+
+    redrawRightPan();
+
+
+
+
+   /* var e2 = document.getElementsByClassName('rightpan').item(0);
+    swipedetect(e2, function(swipedir){//     swipedir contains either "none", "left", "right", "top", or "down"
+        if (swipedir === 'right'){
+            localStorage.setItem('collapseright', 'visible');
+            toggleRightPan();
+        }
+    });*/
+</script>

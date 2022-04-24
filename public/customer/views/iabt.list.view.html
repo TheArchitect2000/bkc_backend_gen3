@@ -1,0 +1,380 @@
+<style>
+    .voucherid {
+        color: #d42021;
+        font-size: small;
+        font-weight: normal;
+    }
+    .voucherid:before {
+        content: "\F1C8";
+        display: inline-block;
+        font: normal normal normal 24px/1 "Material Design Icons";
+        font-size: inherit;
+        text-rendering: auto;
+        line-height: inherit;
+        -webkit-font-smoothing: antialiased;
+    }
+
+    .balancelistall .icon2 {
+        position: relative;
+        left: 12px;
+        top: 3px;
+    }
+
+    .balancelistall .col-red {
+        color: red !important;
+    }
+
+    /*.iabt-pan {
+        max-width: 300px;
+    }
+
+
+
+    .iabt-pan .header {
+        !*noinspection CssUnknownTarget*!
+        background-image: url("images/iabt-header.jpg");
+        height: 5.5pc;
+        border-bottom: 2px solid grey;
+    }*/
+
+    .iabt-icon-2 {
+        user-select: none;
+        margin-top: 1.2pc;
+        background-image: url("images/Wallet.png");
+        width: 5pc;
+        /*text-shadow: 1px 6px 6px #5D5D5D7d;*/
+        /*-webkit-animation: glow 2s ease-in-out infinite alternate;
+        -moz-animation: glow 2s ease-in-out infinite alternate;
+        animation: glow 2s ease-in-out infinite alternate;*/
+    }
+
+    /*@-webkit-keyframes glow {
+        from {
+            !*text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #2a6be6, 0 0 40px #7cbae6, 0 0 50px #e60073, 0 0 60px #e60073, 0 0 70px #e60073;*!
+            text-shadow: 1px 6px 6px #5D5D5D7d;
+        }
+        to {
+            text-shadow: 0 0 1px #aaa, 0 0 20px #fff, 0 0 30px #f9ffa6, 0 0 40px #ffd23d, 0 0 50px #ffe63a, 0 0 60px #ff4da6!*, 0 0 70px #ff4da6, 0 0 80px #ff4da6*!;
+            color: #ffe846;
+        }
+    }*/
+
+    .iabt-icon-text {
+        display: grid;
+        margin-top: -5.5pc;
+        color: #9f7201;
+        text-shadow: 2px 2px 2px silver;
+    }
+
+    .iabt-time2 {
+        /*font-size: 9px;*/
+        white-space: nowrap;
+        text-align: right;
+        padding-right: 2px;
+        padding-left: 0;
+        /*margin-top: .2pc;*/
+    }
+
+
+
+    .iabt-case2 {
+        /*font-size: 15px;*/
+        font-weight: bold;
+        color: #555;
+        /*width: 100%;*/
+        overflow: hidden;
+        text-overflow: ellipsis;
+        padding-right: 3pc;
+        /*white-space: nowrap;*/
+    }
+
+    .iabt-history-list .row {
+        background-color: #ffffff;
+        margin-top: 2px;
+        padding: .3pc;
+        border-bottom: 1px solid;
+    }
+
+    .iabt-history-list .row *{
+        margin-bottom: 0 !important;
+    }
+
+    /*.hexagon {
+        width: 100px;
+        height: 55px;
+        background: red;
+        position: relative;
+    }
+    .hexagon:before {
+        content: "";
+        position: absolute;
+        top: -25px;
+        left: 0;
+        width: 0;
+        height: 0;
+        border-left: 50px solid transparent;
+        border-right: 50px solid transparent;
+        border-bottom: 25px solid red;
+    }
+    .hexagon:after {
+        content: "";
+        position: absolute;
+        bottom: -25px;
+        left: 0;
+        width: 0;
+        height: 0;
+        border-left: 50px solid transparent;
+        border-right: 50px solid transparent;
+        border-top: 25px solid red;
+    }*/
+</style>
+<script>
+    function extractVoucher() {
+        Swal.fire({
+            title: 'Extract BKC Voucher',
+            text: 'How many BKC tokens do you want to extract for this new voucher?',
+            input: 'text',
+            inputAttributes: {
+                autocapitalize: 'off'
+            },
+            showCancelButton: true,
+            confirmButtonText: 'Extract',
+            showLoaderOnConfirm: true,
+            preConfirm: (amount) => {
+                if(amount>0){
+                    $.ajax({
+                        url: '/customer/iabt/voucher',
+                        data: { amount: amount},
+//            async: !1,
+                        type: "post",
+                        cache: false,
+                        dataType: "json",
+                        success: function(response) {
+                            swal.fire("BKC", "Voucher with \"" + amount + "\" IABTs extracted successfully.<br>New Voucher code is :"+response.voucher_id, "success", {closeOnClickOutside: false});
+                        },
+                        error: function(xhr, ajaxOptions, thrownError) {
+                            console.error(xhr, ajaxOptions, thrownError);
+                            try {
+                                JL().fatal(thrownError + " - " + ajaxOptions);
+                            } catch (e){
+
+                            }
+                        }
+                    }).fail(function (response) {
+                        swal.fire("Error", response.responseJSON.message, "error");
+                    });
+                }
+                /*return fetch(`//api.github.com/users/${login}`)
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error(response.statusText)
+                        }
+                        return response.json()
+                    })
+                    .catch(error => {
+                        Swal.showValidationMessage(
+                            `Request failed: ${error}`
+                        )
+                    })*/
+            },
+            allowOutsideClick: () => !Swal.isLoading()
+        }).then((result) => {
+            if(!result.dismiss)
+                show_sspage('/customer/views/iabt.list.view.html');
+        });
+    }
+
+
+    function importVoucher() {
+        Swal.fire({
+            title: 'Import BKC Voucher',
+            text: 'Enter an active voucher code',
+            input: 'text',
+            inputAttributes: {
+                autocapitalize: 'off'
+            },
+            showCancelButton: true,
+            confirmButtonText: 'Extract',
+            showLoaderOnConfirm: true,
+            preConfirm: (voucher_id) => {
+                if(voucher_id) {
+                    $.ajax({
+                        url: '/customer/iabt/voucher',
+                        data: { voucher_id: voucher_id},
+//            async: !1,
+                        type: "put",
+                        cache: false,
+                        dataType: "json",
+                        success: function(response) {
+                            swal.fire("BKC", "Voucher with id \"" + voucher_id + "\" imported successfully.", "success", {closeOnClickOutside: false});
+                        },
+                        error: function(xhr, ajaxOptions, thrownError) {
+                            console.error(xhr, ajaxOptions, thrownError);
+                            try {
+                                JL().fatal(thrownError + " - " + ajaxOptions);
+                            } catch (e){
+
+                            }
+                        }
+                    }).fail(function (response) {
+                        swal.fire("Error", response.responseJSON.message, "error");
+                    });
+                }
+            },
+            allowOutsideClick: () => !Swal.isLoading()
+        }).then((result) => {
+            if(!result.dismiss)
+                show_sspage('/customer/views/iabt.list.view.html');
+        });
+    }
+
+    function transferToEmail() {
+        Swal.fire({
+            title: 'Transfer BKC',
+            html: '<div>How many tokens :<br><input type="number" class="swal2-input" id="transferAmount"></div>' +
+                  '<div>Recipient email address : <input class="swal2-input" type="email" id="transferEmail"></div>',
+//            input: 'text',
+            inputAttributes: {
+                autocapitalize: 'off'
+            },
+            showCancelButton: true,
+            confirmButtonText: 'Transfer',
+            showLoaderOnConfirm: true,
+            preConfirm: (result) => {
+                if(result) {
+                    if(!($('#transferEmail').val() !== '' && $('#transferAmount').val() > 0)) {
+                        swal.fire("Error", "Please enter true data for transfer to related wallet!", "error");
+                        return false;
+                    } else {
+                        $.ajax({
+                            url: '/customer/iabt/transfertoemail/',
+                            data: {amount: $('#transferAmount').val() , email: $('#transferEmail').val()},
+//            async: !1,
+                            type: "post",
+                            cache: false,
+                            dataType: "json",
+                            success: function (response) {
+                                swal.fire("BKC", "The token transfer to email was successful", "success", {closeOnClickOutside: false});
+                            },
+                            error: function (xhr, ajaxOptions, thrownError) {
+                                swal.fire("Error", thrownError.message, "error");
+                                console.error(xhr, ajaxOptions, thrownError);
+                                try {
+                                    JL().fatal(thrownError + " - " + ajaxOptions);
+                                } catch (e) {
+
+                                }
+                            }
+                        }).fail(function (response) {
+                            swal.fire("Error", response.responseJSON.message, "error");
+                        });
+                    }
+                }
+            },
+            allowOutsideClick: () => !Swal.isLoading()
+        }).then((result) => {
+            if(!result.dismiss)
+                show_sspage('/customer/views/iabt.list.view.html');
+        });
+    }
+
+
+</script>
+<div class="card iabt-list p-t-0" sspage-load-json="/customer/iabt/list" sspage-load-json-var="balanceall" sspage-load-after="ssbindRenderLevel('balanceall')">
+    <div class="header">
+        <span class="ia-head">
+            <span class="icon2 wallet-icon m-t-5" style="width: 3pc; height: 3pc;"></span>
+            BKC Wallet
+        </span>
+
+        <span class="header-dropdown small m-t-30 font-weight col-grey">
+              <span class="hidden-xs"> Wallet Id :</span> <span sslevel="balanceall" ssbind="text:JSON.parse($.cookie('customerb')).Email"></span>
+        </span>
+    </div>
+    <div class="body">
+        <div class="row">
+            <div class="col-sm-4">
+                <h1 class="ia-big-title align-center col-grey m-b--20">
+                    Current Balance
+                </h1>
+                <h1 class="align-center col-green ia-bigger-title" style="font-size: 3pc !important;" sslevel="balanceall" ssbind="text:balanceall.balance">
+                    ?
+                </h1>
+                <div class=" align-center font-10 col-green font-bold m-t--15">BKC Tokens</div>
+            </div>
+        </div>
+
+        <!--<div class="align-center p-b-30 p-t-30">
+            <button class="btn ia-btn-small btn-default p-l-10 p-r-10" style="border-radius: 10px;padding: 2px 10px;">
+                Add Token
+            </button>
+        </div>-->
+
+        <div class="iabt-history-list col-grey  ">
+            <div class="row b-b-1">
+                <div class="col-sm-6 col-xs-12 align-left ">
+                    <span class="btn btn-link  m-l-5" onclick="show_sspage('/customer/views/iabt.list.view.html')">
+
+                        <i class="mdi mdi-refresh font-20"></i>
+                    </span>
+                </div>
+                <div class="col-sm-6 col-xs-12 align-right m-t-10"><nobr>
+                    <span class="btn btn-link m-l-5 btn-sm" onclick="transferToEmail()">
+                        <img src="images/Transfer.png" class="icon1">
+                        Send
+                    </span>
+
+                    <span class="btn btn-link m-l-5 btn-sm" onclick="extractVoucher()">
+                        <img src="images/Extract.png" class="icon1">
+                        Extract
+                    </span>
+
+                    <span class="btn btn-link m-l-5 btn-sm" onclick="importVoucher()">
+                        <img src="images/Import.png" class="icon1">
+                        Import
+                    </span>
+                </nobr>
+                </div>
+            </div>
+
+
+            <div class="balancelistall">
+                <div class="row" ssfor="balanceall.records" sslevel="balanceall" ssemptylist="You have no transaction yet">
+
+                    <div class="col-sm-2 col-xs-8  font-25 font-bold m-l--20">
+                        <nobr>
+                            <i sslevel="balanceall" ssbind="class:balanceall.records[ssIndex].caseMode=='-' ? 'mdi mdi-minus col-red' : 'mdi mdi-plus col-green'"></i>
+                            <span sslevel="balanceall" ssbind="text:balanceall.records[ssIndex].Amount; class:balanceall.records[ssIndex].caseMode=='-' ? 'col-red' : 'col-green'">0</span>
+                        </nobr>
+                    </div>
+
+                    <div class="col-sm-1 col-xs-2  p-r-10 hidden-xs m-t-5">
+                        <img class="icon1" sslevel="balanceall" ssbind="src: getIcon(balanceall.records[ssIndex].caseMode,balanceall.records[ssIndex].CaseType)">
+                    </div>
+
+
+
+
+                    <div class="col-sm-7 col-xs-12 m-t-5 m-l--15  iabt-case2" sslevel="balanceall" ssbind="html: balanceall.records[ssIndex].CaseComment +((balanceall.records[ssIndex].CaseType===300)? ' <span class=voucherid>'+balanceall.records[ssIndex]._id+'</span>' : '')">[transfer reason]</div>
+
+                    <div class="col-sm-2 col-xs-2 float-right p-r-10 m-t-5">
+                        <img class="icon2 visible-xs" sslevel="balanceall" ssbind="src: getIcon(balanceall.records[ssIndex].caseMode,balanceall.records[ssIndex].CaseType)">
+                        <span class="iabt-time2 receivetime float-right small visible-xs" style="margin-top: 39px;" sslevel="balanceall" ssbind="text:moment(balanceall.records[ssIndex].createdAt).fromNow(); data-value:moment(balanceall.records[ssIndex].createdAt).valueOf() ">
+                        [-0 mins ago]
+                        </span>
+
+                        <span class="iabt-time2 receivetime float-right hidden-xs" sslevel="balanceall" ssbind="text:moment(balanceall.records[ssIndex].createdAt).fromNow(); data-value:moment(balanceall.records[ssIndex].createdAt).valueOf() ">
+                        [-0 mins ago]
+                        </span>
+                    </div>
+
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>

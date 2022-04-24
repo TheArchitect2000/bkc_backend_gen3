@@ -1,0 +1,1113 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+    <base href="../share/">
+    <link rel="manifest" href="/iapanelmanifest.json">
+
+    <meta charset="UTF-8">
+    <!-- Chrome, Firefox OS and Opera -->
+    <meta name="theme-color" content="#F44336">
+    <!-- Windows Phone -->
+    <meta name="msapplication-navbutton-color" content="#F44336">
+    <!-- iOS Safari -->
+    <link rel="apple-touch-icon" href="images/iasign.png">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#F44336">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <title>BKC Control Panel</title>
+    <!-- Favicon-->
+    <link rel="icon" href="IA.ico" type="image/x-icon">
+
+
+    <!--mdi fonts-->
+    <!--<link rel="stylesheet" href="//cdn.materialdesignicons.com/3.6.95/css/materialdesignicons.min.css">-->
+    <link rel="stylesheet" href="/share/mdi/css/materialdesignicons.min.css">
+
+    <!--jsnlog-->
+    <script src="/javascripts/jsnlog.min.js"  ></script>
+
+    <!-- Bootstrap Core Css -->
+    <link href="plugins/bootstrap/css/bootstrap.css" rel="stylesheet" >
+
+    <!-- Waves Effect Css -->
+    <link href="plugins/node-waves/waves.css" rel="stylesheet"  />
+
+    <!-- Animation Css -->
+    <link href="plugins/animate-css/animate.css" rel="stylesheet"  />
+
+    <!-- Morris Chart Css-->
+    <!--<link href="plugins/morrisjs/morris.css" rel="stylesheet" />-->
+
+    <!-- Sweetalert Css -->
+    <link href="plugins/sweetalert/sweetalert2.css" rel="stylesheet"  >
+
+    <!-- Custom Css -->
+    <link href="css/style-x2.css" rel="stylesheet">
+
+    <!--xsign-->
+    <link href="css/xsign.css" rel="stylesheet"  >
+
+    <!-- AdminBSB Themes. You can choose a theme from css/themes instead of get all themes -->
+    <link href="css/themes/theme-red-x2.css" rel="stylesheet"  />
+
+    <!--fonts glypher-->
+    <link rel="stylesheet" href="glypher/css/ba9868d7feb9ec5983715976daf94c12ed70822c.css"  >
+
+</head>
+
+<body class="theme-red" sspage-load-json="/iahome/null" sspage-load-json-var="home">
+
+<!-- Page Loader -->
+<div class="page-loader-wrapper">
+    <div class="loader">
+        <div class="preloader">
+            <div class="spinner-layer pl-red">
+                <div class="circle-clipper left">
+                    <div class="circle"></div>
+                </div>
+                <div class="circle-clipper right">
+                    <div class="circle"></div>
+                </div>
+            </div>
+        </div>
+        <p>Please wait...</p>
+        <noscript>
+            <br>
+            <blockquote class="col-red text-left">
+                We're sorry but this app <strong>requires JavaScript</strong>.<br>
+                <br><br>
+                <a target="_blank" href="https://www.wikihow.tech/Enable-JavaScript-on-an-Android-Phone">How to Enable
+                    JavaScript on an Android Phone</a>
+                <br>
+                <a target="_blank" href="https://www.wikihow.com/Enable-JavaScript">How to Enable JavaScript on
+                    computer</a>
+            </blockquote>
+        </noscript>
+    </div>
+</div>
+<!-- #END# Page Loader -->
+<!-- Overlay For Sidebars -->
+<div class="overlay"></div>
+<!-- #END# Overlay For Sidebars -->
+<!-- Search Bar -->
+<!--<div class="search-bar">
+    <div class="search-icon">
+        <i class="material-icons">search</i>
+    </div>
+    <input type="text" placeholder="Start typing ...">
+    <div class="close-search">
+        <i class="material-icons">close</i>
+    </div>
+</div>-->
+<!-- #END# Search Bar -->
+<!-- Top Bar -->
+<nav class="navbar">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a href="javascript:void(0);" class="navbar-toggle collapsed" data-toggle="collapse"
+               data-target="#navbar-collapse" aria-expanded="false"></a>
+            <a href="javascript:void(0);" class="bars"></a>
+            <a class="navbar-brand" href="javascript:void(0);" sspage="../customer/views/iahome.customer.view.html" sspage-group="menu" sspage-cache="true">
+                BKC Control Panel
+            </a>
+        </div>
+        <div class="collapse navbar-collapse" id="navbar-collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <!-- Call Search -->
+                <!--<li><a href="javascript:void(0);" class="js-search" data-close="true"><i class="material-icons">search</i></a></li>-->
+                <!--<li><a href="javascript:void(0);" class="js-search" data-close="true"><i class="material-icons">search</i></a></li>-->
+                <!--<li><a href="#" onclick="logout();return false;"><i class="material-icons align-middle">input</i><span style="padding-left: .5pc; position: relative; top: -7px; ">Sign out</span></a></li>-->
+                <!-- #END# Call Search -->
+                <!--BKC wallet-->
+                <li class="dropdown" sspage-load="/customer/views/iabt.pan.view.html" id="iabtpan" style="display: inline-block !important;">
+
+                </li>
+                <!-- Notifications -->
+                <li class="dropdown">
+                    <a href="javascript:void(0);" class="dropdown-toggle font-24" data-toggle="dropdown" role="button">
+                        <i class="mdi mdi-bell"></i>
+                        <span class="label-count" style1="margin-top: -7px; background-color: rgba(41,41,41,0.56)" sslevel="notifies" ssbind="text:IA_Notifies.Messages.length">0</span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li class="header"><span sslevel="notifies" ssbind="text:IA_Notifies.Messages.length">0</span>
+                            NOTIFICATIONS
+                        </li>
+                        <li class="body ">
+                            <ul class="menu">
+                                <li ssfor="IA_Notifies.Messages" sslevel="notifies"
+                                    ssemptylist="<div class=menu-info>No new notification</div>">
+                                    <a href="javascript:void(0);">
+                                        <div class="icon-circle col-red">
+                                            <i class="mdi mdi-comment"></i>
+                                        </div>
+                                        <div class="menu-info">
+                                            <h4 sslevel="notifies" ssbind="text:IA_Notifies.Messages[ssIndex].mes">
+                                                Message</h4>
+                                            <p>
+                                                <i class="material-icons">access_time</i> <span sslevel="notifies"
+                                                                                                ssbind="text:moment(IA_Notifies.Messages[ssIndex].time).fromNow()"></span>
+                                            </p>
+                                        </div>
+                                    </a>
+                                </li>
+                                <!--<li>
+                                    <a href="javascript:void(0);">
+                                        <div class="icon-circle bg-cyan">
+                                            <i class="mdi mdi-check"></i>
+                                        </div>
+                                        <div class="menu-info">
+                                            <h4>Service Activated</h4>
+                                            <p>
+                                                <i class="material-icons">access_time</i> 22 mins ago
+                                            </p>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="javascript:void(0);">
+                                        <div class="icon-circle bg-red">
+                                            <i class="material-icons">delete_forever</i>
+                                        </div>
+                                        <div class="menu-info">
+                                            <h4><b>Nancy Doe</b> deleted account</h4>
+                                            <p>
+                                                <i class="material-icons">access_time</i> 3 hours ago
+                                            </p>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="javascript:void(0);">
+                                        <div class="icon-circle bg-orange">
+                                            <i class="material-icons">mode_edit</i>
+                                        </div>
+                                        <div class="menu-info">
+                                            <h4><b>Nancy</b> changed name</h4>
+                                            <p>
+                                                <i class="material-icons">access_time</i> 2 hours ago
+                                            </p>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="javascript:void(0);">
+                                        <div class="icon-circle bg-blue-grey">
+                                            <i class="material-icons">comment</i>
+                                        </div>
+                                        <div class="menu-info">
+                                            <h4><b>John</b> commented your post</h4>
+                                            <p>
+                                                <i class="material-icons">access_time</i> 4 hours ago
+                                            </p>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="javascript:void(0);">
+                                        <div class="icon-circle bg-light-green">
+                                            <i class="material-icons">cached</i>
+                                        </div>
+                                        <div class="menu-info">
+                                            <h4><b>John</b> updated status</h4>
+                                            <p>
+                                                <i class="material-icons">access_time</i> 3 hours ago
+                                            </p>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="javascript:void(0);">
+                                        <div class="icon-circle bg-purple">
+                                            <i class="material-icons">settings</i>
+                                        </div>
+                                        <div class="menu-info">
+                                            <h4>Settings updated</h4>
+                                            <p>
+                                                <i class="material-icons">access_time</i> Yesterday
+                                            </p>
+                                        </div>
+                                    </a>
+                                </li>-->
+                            </ul>
+                        </li>
+                        <li class="footer">
+                            <a sslevel="notifies" ssif="IA_Notifies.Messages.length>0" href="javascript:void(0);"
+                               class="col-red" id="clearNotifications">Clear Notifications</a>
+                            <a sslevel="notifies" ssif="IA_Notifies.Messages.length==0" href="javascript:void(0);"
+                               class="col-red" id="activateNotifications">Activate Notifications</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="">
+                    <a class="  font-24 btn btn-link" sspage="../customer/views/settings.view.html" sspage-group="menu"
+                       sspage-cache="true"
+                        sspage-load-after="ssbindRender();ssbindRenderLevel('guard')"
+                        sspage-back="/customer/views/iahome.customer.view.html">
+                        <span sslevel="guard"
+                                                             ssbind="class:'mdi ' + ( (typeof home != 'undefined') && home.Guard ? 'col-white mdi-security':'mdi-shield-off col-grey' )"></span>
+                    </a>
+                </li>
+                <!-- #END# Notifications -->
+                <!-- Tasks -->
+                <!--<li class="dropdown">
+                    <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button">
+                        <i class="material-icons">flag</i>
+                        <span class="label-count">9</span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li class="header">TASKS</li>
+                        <li class="body">
+                            <ul class="menu tasks">
+                                <li>
+                                    <a href="javascript:void(0);">
+                                        <h4>
+                                            Footer display issue
+                                            <small>32%</small>
+                                        </h4>
+                                        <div class="progress">
+                                            <div class="progress-bar bg-pink" role="progressbar" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100" style="width: 32%">
+                                            </div>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="javascript:void(0);">
+                                        <h4>
+                                            Make new buttons
+                                            <small>45%</small>
+                                        </h4>
+                                        <div class="progress">
+                                            <div class="progress-bar bg-cyan" role="progressbar" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100" style="width: 45%">
+                                            </div>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="javascript:void(0);">
+                                        <h4>
+                                            Create new dashboard
+                                            <small>54%</small>
+                                        </h4>
+                                        <div class="progress">
+                                            <div class="progress-bar bg-teal" role="progressbar" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100" style="width: 54%">
+                                            </div>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="javascript:void(0);">
+                                        <h4>
+                                            Solve transition issue
+                                            <small>65%</small>
+                                        </h4>
+                                        <div class="progress">
+                                            <div class="progress-bar bg-orange" role="progressbar" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100" style="width: 65%">
+                                            </div>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="javascript:void(0);">
+                                        <h4>
+                                            Answer GitHub questions
+                                            <small>92%</small>
+                                        </h4>
+                                        <div class="progress">
+                                            <div class="progress-bar bg-purple" role="progressbar" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100" style="width: 92%">
+                                            </div>
+                                        </div>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="footer">
+                            <a href="javascript:void(0);">View All Tasks</a>
+                        </li>
+                    </ul>
+                </li>-->
+                <!-- #END# Tasks -->
+                <!--<li class="pull-right"><a href="javascript:void(0);" class="js-right-sidebar" data-close="true"><i class="mdi mdi-settings font-20"></i></a></li>-->
+            </ul>
+        </div>
+    </div>
+</nav>
+<!-- #Top Bar -->
+<section>
+    <!-- Left Sidebar -->
+    <aside id="leftsidebar" class="sidebar">
+        <!-- User Info -->
+        <div class="user-info">
+            <div class="image">
+                <img src="images/user.png" width="48" height="48" alt="User"/>
+            </div>
+            <!--<span class="float-right font-40"><span sslevel="guard"
+                                                    ssbind="class:'mdi ' + ( (typeof home != 'undefined') && home.Guard ? 'col-red mdi-security':'mdi-shield-off col-green' )"></span></span>-->
+            <h2 class="col-white ia-bigger-title"
+                ssbind="text:(typeof home != 'undefined') ? home.Name : 'HOME ...'">--</h2>
+            <div class="info-container">
+
+                <!--<i class="name" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                   ssbindXX="text:JSON.parse($.cookie('customerb')).FirstName + ' ' + JSON.parse($.cookie('customerb')).LastName+'  &nbsp;'"> </i>-->
+                <!--<div class="email" ssbind="text:JSON.parse($.cookie('customerb')).FirstName">mytabi@google.com</div>-->
+                <div class="btn-group user-helper-dropdown">
+                    <!--<a  sspage="../customer/views/help.index.view.html" sspage-group="menu" sspage-cache="true">
+                    <i class="mdi mdi-help-circle-outline col-white " style="font-size: 20px !important;"></i>
+                    </a>-->
+                    &nbsp;
+                    &nbsp;
+                    <!--<a sspage="../customer/views/settings.view.html" sspage-group="menu" sspage-cache="true"
+                    sspage-load-after="ssbindRender();ssbindRenderLevel('guard')"
+                    sspage-back="/customer/views/iahome.customer.view.html">
+                    <i class="mdi mdi-cog-outline col-white " style="font-size: 20px !important;"></i>
+                    </a>-->
+                    <i class="material-icons" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">keyboard_arrow_down</i>
+                    <ul class="dropdown-menu pull-right">
+                        <li><a href="javascript:void(0);"
+                               sspage="../customer/views/settings.view.html"
+                               sspage-load-after="ssbindRender()"
+                               sspage-back="/customer/views/iahome.customer.view.html">
+                            <i class="p-l-10 mdi mdi-cog-outline mdi-24px"></i> Setting</a></li>
+                        <li><a href="javascript:void(0);"
+                               sspage="../customer/views/help.index.view.html" sspage-group="menu" sspage-cache="true">
+                            <i class="p-l-10 mdi mdi-help-circle-outline mdi-24px"></i> Help</a></li>
+
+                        <!--<li><a href="javascript:void(0);"
+                               sspage="../customer/views/iacustomer.customer.edit.view.html"
+                               sspage-load-after="ssbindRender()"
+                               sspage-back="/customer/views/iahome.customer.view.html">
+                            <i class="material-icons">person</i>Profile</a></li>
+                        <li><a href="javascript:void(0);"
+                               sspage="../customer/views/iahome.customer.edit.view.html"
+                               sspage-load-after="checkhashome();ssbindRender()"
+                               sspage-back="/customer/views/iahome.customer.view.html">
+                            <i class="material-icons">home</i>Home Profile</a></li>-->
+                        <!--<li><a href="javascript:void(0);"><i class="material-icons">group</i>Followers</a></li>-->
+                        <!--<li><a href="javascript:void(0);"><i class="material-icons">shopping_cart</i>Sales</a></li>-->
+                        <!--<li><a href="javascript:void(0);"><i class="material-icons">favorite</i>Likes</a></li>-->
+                        <!--<li role="separator" class="divider"></li>-->
+                        <li><a href="#" onclick="logout();return false;"><i class="p-l-10 material-icons">input</i>Sign out</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!-- #User Info -->
+        <!-- Menu -->
+
+        <div class="menu" ssif1="localStorage.homeId">
+            <ul class="list">
+                <!--<li class="header">
+                    <span>Home Id:</span>
+                    <span class="col-red" ssbind="text:$.cookie('homeIdb') || 'Please build your smart home'">&#45;&#45;</span>
+                </li>-->
+                <li class="" sspage="/customer/views/iahome.customer.view.html" sspage-group="menu" sspage-load-after="checkhashome()" sspage-cache="true">
+                    <a>
+                        <i class="icon-Home"></i>
+                        <span>My Home</span>
+                    </a>
+                </li>
+                <li class="menu-toggle1" sspage="/customer/views/iadevice.customer.list.view.html" sspage-cache="true"
+                    sspage-group="menu"
+                    sspage-load-after="checkhashome();">
+                    <a href="javascript:void(0);" >
+                        <i class="icon-Device"></i>
+                        <span>Devices</span>
+                    </a>
+                    <!--<ul class="ml-menu">
+                        <li sspage="../customer/views/iadevice.customer.list.view.html"
+                            sspage-group="menu"
+                            sspage-load-after="checkhashome();">
+                            <a>
+                                <i class="material-icons">list</i>
+                                <span>Device List</span>
+                            </a>
+                        </li>
+                        <li sspage="../customer/views/iadevice.customer.register.view.html"
+                            sspage-group="menu"
+                            sspage-load-after="ssbindRender();checkhashome()">
+                            <a>
+                                <i class="material-icons">add</i>
+                                <span>Add Device</span>
+                            </a>
+                        </li>
+                    </ul>-->
+                </li>
+                <li sspage="../customer/views/iaservice.gallery.customer.view.html" sspage-cache="true"
+                    sspage-group="menu"
+                    sspage-load-after="checkhashome()">
+                    <a>
+                        <i class="icon-Service-gallery"></i>
+                        <span class="">Service Market</span>
+                    </a>
+                </li>
+                <li class="menu-toggle1" sspage="/customer/views/installedservice.customer.list.view.html" sspage-cache="true"
+                    sspage-group="menu">
+                    <a>
+                        <i class="icon-Service"></i>
+                        <span>Installed Services</span>
+                    </a>
+                    <!--<ul class="ml-menu">
+                        <li sspage="../customer/views/installedservice.customer.list.view.html"
+                            sspage-group="menu"
+                            sspage-load-after="checkhashome();">
+                            <a>
+                                <i class="mdi mdi-shape font-20"></i>
+                                <span class="">Installed Services</span>
+                            </a>
+                        </li>
+                        <li sspage="../customer/views/iaservice.gallery.customer.view.html"
+                            sspage-group="menu"
+                            sspage-load-after="checkhashome()">
+                            <a>
+                                <i class="mdi mdi-shape-plus font-20"></i>
+                                <span class="">Service Market</span>
+                            </a>
+                        </li>
+                        &lt;!&ndash;<li sspage="../developer/views/iaservice.developer.page.view.html" sspage-load-after="checkhashome()">
+                            <a>
+                                <i class="mdi mdi-lightbulb-on font-20 m-t&#45;&#45;5"></i>
+                                <span class="">Create New Service</span>
+                            </a>
+                        </li>&ndash;&gt;
+
+                    </ul>-->
+                </li>
+
+                <li sspage="../customer/views/sem.page.view.html" sspage-group="menu" sspage-cacheXX="true">
+                    <a>
+                        <i class="mdi mdi-trending-down mdi-24px"></i>
+                        <span>Smart Energy Management</span>
+                    </a>
+                </li>
+                <li sspage="../customer/views/history.device.view.html" sspage-group="menu" sspage-cache="true">
+                    <a class="menu-toggle1" >
+                        <i class="icon-Activities"></i>
+                        <span>Activity <!--<span class="label-count bg-red col-white text-left">6</span>--></span>
+                    </a>
+                    <ul class="ml-menu">
+                        <li sspage="../customer/views/history.device.view.html">
+                            <a>
+                                <i class="material-icons">list</i>
+                                <span>Activities of Devices</span>
+                            </a>
+                        </li>
+                        <li sspage="../customer/views/history.service.view.html">
+                            <a>
+                                <i class="material-icons">add</i>
+                                <span>Activities of Services</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li sspage="../developer/views/iaservice.developer.page.view.html" sspage-cache="true"
+                    sspage-group="menu" sspage-load-after="checkhashome()">
+                    <a>
+                        <i class="icon-Develop"></i>
+                        <span class="">Service Creator</span>
+                    </a>
+                </li>
+
+               <!-- <li sspage="../customer/views/help.index.view.html">
+                    <a>
+                        <i class="icon-Help"></i>
+                        <span class="">Help & Support</span>
+                    </a>
+                </li>-->
+
+                <!--<li><a href="javascript:void(0);"
+                       sspage="../customer/views/settings.view.html"
+                       sspage-load-after="ssbindRender();ssbindRenderLevel('guard')"
+                       sspage-back="/customer/views/iahome.customer.view.html">
+                    <i class="icon-setting"></i><span>Settings</span>
+                </a>
+                </li>-->
+                <!--<li ssif="JSON.parse($.cookie('customerb')).developer || true" >
+                    <a class="menu-toggleXXX" sspage="../developer/views/iaservice.developer.page.view.html" sspage-load-after="checkhashome()">
+                        <i class="material-icons">code</i>
+                        <span>Developers</span>
+                    </a>
+                    &lt;!&ndash;<ul class="ml-menu">
+                        <li sspage="../developer/views/iaservice.developer.create.view.html" >
+                            <a>
+                                <i class="material-icons">add</i>
+                                <span class="">Create IA Service</span>
+                            </a>
+                        </li>
+                        <li sspage="../developer/views/iaservice.developer.page.view.html" >
+                            <a>
+                                <i class="material-icons">add</i>
+                                <span class="">IA Service Builder</span>
+                            </a>
+                        </li>
+                    </ul>&ndash;&gt;
+                </li>-->
+                <!--<li>
+                    <a href="pages/typography.html">
+                        <i class="material-icons">text_fields</i>
+                        <span>Typography</span>
+                    </a>
+                </li>
+                -->
+
+
+            </ul>
+        </div>
+        <!-- #Menu -->
+        <!-- Footer -->
+        <!--<div class="legal">
+            <img src="images/ia_logo.png" class="img-responsive">
+        </div>-->
+        <!-- #Footer -->
+    </aside>
+    <!-- #END# Left Sidebar -->
+    <!-- Right Sidebar -->
+    <!--<aside id="rightsidebar" class="right-sidebar">
+        <ul class="nav nav-tabs tab-nav-right" role="tablist">
+            &lt;!&ndash;<li role="presentation" class="active"><a href="#skins" data-toggle="tab">SKINS</a></li>&ndash;&gt;
+            <li role="presentation"><a href="#settings" data-toggle="tab">SETTINGS</a></li>
+        </ul>
+        <div class="tab-content">
+            <div role="tabpanel" class="tab-pane fade" id="skins">
+                <ul class="demo-choose-skin">
+                    <li data-theme="red" class="active">
+                        <div class="red"></div>
+                        <span>Red</span>
+                    </li>
+                    <li data-theme="pink">
+                        <div class="pink"></div>
+                        <span>Pink</span>
+                    </li>
+                    <li data-theme="purple">
+                        <div class="purple"></div>
+                        <span>Purple</span>
+                    </li>
+                    <li data-theme="deep-purple">
+                        <div class="deep-purple"></div>
+                        <span>Deep Purple</span>
+                    </li>
+                    <li data-theme="indigo">
+                        <div class="indigo"></div>
+                        <span>Indigo</span>
+                    </li>
+                    <li data-theme="blue">
+                        <div class="blue"></div>
+                        <span>Blue</span>
+                    </li>
+                    <li data-theme="light-blue">
+                        <div class="light-blue"></div>
+                        <span>Light Blue</span>
+                    </li>
+                    <li data-theme="cyan">
+                        <div class="cyan"></div>
+                        <span>Cyan</span>
+                    </li>
+                    <li data-theme="teal">
+                        <div class="teal"></div>
+                        <span>Teal</span>
+                    </li>
+                    <li data-theme="green">
+                        <div class="green"></div>
+                        <span>Green</span>
+                    </li>
+                    <li data-theme="light-green">
+                        <div class="light-green"></div>
+                        <span>Light Green</span>
+                    </li>
+                    <li data-theme="lime">
+                        <div class="lime"></div>
+                        <span>Lime</span>
+                    </li>
+                    <li data-theme="yellow">
+                        <div class="yellow"></div>
+                        <span>Yellow</span>
+                    </li>
+                    <li data-theme="amber">
+                        <div class="amber"></div>
+                        <span>Amber</span>
+                    </li>
+                    <li data-theme="orange">
+                        <div class="orange"></div>
+                        <span>Orange</span>
+                    </li>
+                    <li data-theme="deep-orange">
+                        <div class="deep-orange"></div>
+                        <span>Deep Orange</span>
+                    </li>
+                    <li data-theme="brown">
+                        <div class="brown"></div>
+                        <span>Brown</span>
+                    </li>
+                    <li data-theme="grey">
+                        <div class="grey"></div>
+                        <span>Grey</span>
+                    </li>
+                    <li data-theme="blue-grey">
+                        <div class="blue-grey"></div>
+                        <span>Blue Grey</span>
+                    </li>
+                    <li data-theme="black">
+                        <div class="black"></div>
+                        <span>Black</span>
+                    </li>
+                </ul>
+            </div>
+            <div role="tabpanel" class="tab-pane fade in active" id="settings">
+                <div class="demo-settings">
+                    <p>GENERAL SETTINGS</p>
+                    <ul class="setting-list">
+                        <li>
+                            <span>Report Panel Usage</span>
+                            <div class="switch">
+                                <label><input type="checkbox" checked><span class="lever"></span></label>
+                            </div>
+                        </li>
+                        <li>
+                            <span>Email Redirect</span>
+                            <div class="switch">
+                                <label><input type="checkbox"><span class="lever"></span></label>
+                            </div>
+                        </li>
+                    </ul>
+                    <p>SYSTEM SETTINGS</p>
+                    <ul class="setting-list">
+                        <li>
+                            <span>Notifications</span>
+                            <div class="switch">
+                                <label><input type="checkbox" checked><span class="lever"></span></label>
+                            </div>
+                        </li>
+                        <li>
+                            <span>Auto Updates</span>
+                            <div class="switch">
+                                <label><input type="checkbox" checked><span class="lever"></span></label>
+                            </div>
+                        </li>
+                    </ul>
+                    <p>ACCOUNT SETTINGS</p>
+                    <ul class="setting-list">
+                        <li>
+                            <span>Offline</span>
+                            <div class="switch">
+                                <label><input type="checkbox"><span class="lever"></span></label>
+                            </div>
+                        </li>
+                        <li>
+                            <span>Location Permission</span>
+                            <div class="switch">
+                                <label><input type="checkbox" checked><span class="lever"></span></label>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </aside>-->
+    <!-- #END# Right Sidebar -->
+</section>
+<section id="installpwapan" class="body" style="position: fixed;
+    top: 4pc;
+    z-index: 300;
+    background: #eeeeeee8;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    padding-top: 3pc;
+    display: none;">
+    <div class="col-red hidden-xs ia-big-title m-t-100">You can install this application on the desktop</div>
+    <div class="visible-xs ia-small-title col-red m-t-100">You can install this app on your home screen</div>
+    <!--<h4>No download required</h4>-->
+    <br>
+    <br>
+    <button id="installpwabtn" class="btn btn-primary-ia ia-medium-title"><span class="hidden-xs">Add To Desktop</span><span class="visible-xs">Add to Home Screen</span></button>
+    &nbsp;
+    <br>
+    <br>
+    &nbsp;
+    <button id="cancelinstallpwabtn" class="btn btn-link ia-medium-title">Remind Me Later</button>
+    &nbsp;
+    <br>
+    <br>
+    &nbsp;
+    <button id="dontremindlater" class="btn btn-link ia-medium-title">Don't Remind Again</button>
+    <br>
+    <footer id="iosaddtohome" class ="collapse" style="position: fixed;bottom: 0;padding: 2pc;width: 90%;margin: 5%; background-color: white; color: black">
+        To install, tap <span class="material-icons ios_share" style="display: inline-block;top: 5px;position: relative;color: gray;"></span> and choose <br><br>
+        <b>Add to Home Screen</b>
+        <center class="mdi mdi-arrow-down m-b--25 mdi-24px"></center>
+    </footer>
+
+</section>
+<section class="content swipe-content" id="content" sspage-target
+         sspage-load="../customer/views/iahome.customer.view.html">
+
+</section>
+
+<!-- Jquery Core Js -->
+<script src="plugins/jquery/jquery.min.js" ></script>
+
+<!-- Bootstrap Core Js -->
+<script src="plugins/bootstrap/js/bootstrap.js" ></script>
+
+<!-- Select Plugin Js -->
+<!--<script src="plugins/bootstrap-select/js/bootstrap-select.js"></script>-->
+
+<!-- Slimscroll Plugin Js -->
+<script src="plugins/jquery-slimscroll/jquery.slimscroll.js"  ></script>
+
+<!-- Waves Effect Plugin Js -->
+<script src="plugins/node-waves/waves.js"  ></script>
+
+<!-- Jquery CountTo Plugin Js -->
+<script src="plugins/jquery-countto/jquery.countTo.js"  ></script>
+
+<!-- Morris Plugin Js -->
+<!--<script src="plugins/raphael/raphael.min.js"></script>-->
+<!--<script src="plugins/morrisjs/morris.js"></script>-->
+
+<!-- ChartJs -->
+<!--<script src="plugins/chartjs/Chart.bundle.js"></script>-->
+
+<!-- Flot Charts Plugin Js -->
+<script src="plugins/flot-charts/jquery.flot.js"  ></script>
+<!--<script src="plugins/flot-charts/jquery.flot.resize.js"></script>-->
+<!--<script src="plugins/flot-charts/jquery.flot.pie.js"></script>-->
+<!--<script src="plugins/flot-charts/jquery.flot.categories.js"></script>-->
+<!--<script src="plugins/flot-charts/jquery.flot.time.js"></script>-->
+
+
+<!-- Sparkline Chart Plugin Js -->
+<!--<script src="plugins/jquery-sparkline/jquery.sparkline.js"></script>-->
+
+<!-- SweetAlert Plugin Js -->
+<script src="plugins/sweetalert/sweetalert2.min.js"  ></script>
+
+<!--moment.js Plugin Js-->
+<script src="plugins/momentjs/moment.js" ></script>
+<script src="plugins/momentjs/moment-timezone-with-data.js" ></script>
+
+<!-- Custom Js -->
+<script src="js/admin.js" ></script>
+
+<!--share.js-->
+<script src="js/share.js" ></script>
+
+<!-- Demo Js -->
+<script src="js/adminpage.js" ></script>
+
+<!--mobile mode-->
+<script type="text/javascript" src="js/jquery.mobile.js" defer ></script>
+
+<!--sspage navigator-->
+<script src="js/sspages.js" ></script>
+
+<!--ssbind-->
+<script src="js/ssbind.js" ></script>
+
+<!--cookie-->
+<script src="/share/plugins/jquery-cookie/jquery.cookie.js" ></script>
+
+<!-- Input Mask Plugin Js -->
+<script src="plugins/jquery-inputmask/jquery.inputmask.min.js" ></script>
+
+<!--MQTT client-->
+<script src="js/mqtt.min.js" ></script>
+<script src="js/which.server.js" ></script>
+<script src="js/configs.js" ></script>
+<script src="js/customermonitormqttclient.js" ></script>
+
+
+<!--<script type="text/javascript" src="js/googlemap.js" ></script>-->
+
+<!--IA History-->
+<script src="/javascripts/iahistory.js" defer ></script>
+
+<!--IA Home Notifications-->
+<script src="/javascripts/ianotification.js" defer></script>
+
+<!--Push Notification-->
+<script src="js/pushnotify.js" ></script>
+<!--Service worker register-->
+<script src="/pwabuilder-sw-register.js" ></script>
+
+<!--amr files-->
+<script src="/javascripts/amrnb.js" defer></script>
+
+
+<!--weather-->
+<!--<script src="js/ia-weather.js" ></script>-->
+
+<script>
+    //panel type
+    var panelmode='CUSTOMERPANEL';
+
+    function checkhashome() {
+        var customerb = $.cookie('customerb');
+        if (!customerb) {
+            window.location = '/customer/logout';
+        }
+        var hashomeb = $.cookie('hashomeb');
+        if (hashomeb) {
+            return true;
+        } else {
+            show_sspage('/customer/views/iahome.customer.create.view.html');
+            return false;
+        }
+    }
+
+    ssbindRender();
+
+    // hide Please Wait...
+    setTimeout(function () { $('.page-loader-wrapper').fadeOut(); },4);
+
+    if (checkhashome()) {
+        if (typeof home !== 'undefined')
+            show_sspage('../customer/views/iahome.customer.view.html');
+    }
+
+    function logout() {
+        swal.fire({
+            title: "Sign out",
+            html: "Do you want to sign out?",
+            //icon: "warning",
+            imageUrl: "images/error.png",
+            imageWidth: 50,
+            showCancelButton: true,
+            confirmButtonText: 'Yes'
+        }).then((result) => {
+            if (result.value) {
+                $.removeCookie('customerb', {path: '/'});
+                localStorage.removeItem("tu2");
+                IA_History._clear(false);
+                window.location = '/customer/logout';
+                return false;
+            }
+        });
+    }
+
+    //click on menu items close menu
+    $('.menu a:not(.menu-toggle) , a[sspage]').click(() => {
+        $('body').removeClass('overlay-open');
+        $('.overlay').fadeOut();
+    });
+
+    //handler of back button on browser and mobile
+    window.addEventListener('popstate', function () {
+        console.log('back button')
+        var close = true;
+        //close left menu with back button
+        if ($('body').hasClass('overlay-open')) {
+            window.history.pushState({}, '');
+            $('body').removeClass('overlay-open');
+            $('.overlay').fadeOut();
+            close = false;
+        }
+
+        //close modal by back button of mobile or browser
+        if ($('body').hasClass('modal-open')) {
+            window.history.pushState({}, '');
+            /*$('body').removeClass('modal-open');
+             $('.modal').fadeOut().removeClass("in");
+             $('.modal-backdrop').hide();*/
+            $('.modal').click();
+            close = false;
+        }
+
+        if($('.dropdown.open')){
+            window.history.pushState({}, '');
+            $(".dropdown.open").removeClass('open');
+            close = false;
+        }
+
+
+    });
+
+    //update value of each .receivetime every 60 seconds
+    setInterval(function () {
+        $('.receivetime').each(function () {
+            var v = $(this).attr("data-value");
+            if (v && v !== 'null')
+                $(this).text(moment(eval($(this).attr("data-value"))).fromNow());
+        })
+    }, 60000);
+
+    function changeHomeGuard(newGuard) {
+        $.ajax({
+            url: '/iahome/guard/' + newGuard,
+//            async: !1,
+            type: "put",
+            dataType: "json",
+            success: function (_home) {
+                //show_sspage("../customer/views/iahome.customer.view.html")
+                home.Guard = _home.Guard;
+                ssbindRenderLevel("guard");
+                return true;
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                console.error(xhr, ajaxOptions, thrownError);
+                //alert(thrownError + " - " + ajaxOptions);
+                return false;
+            }
+        }).fail(function (response) {
+            swal.fire("Error", response.responseJSON.message, "error");
+            return false;
+        });
+    }
+
+    function swipedetect(el, callback){
+
+        var touchsurface = el,
+            swipedir,
+            startX,
+            startY,
+            distX,
+            distY,
+            threshold = 150, //required min distance traveled to be considered swipe
+            restraint = 100, // maximum distance allowed at the same time in perpendicular direction
+            allowedTime = 300, // maximum time allowed to travel that distance
+            elapsedTime,
+            startTime,
+            handleswipe = callback || function(swipedir){}
+        touchsurface.removeEventListener('touchstart',function(e){JL().info('removeEventListener 1')});
+        touchsurface.addEventListener('touchstart', function(e){
+            var touchobj = e.changedTouches[0]
+            swipedir = 'none'
+            dist = 0
+            startX = touchobj.pageX
+            startY = touchobj.pageY
+            startTime = new Date().getTime() // record time when finger first makes contact with surface
+//            e.preventDefault()
+        }, false);
+
+        touchsurface.removeEventListener('touchmove',function(e){JL().info('removeEventListener 1')});
+        touchsurface.addEventListener('touchmove', function(e){
+//            e.preventDefault() // prevent scrolling when inside DIV
+        }, false);
+
+        touchsurface.removeEventListener('touchend',function(e){JL().info('removeEventListener 1')});
+        touchsurface.addEventListener('touchend', function(e){
+            var touchobj = e.changedTouches[0]
+            distX = touchobj.pageX - startX // get horizontal dist traveled by finger while in contact with surface
+            distY = touchobj.pageY - startY // get vertical dist traveled by finger while in contact with surface
+            elapsedTime = new Date().getTime() - startTime // get time elapsed
+            if (elapsedTime <= allowedTime){ // first condition for awipe met
+                if (Math.abs(distX) >= threshold && Math.abs(distY) <= restraint){ // 2nd condition for horizontal swipe met
+                    swipedir = (distX < 0)? 'left' : 'right' // if dist traveled is negative, it indicates left swipe
+                }
+                else if (Math.abs(distY) >= threshold && Math.abs(distX) <= restraint){ // 2nd condition for vertical swipe met
+                    swipedir = (distY < 0)? 'up' : 'down' // if dist traveled is negative, it indicates up swipe
+                }
+            }
+            handleswipe(swipedir)
+//            e.preventDefault()
+        }, false);
+    }
+
+
+    if((typeof swipped === 'undefined') || !swipped) {
+        var swipe_content = document.getElementsByClassName('swipe-content').item(0);
+        swipedetect(swipe_content, function (swipedir) {//     swipedir contains either "none", "left", "right", "top", or "down"
+            if (swipedir === 'left') {
+                JL().info("swipe left");
+                if ($('body').hasClass('overlay-open')) {
+                    $('body').removeClass('overlay-open');
+                } else {
+//                    toggleRightPan('open');
+                }
+            } else if (swipedir === 'right') {
+                JL().info("swipe right");
+
+                /*if (document.querySelector('.rightpan') && (localStorage.getItem('collapseright') !== 'hidden')) {
+                    toggleRightPan('close');
+                } else {*/
+                    if (!$('body').hasClass('overlay-open')) {
+                        $('body').addClass('overlay-open');
+                    }
+                /*}*/
+            }
+        });
+
+        var menu_swipe_content = document.getElementById('leftsidebar');
+        swipedetect(menu_swipe_content, function (swipedir) {
+            if (swipedir === 'left') {
+                if ($('body').hasClass('overlay-open')) {
+                    $('body').removeClass('overlay-open');
+                }
+            }
+        });
+        swipped = true;
+    }
+
+    $(function () {
+        $.ajaxSetup({
+            beforeSend(xhr){
+                var customerb = $.cookie('customerb');
+                if (!customerb) {
+                    window.location = '/customer/logout';
+                }
+            }
+        });
+
+        //development
+        $( document ).ajaxComplete(function() {
+            //Tooltip
+            $('[data-toggle="tooltip"]').tooltip({
+                container: 'body'
+            });
+
+            //Popover
+            $('[data-toggle="popover"]').popover();
+        });
+
+    })
+</script>
+
+<!--detect device info-->
+<!--<script>
+    var urlParams = new URLSearchParams(window.location.search);
+    var DeviceType = urlParams.get('DeviceType');
+    var MacAddress = urlParams.get('MacAddress');
+    if(MacAddress && DeviceType){
+        localStorage.NewDeviceType = DeviceType;
+        localStorage.NewMacAddress = MacAddress;
+        window.history.replaceState(null, null, window.location.pathname);
+    }
+
+    if(localStorage.NewDeviceType && localStorage.NewMacAddress){
+        DeviceType = localStorage.NewDeviceType;
+        MacAddress = localStorage.NewMacAddress;
+        show_sspage('/customer/views/iadevice.customer.register.view.html', 'ssbindRender();checkhashome();$("#devicecode").val("'+MacAddress+'");$("input[name=devicetype][value='+DeviceType+']").attr("checked", true);$("#devicename").focus()');
+    }
+</script>-->
+
+<!-- Google Fonts -->
+<!--<link href="https://fonts.googleapis.com/css?family=Roboto:400,700&subset=latin,cyrillic-ext" rel="stylesheet" type="text/css">-->
+
+<!--material fonts-->
+<!--<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" type="text/css">-->
+<link href="/share/material-icons/material-design-icons.css" rel="stylesheet" type="text/css">
+
+
+
+
+<!--eChart-->
+<!--<script src="https://cdn.jsdelivr.net/npm/echarts/dist/echarts.min.js" defer async></script>-->
+<script src="/share/plugins/echarts/echarts.min.js" defer async></script>
+<script type="text/javascript">
+    checkOpenWindows('index')
+    /*// Broad cast that your're opening a page.
+    localStorage.openpages = Date.now();
+    var onLocalStorageEvent = function(e){
+        if(e.key == "openpages"){
+            // Listen if anybody else opening the same page!
+            localStorage.page_available = Date.now();
+        }
+        if(e.key == "page_available"){
+            swal.fire("Use one window!", "BKC Control Panel is open in another tab or window, Please don't open BKC Panel Control in multiple windows!", "warning", {closeOnClickOutside: false});
+        }
+    };
+    window.addEventListener('storage', onLocalStorageEvent, false);*/
+</script>
+</body>
+</html>

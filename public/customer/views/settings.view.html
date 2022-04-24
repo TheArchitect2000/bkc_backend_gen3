@@ -1,0 +1,525 @@
+<style>
+    #iavoicetab blockquote {
+        border-left: 5px solid #00bcd4;
+        background-color: beige;
+        color: #00bcd4;
+        font-family: cursive;
+        font-size: inherit;
+    }
+
+    conversation {
+        display: table;
+        padding: 2pc;
+        background-color: #c1edff;
+    }
+    or, comment {
+        display: block;
+        color: white;
+        font-family: Tahoma;
+        font-size: smaller;
+        text-shadow: 1px 1px 7px #009688;
+    }
+    or:before {
+        content: "or";
+    }
+    usr, iav {
+        display: block;
+        margin-top: .5pc;
+        width: fit-content;
+        min-width: 55%;
+        max-width: 90%;
+    }
+    usr {
+        float: left;
+        padding: .4pc 1pc .4pc 2.5pc;
+        font-family: cursive;
+        border-radius: .5pc;
+        background-color: rgba(76, 175, 80, 0.31);
+    }
+    usr:before{
+        display: inline-block;
+        font: normal normal normal 24px/1 "Material Design Icons";
+        font-size: large;
+        text-rendering: auto;
+        line-height: inherit;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        content: "\F5CB";
+        margin-right: .5pc;
+        margin-left: -1.5pc;
+    }
+    iav {
+        float: right;
+        /*text-align: right;*/
+        list-style: circle;
+        font-family: monospace, monospace;
+        border-radius: .5pc;
+        background-color: rgba(42, 107, 230, 0.31);
+        padding: .4pc 1pc .4pc 2.5pc;
+    }
+    iav:before {
+        display: inline-block;
+        font: normal normal normal 24px/1 "Material Design Icons";
+        font-size: large;
+        text-rendering: auto;
+        line-height: inherit;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        content: "\F823";
+        margin-right: .5pc;
+        margin-left: -1.5pc;
+    }
+
+    .alexa-icon {
+        background-image: url("images/alexa-icon-256.png");
+        background-repeat: no-repeat;
+        background-size: cover;
+        width: 30px;
+        height: 30px;
+        display: inline-block;
+    }
+
+    .google-icon {
+        background-image: url("images/google-assistant-icon.png");
+        background-repeat: no-repeat;
+        background-size: cover;
+        width: 30px;
+        height: 30px;
+        display: inline-block;
+    }
+</style>
+<div class="card">
+    <div class="header">
+        <span class="ia-head">
+            <span class="icon2 setting-icon "></span>
+            Settings
+        </span>
+    </div>
+    <div class="body">
+        <!-- Nav tabs -->
+        <ul class="nav nav-tabs ia-medium-title tab-col-red service" role="tablist">
+
+            <li role="presentation" class="active">
+                <a href="#guardtab" data-toggle="tab" aria-expanded="true">
+                    Guard
+                </a>
+            </li>
+            <li role="presentation">
+                <a href="#homeprofile" data-toggle="tab" aria-expanded="true">
+                    Home
+                </a>
+            </li>
+            <li role="presentation">
+                <a href="#userprofile" data-toggle="tab" aria-expanded="true">
+                    User
+                </a>
+            </li>
+            <li role="presentation">
+                <a href="#apptab" data-toggle="tab" aria-expanded="true">
+                    App
+                </a>
+            </li>
+            <li role="presentation" ssif="enableVoice">
+                <a href="#iavoicetab" data-toggle="tab" aria-expanded="true">
+                    Voice Command
+                </a>
+            </li>
+        </ul>
+
+        <!-- Tab panes -->
+        <div class="tab-content ">
+            <div role="tabpanel" class="tab-pane fade active in  align-center" id="guardtab">
+                <div class="icon" style="font-size: 5pc">
+                    <i sslevel="guard"  ssbind="class:'mdi ' + ( ((typeof home != 'undefined') && home.Guard) ? 'col-red mdi-security':'col-grey mdi-shield-off' )"></i>
+                </div>
+                <div class="footer">
+                    <div class="switch">
+                        <label><span class="">Disarmed</span><input type="checkbox" ssbind="checked:(typeof home != 'undefined') ? home.Guard : null"
+                                                                             id="guardcheck"
+                                                                             onchange="changeHomeGuard(this.checked);ssbindRenderLevel('guard')"><span
+                                class="lever switch-col-red"></span><span class="">Armed</span> </label>
+                    </div>
+                </div>
+            </div>
+            <div role="tabpanel" class="tab-pane" id="userprofile">
+                <div sspage-load="../customer/views/iacustomer.customer.edit.view.html"
+                     sspage-load-after11="XXXssbindRenderXXX()BAD two ssbindrender together"></div>
+            </div>
+            <div role="tabpanel" class="tab-pane " id="homeprofile">
+                 <div sspage-load="../customer/views/iahome.customer.edit.view.html"
+                 sspage-load-after="ssbindRender()"></div>
+            </div>
+            <div role="tabpanel" class="tab-pane " id="apptab">
+                <div class="card">
+                    <!--<div class="body">
+                        <h5 class="col-red ia-medium-title">Sign out</h5>
+                        <li class="col-grey">Exit from your account</li>
+
+                        <button class="btn btn-primary-ia ia-big-title m-t-10" onclick="logout();return false;">Sign out</button>
+                    </div>-->
+
+                    <!--<div class="body" ssifxxx="!window.cacheX" id="cacheX">
+                        <h5 class="col-red ia-medium-title">Disable Cache</h5>
+                        <li class="col-grey">Disabling cache until closing the app </li>
+
+                        <button class="btn btn-primary-ia ia-big-title m-t-10" onclick="disableCache();return false;">Disable</button>
+&lt;!&ndash;                        <button class="btn btn-primary-ia ia-big-title m-t-10" onclick="window.location.reload();return false;">Reload</button>&ndash;&gt;
+
+                    </div>-->
+
+
+
+                    <div class="body" ssif="localStorage.getItem('dontremindlater')">
+                        <h5 class="col-red ia-medium-title hidden-xs">Add to desktop</h5>
+                        <h5 class="col-red ia-medium-title visible-xs">Add to home screen</h5>
+                        <li>By clicking on the below button you will see an message prompt to install this app on your device.</li>
+                        <button class="btn btn-primary-ia ia-big-title m-t-10" onclick="localStorage.removeItem('dontremindlater');window.location.reload()">Install App ...</button>
+                    </div>
+                </div>
+            </div>
+            <div role="tabpanel" class="tab-pane" id="iavoicetab">
+                <div class="card">
+                    <div class="body row">
+                        <div class="col-sm-6 col-xs-12">
+                            <div class="">
+                                <!--<h5 class="col-red ia-medium-title">Integrate with other smart speakers</h5>
+                                <div class="row">
+                                    <div class="col-sm-6 col-xs-6">
+                                        <img src="images/works-with-google-assistant.png" class="img-responsive">
+                                    </div>
+                                    <div class="col-sm-6 col-xs-6">
+                                        <img src="images/works-with-amazon-alexa.png" class="img-responsive">
+                                    </div>
+                                </div>-->
+                                Blocklychain allows you to control your smart home devices with your voice using smart speakers such as Google Home (Google Nest) and Amazon Alexa, or from your smartphone using apps such as Google Assistant and Amazon Alexa.
+
+                                <div class="m-t-15" id="prelogins" sspage-load-json="/iavoice/getprelogins" sspage-load-json-var="prelogins" sspage-load-after="ssbindRenderLevel('prelogins')">
+                                    <div ssif="prelogins.length>0">
+                                    <h6>You have connected your smart home with :</h6>
+                                    <div ssfor="prelogins" sslevel="prelogins" class="bg-white col-black row" ssemptylist="Not any connection" ssbind="id:prelogins[ssIndex]._id">
+                                        <div class="col-sm-1 col-xs-2">
+                                            <i sslevel="prelogins" ssbind="class:prelogins[ssIndex].Platform==='AlexaSkill'?'alexa-icon':'google-icon'"></i>
+                                        </div>
+                                        <div class="col-sm-7 col-xs-10">
+                                            <b sslevel="prelogins" ssbind="text:prelogins[ssIndex].Platform==='AlexaSkill'?'Amazon Alexa':'Google Assistant'" class="font-15"></b>
+                                            <br>
+                                            from <span sslevel="prelogins" ssbind="text:prelogins[ssIndex].createdAt" ></span>
+                                        </div>
+                                        <div class="col-sm-3 col-xs-12 align-right">
+                                            <button class="btn btn-link col-red" onclick="disconnectPlatform(prelogins[ssIndex]._id, prelogins[ssIndex].Platform==='AlexaSkill'?'Alexa':'Google')">Disconnect</button>
+                                        </div>
+                                    </div>
+                                    </div>
+                                </div>
+
+                                <div class="panel-heading m-l--15">
+                                    <h4 class="panel-title p-l-0 p-r-0">
+                                        <a data-toggle="collapse" data-parent="#accordion" href="#passwordcollapse" class="col-red accordion collapsed">
+                                            <span class="mdi mdi-plus col-red"></span>
+                                            Integrate with a<span ssif="prelogins.length>0">nother</span> smart speaker
+                                        </a>
+                                    </h4>
+                                </div>
+                                <div id="passwordcollapse" class="panel-collapse collapse">
+                                    <div class="panel-body ">
+                                        The first time you open Blocklychain in Google Assistant or Amazon Alexa, they don't recognize you, so they ask you for your own password. You need to say it like this:
+                                        <br>
+
+                                        <div id="iavpp" class="collapse">
+                                            <blockquote style="letter-spacing: 1.3em; margin-top: 10px;">
+                                                <nobr>
+                                                    <i class="mdi mdi-voice"></i>
+                                                    <i id="iavpass" sspage-loadXXX="/iavoice/getiavpassword" sspage-load-after="afterloadpass()">----</i>
+                                                </nobr>
+                                            </blockquote>
+                                            <em id="expirepasswordmessage" class="col-grey">Above password expires in <u>One Minute</u></em>
+                                        </div>
+                                        <div class="align-right">
+                                            <button class="btn btn-primary-ia m-t-10" id="passrefreshbtn" onclick="show_sspage('/iavoice/getiavpassword','afterloadpass()','#iavpass')"><!--<i class="mdi mdi-refresh btn btn-circle btn-link font-19 col-red"></i>--> Get New Password</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        <!--</div>
+                        <div class="row">-->
+                            <!--<h5 class="m-l-15">How to connect to Blocklychain voice place?</h5>
+                            <div class="col-sm-6 col-xs-12">
+
+                                <h4><i class="mdi mdi-amazon-alexa col-light-blue"></i> Amazon Alexa</h4>
+                                When you start to speak with <i>Alexa</i>, you can say:<br>
+                                <blockquote><i class="mdi mdi-voice"></i> Alexa, open Blocklychain</blockquote>
+                                or say:
+                                <blockquote><i class="mdi mdi-voice"></i> ..., use Blocklychain</blockquote>
+                                even:
+                                <blockquote><i class="mdi mdi-voice"></i> Alexa, Blocklychain</blockquote>
+                            </div>
+                            <div class="col-sm-6 col-xs-12">
+                                <h4><i class="mdi mdi-google-assistant col-red"></i> Google Assistant</h4>
+                                When you start to speak with <i>Google Assistant</i>, you could say:<br>
+                                <blockquote><i class="mdi mdi-voice"></i> Hey Google, talk to Blocklychain</blockquote>
+                                or just:
+                                <blockquote><i class="mdi mdi-voice"></i> OK Google, Blocklychain</blockquote>
+                            </div>-->
+
+
+                        </div>
+                        <div class="dialogs col-sm-6 col-xs-12">
+                            <div class="panel-group" id="accordion">
+
+                                <div class="panel panel-default1">
+                                    <div class="panel-heading m-l--15">
+                                        <h4 class="panel-title p-l-0 p-r-0">
+                                            <a data-toggle="collapse" data-parent="#accordion" href="#collapse1" class="accordion collapsed">
+                                                <span class="mdi mdi-comment-question-outline"></span>
+                                                How to connect to Blocklychain voice place?
+                                            </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapse1" class="panel-collapse collapse">
+                                        <div class="panel-body p-l-0 p-r-0">
+                                            <conversation>
+                                                <usr>
+                                                    <comment>at <i class="mdi mdi-amazon-alexa col-light-blue"></i> Amazon Alexa</comment>
+                                                    Alexa, open Blocklychain
+                                                    <or/>
+                                                    Alexa, use Blocklychain
+                                                    <or> even</or>
+                                                    Alexa, Blocklychain
+                                                </usr>
+                                                <iav>
+                                                    Welcome ...
+                                                </iav>
+                                                <br>
+                                                <br>
+                                                <usr>
+                                                    <or> at <i class="mdi mdi-google-assistant col-red"></i> Google Assistant</or>
+
+                                                    OK Google, Blocklychain
+                                                    <or/>
+                                                    Hey Google, talk to Blocklychain
+                                                </usr>
+                                                <iav>
+                                                    Welcome ...
+                                                </iav>
+                                            </conversation>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="panel panel-default1">
+                                    <div class="panel-heading m-l--15">
+                                        <h4 class="panel-title p-l-0 p-r-0">
+                                            <a data-toggle="collapse" data-parent="#accordion" href="#collapse2" class="accordion collapsed">
+                                                <span class="mdi mdi-comment-question-outline"></span>
+                                                How to login at Blocklychain voice place?
+                                            </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapse2" class="panel-collapse collapse">
+                                        <div class="panel-body p-l-0 p-r-0">
+                                            <conversation>
+                                                <usr>
+                                                    ..., Blocklychain
+                                                </usr>
+                                                <iav>
+                                                    Welcome to Blocklychain ... To introduce yourself to me, please read your voice password.
+                                                </iav>
+                                                <usr>
+                                                    <comment>After getting a new password from the BKC Panel, the user says for example:</comment>
+                                                    2345
+                                                    <or/>
+                                                    my password is 2345
+                                                    <comment>it is better to read the password as two 2-digits number</comment>
+                                                    password is 23 45
+                                                    <or> even</or>
+                                                    my secret is 2 3 4 5
+                                                </usr>
+                                                <iav>
+                                                    Hey <b ssbind="text:JSON.parse($.cookie('customerb')).FirstName"></b>, nice to meet you here. I can recognize you now.
+                                                </iav>
+                                            </conversation>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="panel panel-default1">
+                                    <div class="panel-heading m-l--15">
+                                        <h4 class="panel-title p-l-0 p-r-0">
+                                            <a data-toggle="collapse" data-parent="#accordion" href="#collapse3" class="accordion collapsed">
+                                                <span class="mdi mdi-comment-question-outline"></span>
+                                                How to check a device state?
+                                            </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapse3" class="panel-collapse collapse">
+                                        <div class="panel-body p-l-0 p-r-0">
+                                            <conversation>
+                                                <comment>Suppose you have a smart plug called <b>Power kitchen</b></comment>
+
+                                                <usr>
+                                                    <b>Power kitchen</b> state
+                                                    <or/>
+                                                    <b>Power kitchen</b> status
+                                                    <or> even</or>
+                                                    how about <b>Power kitchen</b>
+                                                    <or/>
+                                                    what about <b>Power kitchen</b>
+                                                    <or/>
+                                                    say about <b>Power kitchen</b>
+                                                </usr>
+                                                <iav>
+                                                    <b>Power kitchen</b> state is ON
+                                                    <or> may sometimes</or>
+                                                    The status of this device is unknown for me.!
+                                                    <comment>if it could not to check says</comment>
+                                                    Unfortunately I cannot check the status of <b>Power kitchen</b>
+                                                </iav>
+                                            </conversation>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="panel panel-default1">
+                                    <div class="panel-heading m-l--15">
+                                        <h4 class="panel-title p-l-0 p-r-0">
+                                            <a data-toggle="collapse" data-parent="#accordion" href="#collapse4" class="accordion collapsed">
+                                                <span class="mdi mdi-comment-question-outline"></span>
+                                                How to turn on/off a smart plug?
+                                            </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapse4" class="panel-collapse collapse">
+                                        <div class="panel-body p-l-0 p-r-0">
+                                            <conversation>
+                                                <comment>Suppose you have a power plug called <b>Power kitchen</b></comment>
+                                                <usr>
+                                                    ..., open Blocklychain
+                                                </usr>
+                                                <iav>
+                                                    What can I do for you?
+                                                </iav>
+                                                <usr>
+                                                    turn on <b>Power kitchen</b>
+                                                    <or/>
+                                                    <b>Power kitchen</b> on
+                                                </usr>
+                                                <iav>
+                                                    OK, I turned on <b>Power kitchen</b>
+                                                    <or>Maybe says</or>
+                                                    I tried to turn on <b>Power kitchen</b>
+                                                    <comment>If the device was not connected to BKC network for any reason</comment>
+                                                    Device <b>Power kitchen</b> is not connected!
+                                                </iav>
+                                            </conversation>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="panel panel-default1">
+                                    <div class="panel-heading m-l--15">
+                                        <h4 class="panel-title p-l-0 p-r-0">
+                                            <a data-toggle="collapse" data-parent="#accordion" href="#collapse5" class="accordion collapsed">
+                                                <span class="mdi mdi-comment-question-outline"></span>
+                                                How to Play/Pause an BKC Smart Speaker?
+                                            </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapse5" class="panel-collapse collapse">
+                                        <div class="panel-body p-l-0 p-r-0">
+                                            <conversation>
+                                                <comment>Suppose you have a speaker called <b>Good Speaker</b></comment>
+                                                <usr>
+                                                    Hey Google, talk Blocklychain to play <b>Good Speaker</b>
+                                                    <or/>
+                                                    Continue <b>Good Speaker</b>
+                                                    <or/>
+                                                    <b>Good Speaker</b> play
+                                                    <or/>
+                                                    <b>Good Speaker</b> carry on
+                                                    <or> even</or>
+                                                    resume <b>Good Speaker</b>
+
+                                                </usr>
+                                                <iav>
+                                                    OK, <b>Good Speaker</b> is playing now
+                                                    <or> maybe says</or>
+                                                    <b>Good Speaker</b> may start playing now
+                                                </iav>
+                                            </conversation>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+
+    function afterloadpass() {
+        $('#passrefreshbtn').hide();
+        $('#iavpp, #expirepasswordmessage').show();
+        $('#iavpass').removeClass('font-line-through');
+        setTimeout(function () {
+            $('#iavpass').addClass('font-line-through');
+            $('#passrefreshbtn').show();
+            $('#expirepasswordmessage').hide();
+            //recheck prelogins
+            load_sspage($('#prelogins'));
+
+        }, 60000);
+    }
+
+    function disconnectPlatform(id, platform) {
+
+        swal.fire({
+            title: "Disconnect from "+platform,
+            html: "Do you want to disable voice commands from "+platform+"?",
+            icon: "warning",
+//            imageUrl: "images/error.png",
+//            imageWidth: 50,
+            showCancelButton: true,
+            confirmButtonText: 'Yes'
+        }).then((result) => {
+            if (result.value) {
+                $.ajax({
+                    url: '/iavoice/disconnect/' + id,
+                    type: 'DELETE',
+                    dataType: 'json',  //use jsonp data type in order to perform cross domain ajax
+//            data: data,
+                    success: function (f) {
+                        swal.fire({
+                            icon:"info",
+                            title: 'Disconnect Platform',
+                            html: 'Disconnected Successfully!'})
+                    },
+                    error: function (err) {
+                        console.error(err)
+                    }
+                }).done(function () {
+                    console.log('done');
+                    $('#'+id).hide();
+                });
+            }
+        });
+    }
+
+
+    function disableCache(){
+        $.ajaxSetup ({
+            // Disable caching of AJAX responses
+            cache: false
+        });
+        window.cacheX = false;
+        $('#cacheX').hide();
+
+        /*if (caches) {
+            caches.keys().then(async function(names) {
+                await Promise.all(names.map(name => caches.delete(name)))
+            })
+        }
+        window.location.reload(true)*/
+    }
+</script>

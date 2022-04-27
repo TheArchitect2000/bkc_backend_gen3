@@ -257,6 +257,7 @@ $ openssl x509 -outform der -in iabroker.certificate.crt -out iabroker.certifica
 }
 
 ```
+### note: rename config/which.config.js.sample to config/which.config.js
 
 ### Step 3- put these files in following directory
 

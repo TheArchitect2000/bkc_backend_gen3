@@ -1,10 +1,5 @@
 var nodemailer = require('nodemailer');
-//var {mailconfig} = require('../config/email.config');
-
-const fs = require('fs');
-let mailconfig = fs.readFileSync('./config/mailconf.json');
-mailconfig = JSON.parse(mailconfig);
-
+var {mailconfig} = require('../config/email.config');
 
 /**
  * mailconfig like {

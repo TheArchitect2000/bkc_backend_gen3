@@ -104,108 +104,78 @@ $ systemctl status nginx
 
 ### Update the nginx.conf in /etc/nginx/nginx.config
 
-```u1
+```codenginx
 user www-data;
 worker_processes auto;
 pid /run/nginx.pid;
-# include /etc/nginx/modules-enabled/*.conf;
+include /etc/nginx/modules-enabled/*.conf;
 
 events {
-	worker_connections 1024;
-	# multi_accept on;
-}
+       	worker_connections 1024;
+      	# multi_accept on;
+       }
 
 http {
-    log_format  main  '$remote_addr - $remote_user [$time_local] "$request" '
+     log_format  main  '$remote_addr - $remote_user [$time_local] "$request" '
                       '$status $body_bytes_sent "$http_referer" '
                       '"$http_user_agent" "$http_x_forwarded_for"';
 
-    access_log  /var/log/nginx/access.log  main;
+     access_log  /var/log/nginx/access.log  main;
 
-    sendfile            on;
-    tcp_nopush          on;
-    tcp_nodelay         on;
-    # keepalive_timeout   65;
-    # types_hash_max_size 2048;
-    client_max_body_size 100M;
+     sendfile            on;
+     tcp_nopush          on;
+     tcp_nodelay         on;
+     keepalive_timeout   65;
+     types_hash_max_size 2048;
 
-    include             /etc/nginx/mime.types;
-    default_type        application/octet-stream;
+     include             /etc/nginx/mime.types;
+     default_type        application/octet-stream;
 
-    # Load modular configuration files from the /etc/nginx/conf.d directory.
-    # See http://nginx.org/en/docs/ngx_core_module.html#include
-    # for more information.
-    include /etc/nginx/conf.d/*.conf;
-
-
+     # Load modular configuration files from the /etc/nginx/conf.d directory.
+     # See http://nginx.org/en/docs/ngx_core_module.html#include
+     # for more information.
+     include /etc/nginx/conf.d/*.conf;
 
     	server {
-	       gzip on;
-	       listen 80;      
-	       server_name  _;
-	       root         /usr/share/nginx/html;
-	       ssl_certificate  ssl/webpublic.pem;
-	       ssl_certificate_key ssl/webprivate.pem;
-	       
-	       # server_name  cl.blocklychain.io;
-	       server_name  <YOUR DOMAIN>;
-	       
-	       return 301 https://$host$request_uri;
-	       }
-	
-
-
-
-    	server {
-	       gzip on;
-	       listen       443 ssl;
-	       ssl_certificate  ssl/webpublic.pem;
-	       ssl_certificate_key ssl/webprivate.pem;
-
-	       #This line for iavoice controller to forward /webhook_google to port 9122
-	       location /webhook {
-	       proxy_pass http://localhost:9122;
-	       proxy_http_version 1.1;
-	       proxy_set_header Upgrade $http_upgrade;
-	       proxy_set_header Connection 'upgrade';
-	       proxy_set_header Host $host;
-	       proxy_cache_bypass $http_upgrade;		
-	       add_header "Pragma" "no-cache";
-	       add_header "Expires" "-1";
-	       add_header Last-Modified $date_gmt;
-	       add_header Cache-Control 'no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0';
-	       if_modified_since off;
-	       expires off;
-	       etag off;
-	       }
-
-
-	       #This line for iavoice controller to forward /webhook_alexa to port 9122
-	       location /webhook_alexa {
-	       proxy_set_header   X-Forwarded-For $remote_addr;
-	       proxy_set_header   Host $http_host;
-	       proxy_pass         "http://127.0.0.1:9122";
-	       }
-
-
-	       location / {
-		proxy_pass http://localhost:50500;
-		proxy_http_version 1.1;
-		proxy_set_header Upgrade $http_upgrade;
-		proxy_set_header Connection 'upgrade';
-		proxy_set_header Host $host;
-		proxy_cache_bypass $http_upgrade;
+             gzip on;
+             listen 80;
+             server_name  _;
+             root         /usr/share/nginx/html;
 		
-		add_header "Pragma" "no-cache";
-		add_header "Expires" "-1";
-		add_header Last-Modified $date_gmt;
+             ssl_certificate  ssl/webpublic.pem;
+             ssl_certificate_key ssl/webprivate.pem;
+             server_name  panel.cpvanda.com;
+
+             # Load configuration files for the default server block.
+             include /etc/nginx/default.d/*.conf;
+             return 301 https://$host$request_uri;
+             }
+	
+    	server {
+	           gzip on;
+             listen       443 ssl;
+             ssl_certificate  ssl/webpublic.pem;
+	           ssl_certificate_key ssl/webprivate.pem;
+
+
+	   location / {
+	             	proxy_pass http://localhost:50500;
+            		proxy_http_version 1.1;
+            		proxy_set_header Upgrade $http_upgrade;
+            		proxy_set_header Connection 'upgrade';
+            		proxy_set_header Host $host;
+            		proxy_cache_bypass $http_upgrade;
+            		add_header "Pragma" "no-cache";
+            		add_header "Expires" "-1";
+            		add_header Last-Modified $date_gmt;
                 add_header Cache-Control 'no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0';
                 if_modified_since off;
                 expires off;
                 etag off;
-	       }
-    	}
+            		}
+	           }
 }
+
 ```
 
 ## 7- Https Certificate
@@ -232,32 +202,23 @@ $ openssl x509 -outform der -in iabroker.certificate.crt -out iabroker.certifica
 
 ## 8-Config your BKC Node
 
-### Step 1- create config/fingerprint.json and Update
+### Step 1- create config/which.config.js and Update
 
 ```s1
-# Replace your fingerprint and your URL
-{
-"fingerprint" : "FB:63:86:B4:94:13:15:77:5D:BE:6A:FE:68:61:FB:E2:D8:AF:E1:F0",
-"domainUrl" : "https://cl.bkcnode.com"
-}
+# Replace your fingerprint
+module.exports.fingerprint = 'FB:63:86:B4:94:13:15:77:5D:BE:6A:FE:68:61:FB:E2:D8:AF:E1:F0';
 ```
-### Step 2- create config/mailconf.json and Update
+### Step 2- create config/email.config.js and Update
 
 ```s2
 # Replace your email info
-{
-    "host": "mail.bkcnode.com",
-    "port": 587,
-    "auth": {
-        "user": "admin@bkcnode.com",
-        "pass": "Hello123"
-    },
-    "tls": {"rejectUnauthorized": false},
-    "templates": "../views/emailtemplates/"
-}
-
+host: 'mail.bkcnode.com',
+port: 587,
+auth: {
+       user: 'mailto:panel@bkcnode.io',
+       pass: 'Hello123'
+},
 ```
-### note: rename config/which.config.js.sample to config/which.config.js
 
 ### Step 3- put these files in following directory
 

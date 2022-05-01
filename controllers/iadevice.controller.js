@@ -2,11 +2,8 @@ const IADevice = require('../models/iadevice.model');
 const IADeviceType = require('../models/iadevicetype.model');
 const IAActivity = require('../models/iaactivity.model');
 const randompassword = require('secure-random-password');
-//let configs = require("../public/share/js/configs");
+let configs = require("../public/share/js/configs");
 
-const fs = require('fs');
-let configs = fs.readFileSync('./config/fingerprint.json');
-configs = JSON.parse(configs);
 
 function generatePassword(len) {
     return randompassword.randomPassword({

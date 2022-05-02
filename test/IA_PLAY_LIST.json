@@ -1,0 +1,22 @@
+{
+    "command": "PLAY_LIST",
+    "pl-name": "Play list name",
+    "pl-title": "Play list title",
+    "pl-url-prefix": "https://iabroker.iabt.io/fileserver/",
+    "pl-list-count": 7,
+    "pl-list": [
+        ["3fb9ed7832a0c3ea3a30829c28c801a4"	,"aac", "sample1.aac"],
+        ["95789d640fdad97a56e15b8643e23d22"	,"amr", "gs-16b-1c-8000hz.amr"],
+        ["59879442fe5294432341fc09242f40de"	,"wav", "file_example_WAV_1MG.wav"],
+        ["c6031a2bb555f634878f850c1ab2a9dd"	,"aac", "Voice 001.aac"],
+        ["ee198f50e4884a7d3aec0867ed5b5bc5"	,"amr", "20201211_111548.amr"],
+        ["982b5eba71b64c2b934e803a12515d34"	,"mp3", "1.mp3"],
+        ["3ce07de0ef4dc892943551f193be2bcd"	,"mp3", "Billie_Eilish _Everything_I_ wanted.mp3"]
+    ],
+    "pl-start": 1,
+    "pl-repeat": false,
+    "pl-shuffle": false
+}
+
+return states:
+pl-current : on playing file number

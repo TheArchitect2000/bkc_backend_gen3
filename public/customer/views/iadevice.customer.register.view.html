@@ -1,0 +1,219 @@
+<!--uses ssbind and sspage tags-->
+<style>
+    .device {
+        height: 8pc;
+        background-color: #DDDDDD;
+    }
+
+    .device:hover {
+        background-color: #cccccc;
+    }
+
+    /* HIDE RADIO */
+    [type=radio] {
+        position: absolute;
+        opacity: 0;
+        width: 0;
+        height: 0;
+    }
+
+    /* IMAGE STYLES */
+    label {
+        cursor: pointer;
+    }
+
+    .content {
+        margin-top: .6pc;
+    }
+
+    [type=radio] + div {
+        /*box-shadow: 0 0 1px 5px #d5dae0;*/
+        /*text-shadow: 1px 1px 4px #000000;*/
+        -webkit-box-shadow: 2px 2px 5px 0px rgba(94, 92, 96, 0.77);
+        -moz-box-shadow: 2px 2px 5px 0px rgba(94, 92, 96, 0.77);
+        box-shadow: 2px 2px 5px 0px rgba(94, 92, 96, 0.77);
+    }
+
+    [type=radio]:disabled + div {
+        -webkit-box-shadow: 0;
+        -moz-box-shadow: 0;
+        box-shadow: 0px 0px 0px 0px rgba(255, 255, 255, 0.75);
+        /*background-color: rgba(0, 0, 0, 0.2) !important;*/
+        color: #bbbbbb;
+    }
+
+    /* CHECKED STYLES */
+    [type=radio]:checked + div {
+        box-shadow: 0 0 1px 5px #d42021;
+    }
+</style>
+<script>
+    function addDevice() {
+        if (!$('[name=devicetype]:checked').val() || $('[name=devicetype]:checked').val() === 'UNKNOWN') {
+            swal.fire({
+                title: "Warning",
+                html: 'Please select <b>device type</b>',
+//                    timer: 2000,
+//                icon: "warning",
+                imageUrl: "images/error.png",
+                imageWidth: 50,
+                showConfirmButton: true
+            });
+            return;
+        }
+        if (!devicename.checkValidity()) {
+            swal.fire({
+                title: "Warning",
+                text: devicename.validationMessage,
+                html: "<b>Device Name:</b> "+devicename.validationMessage,
+//                    timer: 2000,
+//                icon: "warning",
+                imageUrl: "images/error.png",
+                imageWidth: 50,
+                showConfirmButton: true
+            });
+            return;
+        }
+        if (!devicecode.checkValidity()) {
+            swal.fire({
+                title: "Warning",
+                html: '<b>MAC Address:</b> '+ devicecode.validity.patternMismatch ? 'Please write MAC address like below format\n\n 00:00:00:00:00:00' : devicecode.validationMessage,
+//                    timer: 2000,
+//                icon: "warning",
+                imageUrl: "images/error.png",
+                imageWidth: 50,
+                showConfirmButton: true
+            });
+            return;
+        }
+//        submit new device
+        var newDevice = {mac: devicecode.value, name: devicename.value, type: $('[name=devicetype]:checked').val(), series: $('#deviceseries').val()};
+        $.post('/iadevice', newDevice, function (addeddevice) {
+            swal.fire("Device Is Installed", "OK! Your device is installed successfully.", "success", {closeOnClickOutside: false});
+            updateDevices(()=>{show_sspage("/customer/views/iadevice.customer.list.view.html","subscribedevices()")});
+
+            /*//delete detected macaddress and devicetype from captive portal
+            if(localStorage.NewDeviceType && localStorage.NewMacAddress){
+                localStorage.removeItem('NewDeviceType');
+                localStorage.removeItem('NewMacAddress');
+            }*/
+
+        }).fail(function (response) {
+            /*
+             swal.fire("Error", response.responseJSON ? response.responseJSON.message : response.responseText, "", {closeOnClickOutside: false, //html: true,imageUrl: "images/error.png",
+             imageWidth: 50});
+             */
+            swal.fire({
+                title: "Error",
+                html: '<div class="align-left">'+response.responseJSON ? response.responseJSON.message : response.responseText +"</div>" ,
+//                    timer: 2000,
+//                icon: "error",
+                imageUrl: "images/error.png",
+                imageWidth: 50,
+                showConfirmButton: true
+            });
+        });
+    }
+</script>
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+    <div class="card" style="min-height: 80vh">
+        <div class="header">
+            <div class="m-l--40*">
+                <i class="icon2 icon-newdevice" style="vertical-align: top"></i>
+                &nbsp;&nbsp;<span class="ia-bigger-title col-red">Add New Device</span>
+            </div>
+        </div>
+        <div class="body">
+            <div class="input-group input-group-lg">
+                <span class="ia-big-title col-red">Device Type</span>
+                <br>
+                <span class="col-grey">Choose the type of your device from the list below</span>
+                <br><br>
+                <div class=" row">
+                    <!--<select class="form-control text-center devicename" id="devicetype">
+                        <option ssfor="Object.keys(devicetemps)" ssbind="text:Object.keys(devicetemps)[ssIndex] ; value:Object.keys(devicetemps)[ssIndex]"></option>
+                    </select>-->
+                    <!--it is important ssfor="Object.keys(devicetemps)" was different of ssfor="Object.keys(devicetemps) in iadevice.customer.register.new.view.html"-->
+                    <label ssfor="Object.keys(devicetemps)"
+                           class=" col-sm-2 col-xs-6  hover-zoom-effect">
+                        <input type="radio" name="devicetype"
+                               ssbind="value:Object.keys(devicetemps)[ssIndex] ; disabled:!devicetemps[Object.keys(devicetemps)[ssIndex]].active">
+                        <div ssbind="class:'device p-t-10 '+  (devicetemps[Object.keys(devicetemps)[ssIndex]].active ? '':' disabled ')">
+                            <!--devicetemps[Object.keys(devicetemps)[ssIndex]].color +-->
+                            <div class="icon">
+                                <!--<i ssbind="class:devicetemps[Object.keys(devicetemps)[ssIndex]].icon"></i>-->
+                                <img ssbind="src:devicetemps[Object.keys(devicetemps)[ssIndex]].icon">
+                            </div>
+                            <div class="content ia-medium-title text-capitalize"
+                                 ssbind="html:devicetemps[Object.keys(devicetemps)[ssIndex]].title + '<center class=\'small col-blue-grey font-10\'>'+(devicetemps[Object.keys(devicetemps)[ssIndex]].vendor||'')+'</center>'">
+                            </div>
+                        </div>
+                    </label>
+                </div>
+                <div class="row m-t-15">
+                    <div class="col-sm-6">
+                        <div class="input-group input-group-lg">
+                            <span class="ia-big-title col-red">Device Name</span>
+                            <div class="form-line">
+                                <input type="text" class="form-control devicename"
+                                       id="devicename"
+                                       size="17"
+                                       required
+                                       maxlength="50"
+                                       minlength="2"
+                                       pattern1="[0-9A-Fa-f ]*"
+                                       placeholder="Set a nickname for your device">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="input-group input-group-lg">
+                            <span class="ia-big-title col-red">MAC Address</span>
+                            <div class="form-line">
+                                <input type="text" class="form-control  devicecode1"
+                                       id="devicecode"
+                                       size="17"
+                                       required
+                                       maxlength="17"
+                                       minlength="17"
+                                       pattern="^([0-9A-F]{2}[:-]){5}([0-9A-F]{2})$"
+                                       placeholder="It is written on the box of your device(12 Hexadecimal digits)">
+                                <span class="input-group-addon hidden hidden-lg hidden-sm hidden-md"
+                                      style="padding-top: 0 !important;">
+                                                <button class="btn  bg-light-blue"><i class="material-icons">photo_camera</i></button>
+                                            </span>
+                            </div>
+
+                        </div>
+
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="input-group input-group-lg">
+                            <span class="ia-big-title col-red">Device Series</span>
+                            <div class="form-line">
+                                <input type="number" class="form-control "
+                                       id="deviceseries"
+                                       size="17"
+                                       max="10"
+                                       min="1"
+                                       placeholder="Device Series(optional)">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class=" text-right" role="tablist">
+            <button class="btn btn-link ia-big-title col-red bg-white"
+                    sspage="../customer/views/iadevice.customer.list.view.html" sspage-load-after="localStorage.removeItem('NewDeviceType');localStorage.removeItem('NewMacAddress');">
+                Cancel
+            </button>
+            <button class="btn btn-primary-ia ia-big-title" onclick="addDevice()"> Add Device
+            </button>
+        </div>
+    </div>
+</div>
+<script>
+    $(devicecode).inputmask('##:##:##:##:##:##', { placeholder: '__:__:__:__:__:__' })
+</script>

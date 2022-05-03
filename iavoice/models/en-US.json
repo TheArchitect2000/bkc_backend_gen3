@@ -1,0 +1,224 @@
+{
+	"invocation": "blocklychain",
+	"intents": [
+		{
+			"name": "LoginIntent",
+			"phrases": [
+				"hello",
+				"say hello",
+				"say hello world"
+			]
+		},
+		{
+			"name": "RootIntent",
+			"phrases": [
+				"do it",
+				"do",
+				"another thing",
+				"new task",
+				"I A",
+				"Blocklychain",
+				"OK Blocklychain",
+				"OK"
+			]
+		},
+		{
+			"name": "MyNameIsIntent",
+			"phrases": [
+				"{name}",
+				"my name is {name}",
+				"i am {name}",
+				"you can call me {name}"
+			],
+			"inputs": [
+				{
+					"name": "name",
+					"type": {
+						"alexa": "AMAZON.US_FIRST_NAME",
+						"dialogflow": "@sys.given-name"
+					}
+				}
+			]
+		},
+		{
+			"name": "TurnOnIntent",
+			"phrases": [
+				"{device} on",
+				"turn on {device}",
+				"please turn on {device}",
+				"switch on {device}"
+			],
+			"inputs": [
+				{
+					"name": "device",
+					"type": {
+						"alexa": "AMAZON.SearchQuery",
+						"dialogflow": "@sys.any"
+					}
+				}
+			]
+		},
+		{
+			"name": "TurnOffIntent",
+			"phrases": [
+				"{device} off",
+				"turn off {device}",
+				"please turn off {device}",
+				"switch off {device}"
+			],
+			"inputs": [
+				{
+					"name": "device",
+					"type": {
+						"alexa": "AMAZON.SearchQuery",
+						"dialogflow": "@sys.any"
+					}
+				}
+			]
+		},
+		{
+			"name": "PlayIntent",
+			"phrases": [
+				"{device} play",
+				"{device} play it",
+				"{device} carry on",
+				"{device} go on",
+				"play {device}",
+				"continue {device}",
+				"resume {device}"
+			],
+			"inputs": [
+				{
+					"name": "device",
+					"type": {
+						"alexa": "AMAZON.SearchQuery",
+						"dialogflow": "@sys.any"
+					}
+				}
+			]
+		},
+		{
+			"name": "PauseIntent",
+			"phrases": [
+				"{device} pause",
+				"{device} stop",
+				"pause {device}",
+				"stop {device}",
+				"wait {device}",
+				"rest {device}",
+				"please stop {device}"
+			],
+			"inputs": [
+				{
+					"name": "device",
+					"type": {
+						"alexa": "AMAZON.SearchQuery",
+						"dialogflow": "@sys.any"
+					}
+				}
+			]
+		},
+		{
+			"name": "LastStateIntent",
+			"phrases": [
+				"{device}",
+				"{device} status",
+				"{device} state",
+				"status of {device}",
+				"state of {device}",
+				"say about {device}",
+				"what about {device}"
+			],
+			"inputs": [
+				{
+					"name": "device",
+					"type": {
+						"alexa": "AMAZON.SearchQuery",
+						"dialogflow": "@sys.any"
+					}
+				}
+			]
+		},
+		{
+			"name": "DevicesListIntent",
+			"phrases": [
+				"get {devices} list",
+				"{devices} list",
+				"list of {devices}",
+				"show {devices}",
+				"home {devices}",
+				"say about my {devices}",
+				"what about home {devices}"
+			],
+			"inputs": [
+				{
+					"name": "devices",
+					"type": {
+						"alexa": "AMAZON.SearchQuery",
+						"dialogflow": "@sys.any"
+					}
+				}
+			]
+		},
+		{
+			"name": "MyIASecretIsIntent",
+			"phrases": [
+				"password is {secret}",
+				"my password is {secret}",
+				"{secret}",
+				"my secret is {secret}",
+				"i am {secret}",
+				"my IA secret is {secret}"
+			],
+			"inputs": [
+				{
+					"name": "secret",
+					"type": {
+						"alexa": "AMAZON.FOUR_DIGIT_NUMBER",
+						"dialogflow": "@sys.number-sequence"
+					}
+				}
+			]
+		}
+	],
+	"alexa": {
+		"interactionModel": {
+			"languageModel": {
+				"intents": [
+					{
+						"name": "AMAZON.CancelIntent",
+						"samples": []
+					},
+					{
+						"name": "AMAZON.HelpIntent",
+						"samples": []
+					},
+					{
+						"name": "AMAZON.StopIntent",
+						"samples": []
+					}
+				]
+			}
+		}
+	},
+	"dialogflow": {
+		"intents": [
+			{
+				"name": "Default Fallback Intent",
+				"auto": true,
+				"webhookUsed": true,
+				"fallbackIntent": true
+			},
+			{
+				"name": "Default Welcome Intent",
+				"auto": true,
+				"webhookUsed": true,
+				"events": [
+					{
+						"name": "WELCOME"
+					}
+				]
+			}
+		]
+	}
+}

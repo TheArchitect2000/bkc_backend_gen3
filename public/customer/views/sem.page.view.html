@@ -1,0 +1,2133 @@
+<style>
+    .topnav {
+        overflow: hidden;
+        white-space: nowrap;
+    }
+
+    .topnav a {
+        color: grey;
+        /*float: left;*/
+        display: inline-block;
+        /*color: #f2f2f2;*/
+        text-align: center;
+        /*padding: 14px 16px;*/
+        text-decoration: none;
+        /*font-size: 17px;*/
+    }
+
+    .chartcontainer {
+        /*height: 30vh;*/
+        padding-top: 0 !important;
+        padding-bottom: 0 !important;
+    }
+
+    .chartdiv {
+        height: 100%;
+        width: 100%;
+    }
+
+    .active {
+        /*background-color: #4CAF50;*/
+        color: white;
+    }
+
+    .topnav .icon {
+        display: none;
+    }
+
+    /*.dropdown {
+        float: left;
+        overflow: hidden;
+    }
+
+    .dropdown .dropbtn {
+        font-size: 17px;
+        border: none;
+        outline: none;
+        color: white;
+        padding: 14px 16px;
+        background-color: inherit;
+        font-family: inherit;
+        margin: 0;
+    }
+
+    .dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: #f9f9f9;
+        min-width: 160px;
+        !*box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);*!
+        z-index: 1;
+    }
+
+    .dropdown-content a {
+        float: none;
+        color: black;
+        padding: 12px 16px;
+        text-decoration: none;
+        display: block;
+        text-align: left;
+    }
+
+    .topnav a:hover, .dropdown:hover .dropbtn {
+        !*background-color: #555;*!
+        !*color: white;*!
+    }
+
+    .dropdown-content a:hover {
+        background-color: #ddd;
+        color: black;
+    }
+
+    .dropdown:hover .dropdown-content {
+        display: block;
+    }*/
+
+    /*  @media screen and (max-width: 600px) {
+          .topnav a:not(:first-child), .dropdown .dropbtn {
+              display: none;
+          }
+
+          .topnav a.icon {
+              float: right;
+              display: block;
+          }
+
+          ul.logs li .logdate {
+              float: none !important;
+          }
+
+          ul.logs li .logstate {
+              text-align: left !important;
+          }
+      }
+
+      @media screen and (max-width: 600px) {
+          .topnav.responsive {
+              position: relative;
+          }
+
+          .topnav.responsive .icon {
+              position: absolute;
+              right: 20px;
+              top: 20px;
+          }
+
+          .topnav.responsive a {
+              float: none;
+              display: block;
+              text-align: left;
+          }
+
+          !*.topnav.responsive .dropdown {
+              float: none;
+          }
+
+          .topnav.responsive .dropdown-content {
+              position: relative;
+          }
+
+          .topnav.responsive .dropdown .dropbtn {
+              display: block;
+              width: 100%;
+              text-align: left;
+          }*!
+      }
+
+      !*!///!*!
+      ul.logs {
+          height: 50vh;
+          overflow: auto;
+          padding: 1pc 0;
+          white-space: nowrap;
+      }
+
+      @media (max-width: 767px) {
+          ul.logs li .logname {
+              width: 31% !important;
+          }
+          .filterbar {
+              position: relative !important;
+          }
+
+          .filterbar .params{
+              float: none !important;
+          }
+      }
+
+      .filterbar .params{
+          float: right;
+      }
+
+      .filterbar label {
+          width: 2.5pc;
+          text-align: left;
+          font-weight: normal;
+      }
+
+      .filterbar input, .filterbar select {
+          border-radius: 3px;
+          border: 1px solid #ddd;
+          !* background-color: #EEEEEE; *!
+          font-weight: bold;
+          height: 30px;
+          padding: 2px 5px 2px 5px;
+          width: 150px;
+          margin-bottom: 2px;
+      }
+
+      ul.logs li:nth-child(even) {
+          background: #EEE
+      }
+
+      ul.logs li:nth-child(odd) {
+          background: #FFF
+      }
+
+      ul.logs li {
+          overflow: hidden;
+          text-overflow: unset;
+          padding: .25pc;
+          white-space: nowrap;
+      }
+
+      ul.logs li .logname {
+          width: 43%;
+          display: inline-flex;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          max-height: 20px;
+          word-break: break-all;
+          white-space: nowrap;
+          color: #666;
+      }
+
+      ul.logs li .logstate {
+          width: 20%;
+          !*overflow: hidden;*!
+          text-overflow: ellipsis;
+          display: inline-block;
+          !*text-align: center;*!
+          white-space: nowrap;
+          color: #666;
+      }
+
+      ul.logs li .logdate {
+          width: 30%;
+          color: lightslategrey;
+          white-space: nowrap;
+          float: right;
+          text-align: right;
+          padding-right: .3pc;
+      }*/
+</style>
+<script src="plugins/echarts/ia-vintage.js" async></script>
+<head>
+    <!-- including ECharts file -->
+    <!--<script src="https://cdn.jsdelivr.net/npm/echarts@4.8.0/dist/echarts.simple.min.js"></script>-->
+</head>
+<div class="card">
+    <div class="header">
+        <span class="ia-head">
+            <span class="icon2 activity-icon m-t-5"></span>
+            Smart Energy Management (SEM)
+            <!--<span class="btn btn-link bg-light col-grey btn-sm ia-btn-small "
+                  style="position: relative;top: -5px;"
+                  onclick="IA_History._clear()"
+            >Clear</span>-->
+        </span>
+
+        <!--<ul class="header-dropdown m-r&#45;&#45;5">
+            <li class="dropdown">
+                <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                    <i class="material-icons">more_vert</i>
+                </a>
+                <ul class="dropdown-menu pull-right">
+                    <li><a href="javascript:void(0);" class=" waves-effect waves-block">Clear History</a></li>
+                    <li><a href="javascript:void(0);" class=" waves-effect waves-block">Action</a></li>
+                    <li><a href="javascript:void(0);" class=" waves-effect waves-block">Another action</a></li>
+                    <li><a href="javascript:void(0);" class=" waves-effect waves-block">Something else here</a></li>
+                </ul>
+            </li>
+        </ul>-->
+    </div>
+    <div class="body">
+
+
+
+        <!-- Nav tabs -->
+        <!--<ul class="nav nav-tabs XXnav-justified ia-medium-title tab-col-red service" role="tablist">
+            <li role="presentation" class="active">
+                <a href="#semlive" data-toggle="tab" aria-expanded="true">
+                    Realtime
+                </a>
+            </li>
+            <li role="presentation" class="">
+                <a href="#semsum" data-toggle="tab" aria-expanded="true">
+                    Summary
+                </a>
+            </li>
+            <li role="presentation">
+                <a href="#semhis" data-toggle="tab" aria-expanded="true">
+                    History
+                </a>
+            </li>
+            &lt;!&ndash;<li role="presentation">
+                <a href="#semcom" data-toggle="tab" aria-expanded="true">
+                    Compare
+                </a>
+            </li>&ndash;&gt;
+        </ul>-->
+
+        <!-- Tab panes -->
+        <div class="tab-content ">
+            <div role="tabpanel" class="tab-pane fade active in  align-center" id="semlive">
+                <div class="row">
+                    <div class="row">
+                        <div class="col-sm-8">
+                            <div class="col-grey panel-body p-t-20" style="height: 8vh;min-height: 65px;background-color: #EEEEEE;">
+                                <span class="float-left text-left p-l-30 ia-medium-title">Number Of Power Consuming Devices</span>
+                                <span class="float-right text-right p-r-30 font-20 font-bold" ssbind="text:powerplugs.length">-</span>
+                            </div>
+                            <div class="col-grey panel-body p-t-20 m-t-10" style="height: 8vh;min-height: 65px;background-color: #EEEEEE;">
+                                <span class="float-left text-left p-l-30 ia-medium-title">Total Power Usage (kWh)</span>
+                                <span class="float-right text-right p-r-30 font-20 font-bold" id="sum_usage">---</span>
+                                <span class="float-left text-left p-l-30 p-t-20 font-10">In last 30 days</span>
+                            </div>
+                            <div class="col-grey panel-body p-t-20 m-t-10" style="height: 8vh;min-height: 65px;background-color: #EEEEEE;">
+                                <span class="float-left text-left p-l-30 ia-medium-title">Average Power Usage (kWh)</span>
+                                <span class="float-right text-right p-r-30 font-20 font-bold" id="average_usage">-----</span>
+                                <span class="float-left text-left p-l-30 p-t-20 font-10 ">Daily Average Power Usage</span>
+                            </div>
+                        </div>
+                        <div class="col-sm-4 col-xs-12 btn ">
+                            <div class="chartcontainer" style="height: 25vh; min-height: 200px">
+                                <div id="semrealtimeChart" class="chartdiv"></div>
+                            </div>
+
+                            <div class=" chartcontainer hidden">
+                                <div id="livePlugsChart" class="chartdiv"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6 chartcontainer" style="height: 50vh;">
+                        <header class="small align-right float-right" style="z-index: 4000">
+                            <button class="btn-link ia-btn-small" onclick="sem_sum_aggregate();" id="aggregated-btn">
+                                Aggregate
+                            </button>
+                            <!--<button class="btn-link ia-btn-small" onclick="sem_sum_disaggregate();"
+                                    id="disaggregated-btn">Disaggregate
+                            </button>-->
+                        </header>
+                        <div id="sumCalChart1" class="chartdiv float-left" style="width: 98% !important;"></div>
+                        <div class="hidden-xs float-right" style="margin-top: 10%;height: 80%; border-right: 1px solid silver"></div>
+                    </div>
+                    <div class="col-sm-6 chartcontainer" style="height: 50vh;">
+                        <header class="small align-right float-right" style="z-index: 4000">
+                            <button class="btn-link ia-btn-small" onclick="dosumweekChart(true);"
+                                    id="week-aggregated-btn">Aggregate
+                            </button>
+                            <button class="btn-link ia-btn-small" onclick="dosumweekChart(false);"
+                                    id="week-disaggregated-btn">Disaggregate
+                            </button>
+                        </header>
+                        <div id="sumweekChart" class="chartdiv"></div>
+                        <footer class="align-right">
+                            <a href="#semhis" data-toggle="tab" aria-expanded="true" class="btn btn-primary-ia">
+                                More Reports
+                            </a>
+                        </footer>
+                    </div>
+                </div>
+            </div>
+
+            <div role="tabpanel" class="tab-pane  align-center" id="semsum">
+
+            </div>
+
+            <div role="tabpanel" class="tab-pane align-center" id="semhis">
+                <div class="row">
+                    <div class="col-sm-12 chartcontainer" style="height: 40vh;">
+                        <header class="small align-right float-right" style="z-index: 4000">
+                            <button class="btn-link ia-btn-small" onclick="dohisusage(true);" id="his-aggregated-btn">
+                                Aggregate
+                            </button>
+                            <button class="btn-link ia-btn-small" onclick="dohisusage(false);"
+                                    id="his-disaggregated-btn">Disaggregate
+                            </button>
+                        </header>
+                        <div id="hisusage" class="chartdiv"></div>
+
+                        <div class="align-right m-t-20">
+                            <a href="#semlive" data-toggle="tab" aria-expanded="true" class="btn btn-primary-ia">
+                                Summary Reports
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!--<div role="tabpanel" class="tab-pane  align-center" id="semcom">
+                compare
+            </div>-->
+
+        </div>
+    </div>
+</div>
+<!--<div class="card m-t&#45;&#45;30">
+    <div class="header topnav filterbar" id="myTopnav">
+        <span class="active ia-big-title col-red">History</span>
+        <span class="params">
+        <span class="col-grey m-r-20 m-l-20 hidden-xs">&nbsp;&nbsp;&nbsp;&nbsp;</span>
+        <a class="">
+            <i class="mdi mdi-sort-variant" style="font-size: 15px"></i>
+            <label class="col-grey ">Sort</label>
+            <select id="topsort">
+                <option value="LASTACTIVITY">Last Activity</option>
+                <option value="DEVICENAME">Device Name</option>
+                <option value="DEVICESTATE">Device State</option>
+            </select>
+        </a>
+        <span class="col-grey m-r-20  hidden-xs"> </span>
+        <a class="">
+            <i class="mdi mdi-filter" style="font-size: 15px"></i>
+            <label class="col-grey">Filter</label>
+            <select id="topfilter">
+                <option value="ALL">All Devices</option>
+                <option ssfor="home._devices" sslevel="devices"
+                        ssbind="text:home._devices[ssIndex].Name; value:home._devices[ssIndex]._encid"></option>
+            </select>
+        </a>
+            &lt;!&ndash;<span class="col-grey m-r-20  hidden-xs"> </span>&ndash;&gt;
+        <a class="hidden">
+            <i class="mdi mdi-timetable" style="font-size: 15px"></i>
+            <label class="col-grey" for="toptimefrom">Time</label>
+            <input id="toptimefrom" placeholder="From">
+        </a>
+        <a class="hidden">
+            <i class="mdi mdi-timetable col-white visible-xs" style="font-size: 15px"></i>
+            <label class="col-grey visible-xs" for="toptimeto">&nbsp;</label>
+            <input id="toptimeto" placeholder="To" >
+        </a>
+            &lt;!&ndash;&#9776;&ndash;&gt;
+        <a href="javascript:void(0);" class="icon mdi mdi-filter font-20" onclick="dropdownmenu()"></a>
+        </span>
+    </div>
+    <div class="">
+        <ul class="logs " style="height: 40px; overflow: hidden">
+            <li>
+                <i class="icon1">&nbsp;&nbsp;</i>
+                <b class="logname col-gray">Device</b>
+                <b class="logstate col-gray">State</b>
+                <b class="logdate col-gray m-r-50">Time</b>
+            </li>
+        </ul>
+        <ul style="list-style-type: none" class="logs" id="historylist">
+            &lt;!&ndash;<li ssfor="datax2" sslevel="history">
+                <i sslevel="history"
+                   ssbind="class:devicetemps[datax2[ssIndex].device.DeviceType].icon+' icon1'"></i>
+                <span class="logname" sslevel="history" ssbind="text:datax2[ssIndex].device.Name"></span>
+                <b class="logstate" sslevel="history" ssbind="text:datax2[ssIndex].state"></b>
+                <span class="logdate" sslevel="history"
+                       ssbind="text:moment(datax2[ssIndex].__receivetime).format('DD MMM - HH:mm:ss')"></span>
+            </li>&ndash;&gt;
+        </ul>
+        <center><button onclick="loadSEMActivities(days);days=days+30;">Show Older Activities</button></center>
+    </div>
+</div>-->
+<script>
+
+//    if(!sessionStorage.getItem('seminited')){
+
+        function calconsume(act) {
+//            return Math.round((act.avgCurrent * voltage / 1000) * (act.count / 720) * dcm) / dcm
+            return Math.round((act.sumCurrent * voltage / 1000) * (1 / 720) * dcm) / dcm;
+        }
+
+        function getDeviceName(deviceId) {
+            var dev = home._devices.find(dvc => dvc._id === deviceId);
+            if (dev) {
+                return dev.Name;
+            } else {
+                console.warn('Device not found!');
+                return 'Deleted';
+            }
+        }
+
+        var voltage = 220;
+        var dcm = 100;//0*2
+        var weekdaynames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+
+        $(document).on('shown.bs.tab', 'a[data-toggle="tab"]', function (e) {
+
+            if ($(e.target).attr('href') === '#semsum') {
+                sumCalChart1.resize();
+                sumweekChart.resize();
+            } else if ($(e.target).attr('href') === '#semhis') {
+                hisusageChart.resize();
+            }
+        });
+
+        //        power plugs
+        var powerplugs = [];//["TV", "Kettle", "Microwave","Fridge"];
+        for (var dev of home._devices) {
+            // if (dev.DeviceType === 'POWER_PLUG') { //todo handle for other device types like power plug
+            if (devicetemps[dev.DeviceType].data && devicetemps[dev.DeviceType].data["current"]) {
+                if(!dev.SEMcurrents)
+                    dev.SEMcurrents = [];
+                powerplugs.push(dev);
+            }
+        }
+
+        //**************************  summery tab *********************************************************************
+
+        //**************************  summery calendar *********************
+        // based on prepared DOM, initialize echarts instance
+        var sumCalChart1 = echarts.init(document.getElementById('sumCalChart1'));
+
+        // specify chart configuration item and data
+        /*var sumCalOption = {
+         title: {
+         text: 'Consumption History'
+         },
+         tooltip: {},
+         legend: {
+         data:['TV', 'Fridge'],
+         orient: 'vertical', right: 0, align: 'right'
+         },
+         xAxis: {
+         data: ["shirt","cardign","chiffon shirt","pants","heels","socks"]
+         },
+         yAxis: {},
+         series: [
+         {
+         name: 'TV',
+         type: 'bar',
+         data: [5, 20, 36, 10, 10, 20]
+         },
+         {
+         name: 'Fridge',
+         type: 'line',
+         data: [10, 10, 20,5, 20, 36]
+         }
+         ]
+         };*/
+        var cellSize = [40, 40];
+        function sem_sum_disaggregate() {
+
+            $('#disaggregated-btn').hide();
+            $('#aggregated-btn').show();
+
+            var pieRadius = 15;
+
+            /*function getVirtulData() {
+                var date = +echarts.number.parseDate('2020-08-23');
+                var end = +echarts.number.parseDate('2020-09-06');
+                var dayTime = 3600 * 24 * 1000;
+                var data = [];
+                for (var time = date; time < end; time += dayTime) {
+                    data.push([
+                        echarts.format.formatTime('yyyy-MM-dd', time),
+                        0//Math.floor(Math.random() * 10000)
+                    ]);
+                }
+                return data;
+            }
+
+            function getPieSeriesO(scatterData, chart) {
+                return echarts.util.map(scatterData, function (item, index) {
+                    console.log(item)
+                    var center = chart.convertToPixel('calendar', item);
+                    return {
+                        id: index + 'pie',
+                        type: 'pie',
+                        center: center,
+                        label: {
+                            normal: {
+                                formatter: '{c}',
+                                position: 'inside'
+                            }
+                        },
+                        radius: pieRadius,
+                        data: [
+                            {name: 'TV', value: Math.round(Math.random() * 24)},
+                            {name: 'Fridge', value: Math.round(Math.random() * 24)},
+                            {name: 'Microwave', value: Math.round(Math.random() * 24)}
+                        ]
+                    };
+                });
+            }*/
+
+            function getPieSeries(scatterData, chart, data) {
+                return echarts.util.map(scatterData, function (item, index) {
+                    var center = chart.convertToPixel('calendar', item);
+                    return {
+                        id: index + 'pie',
+                        type: 'pie',
+                        center: center,
+                        label: {
+
+                            normal: {
+                                show: true,
+                                formatter: '{c}',
+                                position: 'inside'
+                            }
+                        },
+                        radius: pieRadius,
+                        data: data[item[0]],
+                        /* data: [
+                         {name: 'TV', value: Math.round(Math.random() * 24)},
+                         {name: 'Fridge', value: Math.round(Math.random() * 24)},
+                         {name: 'Microwave', value: Math.round(Math.random() * 24)}
+                         ]*/
+                    };
+                });
+            }
+
+            /*function getPieSeriesUpdate(scatterData, chart) {
+                return echarts.util.map(scatterData, function (item, index) {
+                    var center = chart.convertToPixel('calendar', item);
+                    return {
+                        id: index + 'pie',
+                        center: center
+                    };
+                });
+            }*/
+
+    //        var scatterData = getVirtulData();
+    //        console.log('scatterData',scatterData)
+
+
+            loadSEMActivities(function (activities) {
+
+                if(activities.length === 0) {
+                    nodataMode2(sumCalChart1);
+                    return;
+                }
+
+                var data = {};
+                for (var act of activities) {
+                    if (!data[act._id.year + '-' + act._id.month + '-' + act._id.day]) {
+                        data[act._id.year + '-' + act._id.month + '-' + act._id.day] = [];
+                    }
+                    data[act._id.year + '-' + act._id.month + '-' + act._id.day].push({
+                        name: getDeviceName(act._id.deviceId),
+                        value: calconsume(act)
+                    });
+                }
+
+                var scatterData = [];
+                for (var z in data) {
+                    scatterData.push([z, 0]);
+                }
+
+                var daterange = [scatterData[scatterData.length - 1][0], moment().format('YYYY-MM-DD')];
+//                console.log('daterange')
+//                console.log(daterange)
+
+                var option = {
+                    title: {
+    //                top: 30,
+                        text: 'Daily Power Usage',
+                        subtext: 'Disaggregated usage in past 30 days (kWh)',
+                        left: 0,
+                        textStyle: {
+                            color: '#d42021'
+                        }
+                    },
+                    /*toolbox: {
+                     show: true,
+                     feature: {
+                     //                    dataZoom: {
+                     //                        yAxisIndex: "none",
+                     //                        title: 'zoom'
+                     //                    },
+                     //                    dataView: {
+                     //                        readOnly: false
+                     //                    },
+                     //                    magicType: {
+                     //                        type: ["line", "bar"]
+                     //                    },
+                     //                    restore: {},
+                     saveAsImage: {
+                     title: "save as image"
+                     },
+                     hhh:{//custom button Danielinbiti, add here, Selfbuttons can take the name
+                     show:true,//whether or not to display
+                     title: 'Custom',///mouse Move up to display the text
+                     icon: 'image:/share/images/Activities.svg',//icon
+                     //                        option:{},
+                     onclick:function () {//click event, where option is the chart option message
+                     alert (' 1 ');//Here you can add your own processing code, switch to different graphics
+                     }
+                     }
+                     }
+                     },*/
+                    tooltip: {},
+                    legend: {
+    //                data: ['TV', 'Fridge', 'Microwave'],
+                        top: 0,
+                        left: 0,
+                        orient: 'vertical',
+                        align: 'left'
+                    },
+                    calendar: {
+                        top: 100,
+                        left: 'center',
+                        orient: 'vertical',
+                        cellSize: cellSize,
+                        yearLabel: {
+                            show: false,
+                            textStyle: {
+                                fontSize: 30
+                            }
+                        },
+                        dayLabel: {
+    //                    show: false,
+                            margin: 0,
+    //                    firstDay: 5,
+    //                    nameMap: ['M']
+                        },
+                        monthLabel: {
+                            show: true
+                        },
+                        range: daterange,//['2020-08-23','2020-09-05'],
+                        itemStyle: {
+    //                    color: '#ff3f33',
+                            borderWidth: 1,
+    //                    borderColor: '#111'
+                        }
+                    },
+                    series: [{
+                        id: 'label',
+                        type: 'scatter',
+                        coordinateSystem: 'calendar',
+                        symbolSize: 1,
+                        label: {
+                            normal: {
+                                show: true,
+                                formatter: function (params) {
+                                    return echarts.format.formatTime('dd', params.value[0]);
+                                },
+                                offset: [-cellSize[0] / 2 + 10, -cellSize[1] / 2 + 10],
+                                textStyle: {
+                                    color: '#555',
+                                    fontSize: 10
+                                }
+                            }
+                        },
+                        data: scatterData
+                    }]
+                };
+
+
+                sumCalChart1.clear();
+                sumCalChart1.setOption(option);
+
+                sumCalChart1.setOption({
+                    series: getPieSeries(scatterData, sumCalChart1, data)
+                });
+
+            }, 'DAILY', 30, false);
+
+            /*console.log(getPieSeries(scatterData, sumCalChart1))
+             var pieInitialized;
+             setTimeout(function () {
+             pieInitialized = true;
+             sumCalChart1.setOption({
+             series: getPieSeries(scatterData, sumCalChart1)
+             });
+             }, 0);*/
+            /*window.onresize = function () {
+             if (pieInitialized) {
+             sumCalChart1.setOption({
+             series: getPieSeriesUpdate(scatterData, sumCalChart1)
+             });
+             }
+             };*/
+
+
+        }
+
+        function sem_sum_aggregate() {
+            $('#aggregated-btn').hide();
+            $('#disaggregated-btn').show();
+
+            /*function getVirtulData(year) {
+             year = year || '2020';
+             var date = +echarts.number.parseDate(year + '-08-11');
+             var end = +echarts.number.parseDate(year + '-09-11');
+             var dayTime = 3600 * 24 * 1000;
+             var data = [];
+             for (var time = date; time < end; time += dayTime) {
+             data.push([
+             echarts.format.formatTime('yyyy-MM-dd', time),
+             Math.floor(Math.random() * 10000)
+             ]);
+             }
+             return data;
+             }
+             var data = getVirtulData(2020);*/
+            loadSEMActivities(function (activities) {
+                /*activities = [
+                    {
+                        "_id": {
+                            "day": 3,
+                            "month": 4,
+                            "year": 2021,
+                            "weekday": 7
+                        },
+                        "sumCurrent": 357.97,
+                        "avgCurrent": 0.08379447565543072,
+                        "count": 4272
+                    },
+                    {
+                        "_id": {
+                            "day": 2,
+                            "month": 4,
+                            "year": 2021,
+                            "weekday": 6
+                        },
+                        "sumCurrent": 58.6,
+                        "avgCurrent": 0.0839541547277937,
+                        "count": 698
+                    },
+                    {
+                        "_id": {
+                            "day": 1,
+                            "month": 4,
+                            "year": 2021,
+                            "weekday": 5
+                        },
+                        "sumCurrent": 382.93,
+                        "avgCurrent": 0.08277777777777778,
+                        "count": 4626
+                    },
+                    {
+                        "_id": {
+                            "day": 31,
+                            "month": 3,
+                            "year": 2021,
+                            "weekday": 4
+                        },
+                        "sumCurrent": 303.62,
+                        "avgCurrent": 0.07274077623382846,
+                        "count": 4174
+                    },
+                    {
+                        "_id": {
+                            "day": 30,
+                            "month": 3,
+                            "year": 2021,
+                            "weekday": 3
+                        },
+                        "sumCurrent": 597.9,
+                        "avgCurrent": 0.07904547858276044,
+                        "count": 7564
+                    },
+                    {
+                        "_id": {
+                            "day": 29,
+                            "month": 3,
+                            "year": 2021,
+                            "weekday": 2
+                        },
+                        "sumCurrent": 468.36,
+                        "avgCurrent": 0.09062693498452012,
+                        "count": 5168
+                    },
+                    {
+                        "_id": {
+                            "day": 28,
+                            "month": 3,
+                            "year": 2021,
+                            "weekday": 1
+                        },
+                        "sumCurrent": 519.19,
+                        "avgCurrent": 0.0666397124887691,
+                        "count": 7791
+                    },
+                    {
+                        "_id": {
+                            "day": 27,
+                            "month": 3,
+                            "year": 2021,
+                            "weekday": 7
+                        },
+                        "sumCurrent": 699.64,
+                        "avgCurrent": 0.07334521438305902,
+                        "count": 9539
+                    },
+                    {
+                        "_id": {
+                            "day": 26,
+                            "month": 3,
+                            "year": 2021,
+                            "weekday": 6
+                        },
+                        "sumCurrent": 237.49,
+                        "avgCurrent": 0.07396138274680786,
+                        "count": 3211
+                    },
+                    {
+                        "_id": {
+                            "day": 25,
+                            "month": 3,
+                            "year": 2021,
+                            "weekday": 5
+                        },
+                        "sumCurrent": 532.12,
+                        "avgCurrent": 0.07939719486720383,
+                        "count": 6702
+                    },
+                    {
+                        "_id": {
+                            "day": 24,
+                            "month": 3,
+                            "year": 2021,
+                            "weekday": 4
+                        },
+                        "sumCurrent": 262.98,
+                        "avgCurrent": 0.05676235700410102,
+                        "count": 4633
+                    },
+                    {
+                        "_id": {
+                            "day": 23,
+                            "month": 3,
+                            "year": 2021,
+                            "weekday": 3
+                        },
+                        "sumCurrent": 66.17,
+                        "avgCurrent": 0.04617585484996511,
+                        "count": 1433
+                    }
+                ];*/
+
+                var data = [];
+                var sum_usage = 0;
+                var max = 0;
+                for (var act of activities) {
+                    var key = ''+act._id.year + '-' + (act._id.month<10?'0':'') + act._id.month + '-' + (act._id.day<10?'0':'') + act._id.day;
+                    var val = calconsume(act);
+                    if(val > max) max = val;
+                    sum_usage += val;
+                    /*if(val > 15) {
+                        val = 15;
+                        console.error('very high radial');
+                    }*/
+                    data.push([key, val]);
+                }
+
+                sum_usage = Math.round(sum_usage* dcm) / dcm;
+                $('#sum_usage').text(sum_usage);
+                $('#average_usage').text(Math.round((sum_usage/30)* dcm) / dcm);
+
+//                $('#average_usage').text(sum_usage/30);
+
+                for(var d=0; d<31; d++ ){
+                    var day = moment().subtract(d, 'days').format('YYYY-MM-DD');
+                    if(!data.some(a=>a[0]===day)){
+                        data.push([day, 0]);
+                    }
+                }
+    //            var daterange = [data[0][0], data[data.length-1][0]];
+                var daterange = [0,0];
+                daterange = [
+                    moment().subtract(30, 'days').format('YYYY-MM-DD'),
+                    moment().format('YYYY-MM-DD')
+                ];
+                /*if(data.length > 0)
+                    daterange = [data[data.length - 1][0], moment().format('YYYY-MM-DD')];*/
+
+
+//                console.log('xxxx33', data, daterange);
+
+                var option = {
+    //            backgroundColor: '#404a59',
+
+                    title: {
+                        text: 'Daily Power Usage',
+                        subtext: 'Daily usage in past 30 days (kWh)',
+                        left: 0,
+                        textStyle: {
+                            color: '#d42021'
+                        }
+                    },
+                    tooltip: {
+                        trigger: 'item'
+                    },
+                    legend: {
+                        show: false,
+                        data: ['Normal', 'High'],
+                        textStyle: {
+                            color: '#fff'
+                        },
+    //                    show: !aggregated,
+                        orient: 'vertical',
+                        left: 0,
+                        align: 'left'
+                    },
+                    visualMap: {
+                        show: false,
+                        min: 0,
+                        max: max*2
+                    },
+                    calendar: {
+                        orient: 'vertical',
+                        top: 100,
+                        cellSize: cellSize,
+                        left: 'center',
+                        range: daterange, //['2020-08-11', '2020-09-11'],
+                        splitLine: {
+                            show: true,
+                            lineStyle: {
+                                color: '#000',
+                                width: 1,
+                                type: 'solid'
+                            }
+                        },
+                        yearLabel: {
+                            show: false,
+                            formatter: '{start}  1st',
+                            textStyle: {
+    //                        color: '#fff'
+                            }
+                        },
+                        dayLabel: {
+    //                    show: false,
+                            margin: 0,
+    //                    firstDay: 5,
+    //                    nameMap: ['M']
+                        },
+                        itemStyle: {
+    //                    color: '#a1dbff',
+                            borderWidth: 1,
+    //                    borderColor: '#111'
+                        }
+                    },
+                    seriesXXX: [
+                        {
+                            name: 'Num',
+                            tooltip: {
+                                trigger: 'axis',
+                                showContent: false
+                            },
+                            type: 'scatter',
+                            coordinateSystem: 'calendar',
+                            data: data,
+                            symbolSize: function (val) {
+                                return 0.1;
+                            },
+                            itemStyle: {
+                                color: '#ffffff'
+                            },
+                            label: {
+                                normal: {
+                                    show: true,
+                                    formatter: function (params) {
+                                        return echarts.format.formatTime('dd', params.value[0]);
+                                    },
+                                    offset: [-cellSize[0] / 2 + 10, -cellSize[1] / 2 + 10],
+                                    textStyle: {
+                                        color: '#555',
+                                        fontSize: 10
+                                    }
+                                }
+                            },
+                        },
+                        /*{
+                            name: 'Normal',
+                            type: 'scatter',
+                            coordinateSystem: 'calendar',
+                            data: data,
+                            symbolSize: function (val) {
+                                console.log(val)
+                                return val[1] * 1.5;
+                            },
+                            itemStyle: {
+                                color: '#4fdd5c'
+                            },
+                            /!*label: {
+                                normal: {
+                                    show: true,
+                                    formatter: function (params) {
+                                        return echarts.format.formatTime('dd', params.value[0]);
+                                    },
+                                    offset: [-cellSize[0] / 2 + 10, -cellSize[1] / 2 + 10],
+                                    textStyle: {
+                                        color: '#555',
+                                        fontSize: 10
+                                    }
+                                }
+                            },*!/
+                        },*/
+                        {
+                            name: 'Usage (kWh)',
+                            type: 'effectScatter',
+                            coordinateSystem: 'calendar',
+                            data: data/*.sort(function (a, b) {
+                                return b[1] - a[1];
+                            })*//*.slice(0, 12)*/,
+                            symbolSize: function (val) {
+                                return val[1] * 3;
+                            },
+                            showEffectOn: 'render',
+                            rippleEffect: {
+                                brushType: 'stroke'
+                            },
+                            hoverAnimation: true,
+                            itemStyle: {
+                                color: '#f49f11',
+                                shadowBlur: 10,
+                                shadowColor: '#333'
+                            },
+                            /*label: {
+                             normal: {
+                             show: true,
+                             formatter: function (params) {
+                             return echarts.format.formatTime('dd', params.value[0]);
+                             },
+                             offset: [-cellSize[0] / 2 + 10, -cellSize[1] / 2 + 10],
+                             textStyle: {
+                             color: '#000',
+                             fontSize: 14
+                             }
+                             }
+                             },*/
+                            zlevel: 1
+                        }
+                    ],
+                    series: [
+                        {
+                            name: 'Num',
+                            tooltip: {
+                                trigger: 'axis',
+                                showContent: false
+                            },
+                            type: 'scatter',
+                            coordinateSystem: 'calendar',
+                            data: data,
+                            symbolSize: function (val) {
+                                return 0.1;
+                            },
+                            itemStyle: {
+                                color: '#ffffff'
+                            },
+                            label: {
+                                normal: {
+                                    show: true,
+                                    formatter: function (params) {
+                                        return echarts.format.formatTime('dd', params.value[0]);
+                                    },
+                                    offset: [-cellSize[0] / 2 + 10, -cellSize[1] / 2 + 10],
+                                    textStyle: {
+                                        color: '#555',
+                                        fontSize: 10
+                                    }
+                                }
+                            },
+                        },
+                        {
+                            name: 'Usage (kWh)',
+                            type: 'heatmap',
+                            coordinateSystem: 'calendar',
+                            data: data
+                        }
+                    ]
+                };
+
+                sumCalChart1.clear();
+                sumCalChart1.setOption(option);
+
+                if(activities.length === 0) {
+                    nodataMode2(sumCalChart1);
+                }
+            }, 'DAILY', 30, true);
+        }
+
+        sem_sum_aggregate();
+
+        //**************************  summery week *********************
+
+        var sumweekChart = echarts.init(document.getElementById('sumweekChart'),'ia-vintage');
+        function dosumweekChart(aggregated) {
+            if (aggregated) {
+                $('#week-aggregated-btn').hide();
+                if(powerplugs.length>1)
+                    $('#week-disaggregated-btn').show();
+                else
+                    $('#week-disaggregated-btn').hide();
+                //$('#week-disaggregated-btn').prop('disabled', powerplugs.length<2).prop('title',powerplugs.length<2 ? 'There is just One power plug' : '');
+            } else {
+                $('#week-aggregated-btn').show();
+                $('#week-disaggregated-btn').hide();
+            }
+
+            loadSEMActivities(function (activities) {
+
+                var days = [];
+                var data = {};
+                var dataarr = [];
+                var series = [];
+
+                /**
+                 activity week day Returns the day of the week for a date as a number between 1 (Sunday) and 7 (Saturday).
+                 moment day() returns days between 0 to 6 with Sunday as 0 and Saturday as 6.
+                 */
+
+    //            var curdate = new Date();//todo get from server
+
+                //grouping data into object by key deviceId then weekday i.e. data = {'dev1':{name:'dev1name', '1-23':4, '2-24':34}, 'dev2':{name: 'dev2name', '1-23':33, '2-24':23}}
+                for (var act of activities) {
+                    if (!data[act._id.deviceId]) {
+                        //initial and setting name
+                        data[act._id.deviceId] = {name: act._id.deviceId ? getDeviceName(act._id.deviceId) : 'Usage'};
+                        series.push({type: 'bar', smooth: true, seriesLayoutBy: 'row', colorxx: "#00ff00"});
+                    }
+                    //pushing date and values
+                    data[act._id.deviceId][act._id.weekday + '-' + act._id.day] = calconsume(act);
+                }
+
+                //list of all devices is
+                var devs = Object.keys(data);
+
+                //create days header for past 7 days ['mon','sun','sat', 'fri',...]
+                for (var d = 0; d < 7; d++) {
+    //                days.push(moment().subtract(d, 'days').day()+1);
+                    days.push(moment().subtract(d, 'days').format('ddd[\n]DD-MM'));
+                }
+                days = ['device'].concat(days); // ['device','mon','sun','sat', 'fri',...]
+
+                /*create data arr , an array of array of devices by their data
+                 [['dev1',23, 43,54,...]
+                 ['dev2',23, 43,54,...]]*/
+                for (var dev of devs) {
+                    var arr = [data[dev].name];
+                    for (var d = 0; d < 7; d++) {
+                        arr.push(data[dev][moment().subtract(d, 'days').day() + 1 + '-' + moment().subtract(d, 'days').format('D')] || 0)
+                    }
+                    dataarr.push(arr);
+                }
+
+                /**datasource like
+                 * [['device','mon','sun','sat', 'fri',...]
+                 * [['dev1',23, 43,54,...]
+                 * ['dev2',23, 43,54,...]]
+                 */
+                var datasource = [days].concat(dataarr);
+                /*
+                 for(var act of activities){
+                 /!*
+                 if(!days.includes(weekdaynames[act._id.weekday-1]))
+                 days.push(weekdaynames[act._id.weekday-1]);
+                 *!/
+                 if(!data[act._id.deviceId]) {
+                 data[act._id.deviceId] = [act._id.deviceId ? home._devices.find(dvc => dvc._id === act._id.deviceId).Name : 'TOT'];
+                 series.push({type: 'bar', smooth: true, seriesLayoutBy: 'row', colorxx:"#00ff00"});
+                 }
+                 data[act._id.deviceId].push(Math.round(act.avgCurrent));
+                 }
+                 */
+                if (!aggregated) {
+                    series.push({
+                        type: 'pie',
+                        id: 'pie3',
+                        radius: '30%',
+                        center: ['50%', '30%'],
+                        label: {
+                            formatter: '{b}: {c2} ({d}%)'
+                        },
+                        encode: {
+                            itemName: 'device',
+                            value: '2012',
+                            tooltip: '2012'
+                        }
+                    });
+                }
+
+
+                /*for(var d in data){
+                 for(var n=0;n<8-Object.keys(data[d]).length; n++){
+                 data[d].splice(1,0, 0);//insert a 0 instead of no data in that day
+                 }
+                 datasource.push(data[d]);
+                 }*/
+    //            console.log('xxxx',data)
+                var option3 = {
+                    title: {
+                        text: 'Weekly Power Usage',
+                        textStyle: {
+                            color: '#d42021'
+                        },
+                        subtext: aggregated ? 'Usage of all smart power plugs (kWh)' : 'Usage of each smart power plug (kWh)',
+                        left: 0,
+                        top: 0
+                    },
+                    legend: {
+                        show: !aggregated,
+                        orient: 'vertical', right: 0, top:30, align: 'right'
+                    },
+                    tooltip: {
+                        trigger: 'axis',
+                        showContent: aggregated
+                    },
+                    dataset: {
+                        source: datasource/*[
+                         ['device', 'Sat', 'Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri'],
+                         ['TV', 41.1, 30.4, 65.1, 53.3, 83.8, 98.7, 99.5],
+                         ['Fridge', 86.5, 92.1, 85.7, 83.1, 73.4, 55.1, 56.5],
+                         ['Microwave', 24.1, 67.2, 79.5, 86.4, 65.2, 82.5, 80],
+                         ['Kettle', 55.2, 67.1, 69.2, 72.4, 53.9, 39.1, 40]
+                         ]*/
+                    },
+                    xAxis: {type: 'category'},
+                    yAxis: {gridIndex: 0},
+                    grid: {top: '55%'},
+                    series: series/*[
+                     {type: 'bar', smooth: true, seriesLayoutBy: 'row'},
+                     {type: 'bar', smooth: true, seriesLayoutBy: 'row'},
+                     {type: 'bar', smooth: true, seriesLayoutBy: 'row'},
+                     {type: 'bar', smooth: true, seriesLayoutBy: 'row'},
+                     {
+                     type: 'pie',
+                     id: 'pie3',
+                     radius: '30%',
+                     center: ['50%', '25%'],
+                     label: {
+                     formatter: '{b}: {@2012} ({d}%)'
+                     },
+                     encode: {
+                     itemName: 'device',
+                     value: '2012',
+                     tooltip: '2012'
+                     }
+                     }
+                     ]*/
+                };
+                sumweekChart.setOption(option3, true);
+
+
+                if(activities.length === 0) {
+                    nodataMode2(sumweekChart);
+                }
+            }, 'DAILY', 7, aggregated);
+
+            if(!aggregated)
+                sumweekChart.on('updateAxisPointer', function (event) {
+                try {
+                    var xAxisInfo = event.axesInfo[0];
+                    if (xAxisInfo) {
+                        var dimension = xAxisInfo.value + 1;
+                        sumweekChart.setOption({
+                            series: {
+                                id: 'pie3',
+                                label: {
+                                    formatter: '{b}: {@[' + dimension + ']} ({d}%)'
+                                },
+                                encode: {
+                                    value: dimension,
+                                    tooltip: dimension
+                                }
+                            }
+                        });
+                    }
+                } catch (e) {
+
+                }
+            });
+
+
+        }
+        dosumweekChart(true);
+
+
+        //**************************  real-time tab *********************************************************************
+
+        //**************************  real-time lines *********************
+        var livePlugsOption = {
+            title: {
+                text: 'Realtime Trend',
+                textStyle: {
+                    color: '#d42021'
+                },
+                subtext: 'Usage of each smart power plug',
+                livePlugsOption: {},
+                left: 'center',
+                top: 0
+            },
+            legend: {
+                orient: 'vertical', top: 30, right: 0, align: 'right'
+            },
+            tooltip: {
+                trigger: 'axis',
+                showContent: false
+            },
+            dataset: {
+                source: []/*[
+                 ['device', '2012', '2013', '2014', '2015', '2016', '2017'],
+                 ['TV', 41.1, 30.4, 65.1, 53.3, 83.8, 98.7],
+                 ['Fridge', 86.5, 92.1, 85.7, 83.1, 73.4, 55.1],
+                 ['Microwave', 24.1, 67.2, 79.5, 86.4, 65.2, 82.5],
+                 ['Kettle', 55.2, 67.1, 69.2, 72.4, 53.9, 39.1]
+                 ]*/
+            },
+            xAxis: {
+                show: true,
+                type: 'category',
+                name: 'Time',
+                nameLocation: 'center',
+                nameGap: 20
+            },
+            yAxis: [
+                {
+                    type: 'value',
+                    /*
+                     gridIndex: 0,
+                     axisLabel : {
+                     formatter: '{value} °C'
+                     },*/
+                    name: 'Power (kWh)',
+                    nameRotate: 90,
+                    nameLocation: 'center',
+                    nameGap: 30
+                }
+            ],
+            grid: {top: '55%'},
+            series: [
+                {type: 'line', smooth: true, seriesLayoutBy: 'row', areaStyle1: {}},
+                {type: 'line', smooth: true, seriesLayoutBy: 'row', areaStyle1: {}},
+                {type: 'line', smooth: true, seriesLayoutBy: 'row', areaStyle1: {}},
+                {type: 'line', smooth: true, seriesLayoutBy: 'row', areaStyle1: {}},
+                /*{
+                    type: 'pie',
+                    id: 'pie2',
+                    radius: '30%',
+                    center: ['50%', '35%'],
+                    label: {
+                        formatter: '{b}: {@1} ({d}%)'
+                    },
+                    encode: {
+                        itemName: 'device',
+                        value: '1',
+                        tooltip: '1'
+                    }
+                }*/
+            ]
+        };
+        var livePlugsChart = echarts.init(document.getElementById('livePlugsChart'));
+        function dolivePlugsChart() {
+
+            /*livePlugsChart.on('updateAxisPointer', function (event) {
+                var xAxisInfo = event.axesInfo[0];
+                if (xAxisInfo) {
+                    var dimension = xAxisInfo.value + 1;
+                    livePlugsChart.setOption({
+                        series: {
+                            id: 'pie2',
+                            label: {
+                                formatter: '{b}: {@[' + dimension + ']} ({d}%)'
+                            },
+                            encode: {
+                                value: dimension,
+                                tooltip: dimension
+                            }
+                        }
+                    });
+                }
+            });*/
+    //        livePlugsOption.dataset.source= [];
+            livePlugsChart.setOption(livePlugsOption);
+            /*setTimeout(function () {
+
+
+
+
+
+             livePlugsOption.dataset.source= [];
+
+             updateliveplugchart();
+             livePlugsChart.setOption(livePlugsOption);
+
+
+
+             /!*if(typeof interval2 !== 'undefined')
+             clearInterval(interval2);
+             interval2 = setInterval(function () {
+             var sum = Math.round(updateliveplugchart());
+             livePlugsChart.setOption(livePlugsOption/!*, {
+             notMerge: true,
+             lazyUpdate: true,
+             silent: true
+             }*!/);
+             var dimension = updatecount<maxupdate ? updatecount : maxupdate;
+             livePlugsChart.setOption({
+             series: {
+             id: 'pie2',
+             label: {
+             formatter: '{b}: {@[' + dimension + ']} ({d}%)'
+             },
+             encode: {
+             value: dimension,
+             tooltip: dimension
+             }
+             }
+             });
+
+
+             //realtimeChart gauge
+             realtimeOption.series[0].data[0].value = sum;
+             realtimeChart.setOption(realtimeOption, true);
+             },5000);*!/
+
+             });*/
+
+
+        }
+        dolivePlugsChart();
+
+        nodataMode2(livePlugsChart, 'Wait for connected power plugs');
+
+
+
+        var demoheaders = [];
+
+        var updatecount = 0;
+        var maxupdate = 5;
+
+    /*
+        var updateliveplugchart = function () {
+            var sum = 0;
+            updatecount++;
+            var d = new Date();
+            d = d.getSeconds().toString();// moment(d).format('mm:ss');
+            if (updatecount > maxupdate)
+                demoheaders.shift();//remove first element
+            demoheaders.push(d);
+
+            livePlugsOption.dataset.source = [['device'].concat(demoheaders)];
+            for (var dev of powerplugs) {
+                if (updatecount > maxupdate)
+                    demodevicecurrents[dev].shift();//remove first element
+                //add random current for each dev in demodevicecurrents
+                var newcur = Math.round(Math.random() * (12 - 4) + 4);
+                newcur = newcur * voltage / 1000;
+                sum += newcur;
+                demodevicecurrents[dev].push(newcur)
+                livePlugsOption.dataset.source.push([dev].concat(demodevicecurrents[dev]));
+            }
+
+            return sum;
+        }*/
+
+        //**************************  real-time gauge *********************
+        var realtimeOption = {
+            title: {
+                text: 'Realtime Home Power Usage',
+                textStyle: {
+                    color: '#d42021'
+                },
+                subtext: 'Current power usage of your smart home',
+                left: 0,
+                top: 0
+            },
+            tooltip: {
+                formatter: '{a} <br/>{b} : {c}%'
+            },
+            /*toolbox: {
+             feature: {
+             restore: {},
+             saveAsImage: {}
+             }
+             },*/
+            series: [
+                {
+                    name: 'Usage',
+                    type: 'gauge',
+                    center: ['50%', '80%'],
+                    detail: {formatter: '{value}', offsetCenter: [0, -25]},
+                    data: [{value: 0, name: '(kWh)'}],
+                    radius: "100%",
+                    startAngle: 180,
+                    endAngle: 0,
+                    max: powerplugs.length > 0 ? powerplugs.length*3 : 30,
+                    axisTick: {
+                        show: false
+                    },
+                    axisLabel: {
+                        distance: -40
+                    },
+                    splitLine: {
+//                        show: false
+                        length: 15
+                    },
+                    splitNumber: 5,
+                    pointer: {
+                        width: 2
+                    },
+                    axisLine: {
+                        lineStyle: {
+                            width: 4
+                        }
+                    }
+        }
+            ]
+        };
+        var realtimeChart = echarts.init(document.getElementById('semrealtimeChart'));
+        function dorealtimeChart() {
+            realtimeChart.setOption(realtimeOption, true);
+        }
+        dorealtimeChart();
+        nodataMode(realtimeChart, 'Wait for connected power plugs');
+
+
+        //on_sem_live
+        function on_sem_live(encid, mes) {
+            var sum = 0;
+            updatecount++;
+            var d = new Date();
+            d = d.getSeconds().toString();// moment(d).format('mm:ss');
+            if (updatecount > maxupdate)
+                demoheaders.shift();//remove first element
+            demoheaders.push(d);
+
+    //        livePlugsOption.title.subtextStyle = null;
+            livePlugsOption.dataset.source = [['device'].concat(demoheaders)];
+
+
+            for (var dev of powerplugs) {
+                var v = 0;
+                if(dev._encid === encid) {
+                    v = mes.current * voltage / 1000;
+                } else {
+                    v = dev.SEMcurrents[dev.SEMcurrents.length - 1] || 0;
+                }
+                sum += v;
+                dev.SEMcurrents.push(v);
+
+                if (updatecount > maxupdate)
+                    dev.SEMcurrents.shift();//remove first element
+
+                livePlugsOption.dataset.source.push([dev.Name].concat(dev.SEMcurrents));
+            }
+            livePlugsChart.setOption(livePlugsOption, true);
+
+            //realtimeChart gauge
+            realtimeOption.series[0].data[0].value = Math.round(sum * dcm)/dcm;
+            realtimeChart.setOption(realtimeOption, true);
+//            console.log('on_sem_live', mes);
+        }
+
+
+        //**************************  history tab *********************************************************************
+
+        //hisusage
+        var hisusageChart = echarts.init(document.getElementById('hisusage'),'ia-vintage');
+        function dohisusage(aggregated) {
+            if (aggregated) {
+                $('#his-aggregated-btn').hide();
+                $('#his-disaggregated-btn').show();
+            } else {
+                $('#his-aggregated-btn').show();
+                $('#his-disaggregated-btn').hide();
+            }
+            loadSEMActivities(function (activities) {
+                var categoryData = [];
+                var errorData = [];
+                var barData = [];
+                var series = [];
+                var data = {};
+                var dataCount = 100;
+                /*for (var i = 0; i < dataCount; i++) {
+                 var val = Math.random() * 1000;
+                 categoryData.push('category' + i);
+                 errorData.push([
+                 i,
+                 echarts.number.round(Math.max(0, val - Math.random() * 100)),
+                 echarts.number.round(val + Math.random() * 80)
+                 ]);
+                 barData.push(echarts.number.round(val, 2));
+                 }*/
+
+                if (aggregated) {
+                    for (var act of activities) {
+                        categoryData.push(act._id.year + '-' + act._id.month + '-' + act._id.day);
+                        barData.push(calconsume(act));
+                    }
+                    series = [{
+                        type: 'bar',
+                        name: 'Usage',
+                        data: barData,
+                        /*itemStyle: {
+                            color: '#77bef7'
+                        }*/
+                    }];
+                }
+                else {
+                    var days = [];
+                    //grouping data into object by key deviceId then date i.e.
+                    // data = {'dev1':{name:'dev1name', '2020-09-04':4, '2020-09-04':34}, 'dev2':{name: 'dev2name', '2020-09-04':33, '2020-09-04':23}}
+                    // days = ['2020-09-04','2020-09-05','2020-09-07']
+
+                    for (var act of activities) {
+                        if (!data[act._id.deviceId]) {
+                            data[act._id.deviceId] = {name: getDeviceName(act._id.deviceId)};
+                        }
+                        data[act._id.deviceId][act._id.year + '-' + act._id.month + '-' + act._id.day] = calconsume(act);
+                        //pushing to days
+                        if (!days.includes(act._id.year + '-' + act._id.month + '-' + act._id.day)) {
+                            days.push(act._id.year + '-' + act._id.month + '-' + act._id.day);
+                            categoryData.push(act._id.year + '-' + act._id.month + '-' + act._id.day);
+                        }
+                    }
+
+                    //list of all devices is
+                    var devs = Object.keys(data);
+
+                    //add to series for each device
+                    for (var d of devs) {
+                        var arr = [];
+                        for (var day of days) {
+                            arr.push(data[d][day] || 0);//add data of device d and date day or 0 if has no data
+                        }
+                        series.push({
+                            type: 'bar',
+                            name: getDeviceName(d),
+                            smooth: true,
+                            seriesLayoutBy: 'row',
+                            colorxx: "#00ff00",
+                            data: arr
+                        });
+                    }
+                }
+
+//                console.log('barData', barData);
+
+                function renderItem(params, api) {
+                    var xValue = api.value(0);
+                    var highPoint = api.coord([xValue, api.value(1)]);
+                    var lowPoint = api.coord([xValue, api.value(2)]);
+                    var halfWidth = api.size([1, 0])[0] * 0.1;
+                    var style = api.style({
+                        stroke: api.visual('color'),
+                        fill: null
+                    });
+
+                    return {
+                        type: 'group',
+                        children: [{
+                            type: 'line',
+                            shape: {
+                                x1: highPoint[0] - halfWidth, y1: highPoint[1],
+                                x2: highPoint[0] + halfWidth, y2: highPoint[1]
+                            },
+                            style: style
+                        }, {
+                            type: 'line',
+                            shape: {
+                                x1: highPoint[0], y1: highPoint[1],
+                                x2: lowPoint[0], y2: lowPoint[1]
+                            },
+                            style: style
+                        }, {
+                            type: 'line',
+                            shape: {
+                                x1: lowPoint[0] - halfWidth, y1: lowPoint[1],
+                                x2: lowPoint[0] + halfWidth, y2: lowPoint[1]
+                            },
+                            style: style
+                        }]
+                    };
+                }
+
+                var hisoption = {
+                    tooltip: {
+                        trigger: 'axis',
+                        axisPointer: {
+                            type: 'shadow'
+                        }
+                    },
+                    title: {
+                        text: 'History of Power Usage',
+                        textStyle: {
+                            color: '#d42021'
+                        },
+                        subtext: aggregated?'Total power usage in days (kWh)':'Usage of each smart power plug (kWh)',
+                        left: 'center',
+                        top: 0
+                    },
+                    legend: {
+                        show: !aggregated,
+                        top: 0,
+                        left: 0,
+                        orient: 'vertical',
+                        align: 'left',
+    //                    data: ['TOT', 'error']
+                    },
+                    dataZoom: [{
+                        type: 'slider',
+                        start: 50,
+                        end: 100
+                    }, /*{
+                     type: 'inside',
+                     start: 50,
+                     end: 70
+                     }*/],
+                    xAxis: {
+                        data: categoryData
+                    },
+                    yAxis: {},
+                    series: series,
+                    /*[{
+                     type: 'bar',
+                     name: 'TOT',
+                     data: barData,
+                     itemStyle: {
+                     color: '#77bef7'
+                     }
+                     }
+                     /*, {
+                     type: 'custom',
+                     name: 'error',
+                     itemStyle: {
+                     normal: {
+                     borderWidth: 1.5
+                     }
+                     },
+                     renderItem: renderItem,
+                     encode: {
+                     x: 0,
+                     y: [1, 2]
+                     },
+                     data: errorData,
+                     z: 100
+                     }* /
+                     ]*/
+                };
+
+                hisusageChart.setOption(hisoption, true);
+
+                if(activities.length === 0) {
+                    nodataMode2(hisusageChart);
+                }
+
+            }, 'DAILY', 0, aggregated);
+        }
+        dohisusage(true);
+
+
+        /*if(typeof interval4 !== 'undefined')
+         clearInterval(interval4);
+         var interval4 = setInterval(function () {
+         realtimeOption.series[0].data[0].value = (Math.random() * 100).toFixed(0) - 0;
+         realtimeChart.setOption(realtimeOption, true);
+         },5000);*/
+
+
+
+        function nodataMode(chart, subtext) {
+            let opt = chart.getOption();
+
+            opt.title= {
+                    text: opt.title[0].text,
+                    subtext: subtext || 'No data found to analyze!',
+                    subtextStyle: {
+                        lineHeight: 10,
+                        fontSize: 18,
+    //                    color: '#ccc'
+                    }
+                };
+            chart.setOption(opt, false);
+        }
+
+        function nodataMode2(chart, subtext) {
+            let opt = chart.getOption();
+            chart.clear();
+            opt = {title: {
+                text: opt.title[0].text,
+                left: 'center',
+                textStyle: {
+                    color: '#d42021'
+                },
+                subtext: subtext || 'No data found to analyze!',
+                subtextStyle: {
+                    lineHeight: 150,
+                    fontSize: 20,
+    //                color: '#ccc'
+                }
+            }};
+            chart.setOption(opt, false);
+        }
+
+        /*setTimeout(function () {
+            if(powerplugs.length === 0 ){
+                nodataMode2(hisusageChart);
+                nodataMode2(livePlugsChart);
+                nodataMode(realtimeChart);
+                nodataMode2(sumCalChart1);
+                nodataMode2(sumweekChart);
+            }
+        },2000);*/
+
+
+        ///////////////////////////
+        ///////////////////////////
+        ///////////////////////////
+        ///////////////////////////
+
+
+        /*var prehighlightedbar = null;
+        var chartconfig = {
+            type: 'bar',
+            data: {
+                labels: [/!*"January", "February", "March", "April", "May", "June", "July"*!/],
+                datasets: [/!*{
+                 label: "My First dataset",
+                 data: [65, 59, 80, 81, 56, 55, 40],
+                 backgroundColor: 'silver'
+                 }, {
+                 label: "My Second dataset",
+                 data: [28, 48, 40, 19, 86, 27, 90],
+                 backgroundColor: 'rgba(233, 30, 99, 0.8)'
+                 }*!/]
+            },
+            options: {
+                title: {
+                    display: false,
+                    text: 'No activity yet'
+                },
+                responsive: true,
+                maintainAspectRatio: false,
+                legend: false,
+                scales: {
+                    yAxes: [{
+                        gridLines: {
+                            display: false,
+                            drawBorder: false,
+                        },
+                        ticks: {
+                            display: false,
+                        }
+                    }],
+                    xAxes: [{
+                        gridLines: {
+                            display: false,
+                        },
+    //                barPercentage: .1,
+    //                categoryPercentage: .1,
+                        barThickness: 10,
+    //                maxBarThickness: 1,
+    //                minBarLength: 2,
+    //                    barThickness: 12,
+                        ticks: {
+                            autoSkip: false,
+                            maxRotation: 0,
+                        }
+                    }]
+                },
+                'onClick': function (evt, item) {
+                    var element = this.getElementAtEvent(evt)[0];
+                    if (element) {
+                        element.custom = element.custom || {};
+                        if (prehighlightedbar)
+                            prehighlightedbar.custom.backgroundColor = '#d42021';
+                        prehighlightedbar = element;
+                        this.update();
+                        element.custom.backgroundColor = '#000';
+                    }
+
+    //                this.render(0,true);
+    //                console.log ('legend onClick', evt);
+    //                console.log('legd item', item);
+                    if (item[0]) {
+                        var d = hisdates[Object.keys(hisdates)[item[0]._index]].date;
+                        toptimefrom.value = d;
+                        toptimeto.value = d;
+                        sortHistory();
+                    }
+                }
+            }
+        };
+        var datax = [];
+        var datax2 = [];
+        var hisdates = {};
+
+        function sortHistory() {
+
+            datax2 = [...datax];
+
+            if (topsort.value === 'LASTACTIVITY') {
+                datax2.sort((a, b) => b.__receivetime - a.__receivetime);
+            } else if (topsort.value === 'DEVICENAME') {
+                datax2.sort((a, b) => {
+                    if (a.device && b.device) return a.device.Name.localeCompare(b.device.Name); else return true;
+                });
+            } else if (topsort.value === 'DEVICESTATE') {
+                datax2.sort((a, b) => {
+                    if (a.state && b.state) return a.state.localeCompare(b.state); else return true;
+                });
+            }
+
+            if (topfilter.value !== 'ALL') {
+                datax2 = datax2.filter((a) => a.device && (a.username === topfilter.value))
+            }
+
+            if (toptimefrom.value !== '' || toptimeto.value !== '') {
+    //            console.error('tiiiiiiiiiiii',toptimefrom.value || undefined , toptimeto.value)
+                datax2 = datax2.filter(function (a) {
+                    return moment(a.__receivetime).isBetween(toptimefrom.value || undefined, toptimeto.value || undefined, 'day', '[]')
+                })
+            }
+
+            //ssbindRenderLevel('history');
+            var list = $('#historylist');
+            list.empty();
+            datax2.forEach((dx) => {
+                list.append(`<li>
+                    <i class="${devicetemps[dx.device.DeviceType].icon} icon1"></i>
+                    <span class="logname" >${dx.device.Name}</span>
+                    <b class="logstate">${dx.state}</b>
+                    <span class="logdate" >${moment(dx.__receivetime).format('DD MMM - HH:mm:ss')}</span>
+                </li>`)
+            })
+
+        }*/
+        //    $(function () {
+
+
+        //        ssbindRenderLevel('devices');
+        //        $('#topsort').change(sortHistory);
+        //        $('#topfilter').change(sortHistory);
+        //        $('#toptimeto').attr('max',moment(Date.now()).format('YYYY-MM-DD')).focus(function(){$('#toptimeto').attr('type','date')}).focusout(function () {$('#toptimeto').attr('type','text')}).change(sortHistory);
+        //        $('#toptimefrom').focus(function(){$('#toptimefrom').attr('type','date')}).focusout(function () {$('#toptimefrom').attr('type','text')}).change(sortHistory);
+        /* from IA_History.devices
+         //datax:
+         for (var dev in IA_History.devices) {
+         var his = IA_History.devices[dev];
+         for (var h of his) {
+         var item = {...h};
+         item.deviceId = dev;
+         item.device = home._devices.find(dvc => dvc._encid === dev);
+         item.receivedate = moment(item.__receivetime).format('MMM DD');
+         if(!item.state && item.command){
+         item.state = item.command;
+         }
+         if(item.state)
+         datax.push(item)
+         }
+         }*/
+        //new datax from iaactivity
+        //load activities
+        //        if(!activityloadtime){
+        //        loadSEMActivities(0)
+        //        }
+        //    })
+
+
+        ////need to load activities from server
+        var days = 1;
+        function loadSEMActivities(dome, category, days, aggregated, from, to) {
+            var chart = null;
+            $.ajax({
+                url: '/iaactivity/home/sem/',
+                data: {
+                    currentfields: ['current', 'current2'],
+                    aggregated: aggregated, //when aggregated true or null and for disaggregated send false
+                    category: category, //DAILY, MONTHLY, YEARLY, WEEKLY, HOURLY
+                    days: days, //how many previous days from now
+                    fromdate: from, //get activities from date
+                    todate: to, //get activities to date
+                },
+    //            async: !1,
+                type: "get",
+                dataType: "json",
+                success: function (activities) {
+//                    console.log('activites', activities);
+                    if (dome) {
+                        dome(activities);
+                    }
+                    /*datax = [];
+                     datax2 = [];
+                     hisdates = {};
+                     chartconfig.data.datasets = [];
+                     chartconfig.data.labels = [];
+                     for (var his of activities) {
+                     var item = {...his};
+                     if(item.isDevice) {
+                     if(item.device.DeviceType !== 'POWER_PLUG')
+                     continue;
+                     /!*if(!item.hasOwnProperty('current')){
+                     continue;
+                     }*!/
+                     item.deviceId = item.DeviceId;
+                     //item.device = home._devices.find(dvc => dvc._encid === (item.username || item.DeviceEncId));
+                     } else {
+                     continue;
+                     }
+                     item.receivedate = moment(item.__receivetime).format('MMM DD');
+                     if(!item.state && item.command){
+                     item.state = item.command;
+                     }
+                     if(!item.state && item.event){
+                     item.state = item.event;
+                     }
+
+
+                     datax.push(item)
+                     }
+                     //hisdates
+                     for (let c of datax) {
+                     let rdate = c.receivedate;
+                     if (!hisdates[rdate])
+                     hisdates[rdate] = {
+                     date: moment(c.__receivetime).format('YYYY-MM-DD'),
+                     events: 1
+                     };
+                     else
+                     hisdates[rdate].events++;
+                     }
+                     //labels of chart:
+                     var chartlabels = Object.keys(hisdates);
+
+                     console.log(datax);
+                     chartconfig.data.labels = chartlabels;
+                     //data of chart:
+                     var chartdata = Object.values(hisdates).map(his => his.events);
+
+
+                     console.log(chartdata);*/
+
+
+    //            setTimeout(sortHistory, 300);
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    console.error(xhr, ajaxOptions, thrownError);
+                    // alert(thrownError + " - " + ajaxOptions);
+                }
+            }).fail(function (response) {
+                swal.fire("Error", response.responseJSON.message, "error");
+            });
+
+        }
+
+
+//        sessionStorage.setItem('seminited', true)
+//    }
+
+/*
+    function dropdownmenu() {
+        /!*var x = document.getElementById("myTopnav");
+         if (x.className === "topnav") {
+         x.className += " responsive";
+         } else {
+         x.className = "topnav";
+         }*!/
+        $('#myTopnav').toggleClass('responsive');
+        $('#myTopnav .icon').toggleClass('mdi-filter mdi-close');
+    }*/
+
+
+    ssbindRender();
+</script>

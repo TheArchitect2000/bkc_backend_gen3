@@ -1,0 +1,88 @@
+{
+	"interactionModel": {
+		"languageModel": {
+			"invocationName": "internet anywhere",
+			"types": [],
+			"intents": [
+				{
+					"name": "LoginIntent",
+					"samples": [
+						"hello",
+						"say hello",
+						"say hello world"
+					]
+				},
+				{
+					"name": "RootIntent",
+					"samples": [
+						"do it",
+						"do",
+						"another thing",
+						"new task",
+						"I A",
+						"Internet Anywhere",
+						"OK Internet Anywhere",
+						"OK"
+					]
+				},
+				{
+					"name": "MyNameIsIntent",
+					"samples": [
+						"{name}",
+						"my name is {name}",
+						"i am {name}",
+						"you can call me {name}"
+					],
+					"slots": [
+						{
+							"name": "name",
+							"type": "AMAZON.US_FIRST_NAME"
+						}
+					]
+				},
+				{
+					"name": "TurnOnIntent",
+					"samples": [
+						"{device}",
+						"turn on {device}",
+						"please turn on {device}",
+						"switch on {device}"
+					],
+					"slots": [
+						{
+							"name": "device",
+							"type": "AMAZON.SearchQuery"
+						}
+					]
+				},
+				{
+					"name": "MyIASecretIsIntent",
+					"samples": [
+						"{secret}",
+						"my secret is {secret}",
+						"i am {secret}",
+						"my IA secret is {secret}"
+					],
+					"slots": [
+						{
+							"name": "secret",
+							"type": "AMAZON.FOUR_DIGIT_NUMBER"
+						}
+					]
+				},
+				{
+					"name": "AMAZON.CancelIntent",
+					"samples": []
+				},
+				{
+					"name": "AMAZON.HelpIntent",
+					"samples": []
+				},
+				{
+					"name": "AMAZON.StopIntent",
+					"samples": []
+				}
+			]
+		}
+	}
+}

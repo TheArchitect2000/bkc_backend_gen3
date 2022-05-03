@@ -1,0 +1,105 @@
+<!--uses ssbind and sspage tags-->
+<div class="container-fluid">
+    <div class="block-header">
+        <h2>Smart Homes</h2>
+    </div>
+    <div class="row">
+
+        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 card btn btn-link"  sspage="../admin/views/iahome.view.html?id=ssObject[_id]"
+             ssfor="homes"
+             sspage-load-json="/iahome"
+             sspage-load-json-var="homes"
+             sspage-load-after="ssbindRenderThis('homes')">
+
+            <i class="material-icons">home</i>
+            <span ssbind="text:homes[ssIndex].Name || 'No Name'"></span>
+            <!--<div class="">
+                <div class="header">
+                    <h2>
+                        <i class="material-icons">home</i>
+                        <span ssbind="text:homes[ssIndex]._id.substr(15)"></span>
+                        <small ssbind="text:homes[ssIndex]._id ; class: homes[ssIndex].IsActive ? 'badge bg-light-blue' : 'badge bg-blue-grey'"></small>
+                    </h2>
+                    <ul class="header-dropdown m-r&#45;&#45;5">
+                        <li class="dropdown">
+                            <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                <i class="material-icons">more_vert</i>
+                            </a>
+                            <ul class="dropdown-menu pull-right">
+                                <li><a sspage="../admin/views/iahome.view.html?id=ssObject[_id]" class=" waves-effect waves-block"><i class="material-icons">edit</i> Edit</a></li>
+                                <li><a href="javascript:void(0);" class=" waves-effect waves-block">Another action</a></li>
+                                <li><a href="javascript:void(0);" class=" waves-effect waves-block">Something else here</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                <div class="body ">
+                    <i class="material-icons">home</i>
+                    <span ssbind="text:homes[ssIndex].Name || 'No Name'"></span>
+                    <dl>
+                        <dt>Name:</dt>
+                        <dd ssbind="text:homes[ssIndex].Name || 'No Name'"></dd>
+
+                        <dt>Address:</dt>
+                        <dd>
+                            <div class="row">
+                                <div class="col-md-4 col-xs-4" ssbind="text:homes[ssIndex].Address.Country">
+                                    jjjj
+                                </div>
+                                <div class="col-md-4 col-xs-4" ssbind="text:homes[ssIndex].Address.City">
+                                    jjjj
+                                </div>
+                                <div class="col-md-4 col-xs-4" ssbind="text:homes[ssIndex].Address.ZipCode">
+                                    jjjj
+                                </div>
+                            </div>
+                        </dd>
+
+                        <dt>GPS:</dt>
+                        <dd ssbind="text:JSON.stringify(homes[ssIndex].Address.GPS)"></dd>
+
+                        <dt>Create Time:</dt>
+                        <dd ssbind="text:homes[ssIndex].createdAt"></dd>
+
+                        <dt>Current Status:</dt>
+                        <dd>
+                            <div class="switch">
+                                <label>NOT ACTIVE<input type="checkbox" ssbind="checked:homes[ssIndex].IsActive"  disabled><span class="lever switch-col-light-blue"></span>ACTIVE</label>
+                            </div>
+                        </dd>
+                    </dl>
+                </div>
+                <div class="body hidden">
+                    <div class="row">
+                        <div class="col-md-4 col-xs-4">
+                            <div class="text-center col-amber">
+                                <i class="material-icons">cast_connected</i><br>
+                                <span class="text">Devices</span>
+                                <h3 class="number count-to" data-from="0" data-to="125" data-speed="1000" data-fresh-interval="20">0</h3>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 col-xs-4">
+                            <div class="text-center col-green">
+                                    <i class="material-icons">message</i><br>
+                                    <span class="text">MQTT</span>
+                                    <h3 class="number count-to" data-from="0" data-to="125" data-speed="1000" data-fresh-interval="20">0</h3>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 col-xs-4">
+                            <div class="text-center col-red">
+                                <i class="material-icons">developer_board</i><br>
+                                <span class="text">Services</span>
+                                <h3 class="number count-to" data-from="0" data-to="125" data-speed="1000" data-fresh-interval="20">0</h3>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>-->
+        </div>
+
+    </div>
+</div>

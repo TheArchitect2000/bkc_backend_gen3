@@ -1,0 +1,371 @@
+<style>
+    .nav-tabs > li.active > a, .nav-tabs > li.active > a:hover, .nav-tabs > li.active > a:focus {
+        background-color: transparent !important;
+    }
+
+    .servicelist {
+        /*background-image: url("images/illustration_console.svg");*/
+        background-repeat: no-repeat;
+        background-size: 60%;
+        background-position: center;
+        /*background-attachment: fixed;*/
+        min-height: 100vh;
+    }
+
+    .newservice {
+        /*border: 1px solid silver !important;*/
+        background-color: #efefef;
+        margin: 0pc .8pc;
+        height: 9pc;
+    }
+
+    .newservice:hover {
+        /*border: 1px solid white !important;*/
+        background-color: #ddd;
+
+    }
+
+    /*.newservice:hover .icon-newservice{
+        position: relative;
+        top: -.5pc;
+        height: 2.5pc;
+        width: 2.5pc;
+    }*/
+
+    .service-name {
+        width: 100%;
+        text-overflow: ellipsis;
+        overflow: hidden;
+    }
+
+    table.service {
+        width: 100%;
+        height: 9pc;
+        background-color: rgba(255, 255, 255, .95);
+    }
+
+    table.service:hover {
+        background-color: #ddd;
+    }
+
+    .service img {
+        border-radius: 2px;
+        margin-top: .5pc;
+        max-height: 8pc;
+        background-color: white;
+        border-width: 0
+    }
+
+    .bg-black {
+        background-color: #282828 !important;
+    }
+
+    td.icon {
+        width: 35%;
+    }
+
+    td.content {
+        /*max-width: 80%;*/
+        display: grid;
+        padding: 1pc !important;
+    }
+</style>
+<div class="visible-xs card  XXm-t--30 XXm-r--15 XXm-l--15 XXm-b-0" style="height: calc(100vh - 70px)">
+    <div class="body servicelist">
+        <span class="ia-head">
+            <span class="icon2 develop-icon"></span>
+            Service Creator
+        </span>
+        <br><br>
+        <h4 class="m-l-20 m-r-20">This section is accessible in tablet or desktop versions.</h4>
+    </div>
+</div>
+<div class="card  XXm-r--15 XXm-l--15 XXm-b-0 hidden-xs"
+     XXstyle="min-height: calc(100vh - 70px);width: calc(100vw - 320px);"
+     sspage-load-jsonXX="/iaservice/developer/[sspagesearch.mode]"
+     sspage-load-json-varXX="myservices"
+     sspage-load-afterXX="initPage()">
+    <div class="header">
+
+            <span class="ia-head">
+                <span class="icon2 develop-icon"></span>
+                Service Creator
+            </span>
+
+    </div>
+    <div class="body servicelist" ssbind="style : myservices.length>0 || 'background-image:url(images/illustration_console.svg)'">
+        <div class="row panel panel-default bg-warning">
+            <div class="col-sm-3 col-xs-6">
+                <div class="">
+                    <div class="align-center number count-to col-purple font-45 font-bold" data-from="0" data-toDDD="0"
+                         data-speed="700" data-fresh-interval="20" ssbind="data-to:myservices.length">0
+                    </div>
+                    <div class="align-center col-purple ia-medium-title">Created Services</div>
+                </div>
+            </div>
+            <div class="col-sm-3 col-xs-6">
+                <div class="">
+                    <div class="align-center number count-to col-green font-45 font-bold" data-from="0" data-toDDD="0"
+                         data-speed="700" data-fresh-interval="20"
+                         ssbind="data-to:myservices.filter(s=>s.Publish && s.Publish.PublishedVersion>0).length">0
+                    </div>
+                    <div class="align-center col-green ia-medium-title">Published Services</div>
+                </div>
+            </div>
+            <div class="col-sm-3 col-xs-6">
+                <div class="">
+                    <div class="align-center number count-to col-blue font-45 font-bold" data-from="0" data-to="125"
+                         data-speed="700" data-fresh-interval="20"
+                         ssbind="data-to:myservices.map(o=>o._Installed).reduce((a,c)=>a+c, 0)"
+                    >0
+                    </div>
+                    <div class="align-center col-blue ia-medium-title">Installed Services</div>
+                </div>
+            </div>
+            <div class="col-sm-3 col-xs-6" ssif="typeof balance !== 'undefined'">
+                <div class="">
+                    <div class="align-center number count-to col-orange font-45 font-bold" data-from="0" data-to="0"
+                         data-speed="700" data-fresh-interval="100" ssbind="data-to:typeof balance !== 'undefined' ? balance.developer_ern : 0">0
+                    </div>
+                    <div class="align-center col-orange ia-medium-title">Tokens
+                        <sup class="badge bg-orange">BKC</sup>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="col-sm-12">
+                <h2 class="col-red ia-bigger-title m-b-0">Blockly Console</h2>
+                <small class="col-grey">Visual Console lets you create BKC Services in a simple way.</small>
+            </div>
+            <div class="col-sm-2  btn newservice ">
+                <!--<a href="../developer/views/iaservice.rapid.edit.view.html" target="newrapid">-->
+                <div class=" align-center " sspage="/developer/views/iaservice.rapid.create.view.html">
+                    <br>
+                    <div class=" icon2 icon-newservice"></div>
+                    <div class=" ia-medium-title">Create <br>New Service<br><br></div>
+                </div>
+                <!--</a>-->
+            </div>
+            <div class="row col-sm-10">
+                <div class="col-sm-4 "
+                     ssif="myservices[ssIndex].RapidMode"
+                     sspage="../developer/views/iaservice.rapid.container.view.html?id=ssObject[_id]"
+                     ssfor="myservices" sslevel="myservicesL" ssnextlevel="myservicesL2">
+                    <table class="service btn">
+                        <tr>
+                            <td class="icon ">
+                                <img class="img-responsive" ssbind="src:myservices[ssIndex].Icon || defaulticon"
+                                     sslevel="myservicesL">
+                            </td>
+                            <td class="content align-left">
+                                <div class="text  ia-big-title service-name" ssbind="text:myservices[ssIndex].Name"
+                                     sslevel="myservicesL"></div>
+                                <div sslevel="myservicesL"
+                                     ssbind="class:myservices[ssIndex].Publish.PublishedVersion>0?'col-green':'col-grey'; text:myservices[ssIndex].Publish.PublishedVersion>0?'Published: v '+myservices[ssIndex].Publish.PublishedVersion:'Unpublished'"></div>
+                                <div sslevel="myservicesL"
+                                     ssbind="class:myservices[ssIndex]._Installed?'col-green':'col-grey'; text:'Installed: '+myservices[ssIndex]._Installed"></div>
+                                <!--<div class="number count-to" data-from="0" data-to="125" data-speed="1000" data-fresh-interval="20">125</div>-->
+
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="row ">
+            <div class="col-sm-12">
+                <h2 class="col-red ia-bigger-title m-b-0">Coding Console</h2>
+                <small class="col-grey">Coding Console lets you create BKC Services in a professional environment.
+                </small>
+            </div>
+            <div class="col-sm-2  btn newservice">
+                <div class="align-center" sspage="../developer/views/iaservice.developer.create.view.html">
+                    <br>
+                    <div class=" icon2 icon-newservice"></div>
+                    <div class="ia-medium-title">Create<br>New Service<br><br></div>
+                </div>
+            </div>
+            <div class="row col-sm-10">
+                <div class="col-sm-4 "
+                     ssif="!myservices[ssIndex].RapidMode"
+                     sspage="../developer/views/iaservice.developer.edit.view.html?id=ssObject[_id]"
+                     ssfor=" myservices " sslevel="myservicesL2">
+                    <table class="service btn">
+                        <tr>
+                            <td class="icon ">
+                                <img class="img-responsive" ssbind="src:myservices[ssIndex].Icon || defaulticon"
+                                     sslevel="myservicesL2">
+                            </td>
+                            <td class="content align-left">
+                                <div class="text ia-big-title service-name" ssbind="text:myservices[ssIndex].Name"
+                                     sslevel="myservicesL2"></div>
+                                <div sslevel="myservicesL2"
+                                     ssbind="class:myservices[ssIndex].Publish.PublishedVersion>0?'col-green':'col-grey'; text:myservices[ssIndex].Publish.PublishedVersion>0?'Published: v '+myservices[ssIndex].Publish.PublishedVersion:'Unpublished'"></div>
+                                <div sslevel="myservicesL2"
+                                     ssbind="class:myservices[ssIndex]._Installed?'col-green':'col-grey'; text:'Installed: '+myservices[ssIndex]._Installed"></div>
+                                <!--<div class="number count-to" data-from="0" data-to="125" data-speed="1000" data-fresh-interval="20">125</div>-->
+
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<script>
+    var myservices = null;
+    function initPage() {
+        var path = "/iaservice/developer/";
+        if(panelmode==='VENDORPANEL'){
+            if(vendor)
+                path = "/iaservice/developer/vendor/"+vendor._id
+            else
+                path = '//'
+        }
+        $.getJSON( path, function( _myservices ) {
+            myservices = _myservices;
+            ssbindRenderLevel('myservicesL');
+            ssbindRender();
+            $('.count-to').countTo();
+        });
+    }
+
+
+    //prevent showing on mobile
+    if (jQuery.browser.mobile) {
+        // alert('go to home');
+
+    }
+
+    var newservice = {
+        Devices: [],
+        Vars: [],
+        Buttons: []
+    };
+
+    //    setTimeout(function () {
+
+
+    //    setTimeout(()=>$('.count-to').countTo(), 2000)
+    //    } , 0);
+
+/*    $("#addDevice").click(() => {
+        let name = $('#newdevicename').val().trim();
+        if (name === '') {
+            swal.fire({
+                title: 'New Device Indicator',
+                text: 'Please set a name for new device indicator!',
+                //html: true,
+                //                    timer: 2000,
+                //icon: "warning",
+                imageUrl: "images/error.png",
+                imageWidth: 50,
+                showConfirmButton: true
+            });
+            return;
+        }
+        if (newservice.Devices.some(v => v.Name === name) || newservice.Vars.some(v => v.Name === name)) {
+            swal.fire({
+                title: 'New Device Indicator',
+                text: 'New device indicator is duplicated!',
+                //html: true,
+                //                    timer: 2000,
+                //icon: "warning",
+                imageUrl: "images/error.png",
+                imageWidth: 50,
+                showConfirmButton: true
+            });
+            return;
+        }
+        newservice.Devices.push({'Name': name, 'DeviceType': $('#newdevicetype').val()});
+        $('#newdevicename').val('')
+        ssbindRenderLevel('srvdevices');
+    });
+
+    $("#addVar").click(() => {
+        let name = $('#newvarname').val().trim();
+        if (name === '') {
+            swal.fire({
+                title: 'New Variable',
+                text: 'Please set a name for new variable!',
+                //html: true,
+                //                    timer: 2000,
+                //icon: "warning",
+                imageUrl: "images/error.png",
+                imageWidth: 50,
+                showConfirmButton: true
+            });
+            return;
+        }
+        if (newservice.Devices.some(v => v.Name === name) || newservice.Vars.some(v => v.Name === name)) {
+            swal.fire({
+                title: 'New Variable',
+                text: 'New variable name is duplicated!',
+                //html: true,
+                //                    timer: 2000,
+                //icon: "warning",
+                imageUrl: "images/error.png",
+                imageWidth: 50,
+                showConfirmButton: true
+            });
+            return;
+        }
+        newservice.Vars.push({'Name': name, 'Type': $('#newvartype').val()});
+        $('#newvarname').val('')
+        ssbindRenderLevel('srvvars');
+    });
+
+    $("#addButton").click(() => {
+        let title = $('#newbuttontitle').val().trim();
+        let funx = $('#newbuttonfunction').val().trim();
+        /!*if(name==='') {
+         swal.fire({
+         title: 'New Variable',
+         text: 'Please set a name for new variable!',
+         //html: true,
+         //                    timer: 2000,
+         icon: "warning",
+         showConfirmButton: true
+         });
+         return;
+         }*!/
+        if (newservice.Buttons.some(v => v.Title === title)) {
+            swal.fire({
+                title: 'New Tap command',
+                text: 'New Tap title is duplicated',
+                //html: true,
+                //                    timer: 2000,
+                //icon: "warning",
+                imageUrl: "images/error.png",
+                imageWidth: 50,
+                showConfirmButton: true
+            });
+            return;
+        }
+        if (newservice.Buttons.some(v => v.Function === funx)) {
+            swal.fire({
+                title: 'New Tap command',
+                text: 'New Tap function name is duplicated',
+                //html: true,
+                //                    timer: 2000,
+                //icon: "warning",
+                imageUrl: "images/error.png",
+                imageWidth: 50,
+                showConfirmButton: true
+            });
+            return;
+        }
+        newservice.Buttons.push({'Title': title, 'Function': $('#newbuttonfunction').val()});
+        $('#newbuttontitle').val('');
+        $('#newbuttonfunction').val('');
+        ssbindRenderLevel('srvbuttons');
+    });*/
+
+    initPage();
+</script>

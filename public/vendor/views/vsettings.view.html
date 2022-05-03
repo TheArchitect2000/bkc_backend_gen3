@@ -1,0 +1,142 @@
+<style>
+    #iavoicetab blockquote {
+        border-left: 5px solid #00bcd4;
+        background-color: beige;
+        color: #00bcd4;
+        font-family: cursive;
+        font-size: inherit;
+    }
+
+    conversation {
+        display: table;
+        padding: 2pc;
+        background-color: #c1edff;
+    }
+    or, comment {
+        display: block;
+        color: white;
+        font-family: Tahoma;
+        font-size: smaller;
+        text-shadow: 1px 1px 7px #009688;
+    }
+    or:before {
+        content: "or";
+    }
+    usr, iav {
+        display: block;
+        margin-top: .5pc;
+        width: fit-content;
+        min-width: 55%;
+        max-width: 90%;
+    }
+    usr {
+        float: left;
+        padding: .4pc 1pc .4pc 2.5pc;
+        font-family: cursive;
+        border-radius: .5pc;
+        background-color: rgba(76, 175, 80, 0.31);
+    }
+    usr:before{
+        display: inline-block;
+        font: normal normal normal 24px/1 "Material Design Icons";
+        font-size: large;
+        text-rendering: auto;
+        line-height: inherit;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        content: "\F5CB";
+        margin-right: .5pc;
+        margin-left: -1.5pc;
+    }
+    iav {
+        float: right;
+        /*text-align: right;*/
+        list-style: circle;
+        font-family: monospace, monospace;
+        border-radius: .5pc;
+        background-color: rgba(42, 107, 230, 0.31);
+        padding: .4pc 1pc .4pc 2.5pc;
+    }
+    iav:before {
+        display: inline-block;
+        font: normal normal normal 24px/1 "Material Design Icons";
+        font-size: large;
+        text-rendering: auto;
+        line-height: inherit;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        content: "\F823";
+        margin-right: .5pc;
+        margin-left: -1.5pc;
+    }
+
+    .alexa-icon {
+        background-image: url("images/alexa-icon-256.png");
+        background-repeat: no-repeat;
+        background-size: cover;
+        width: 30px;
+        height: 30px;
+        display: inline-block;
+    }
+
+    .google-icon {
+        background-image: url("images/google-assistant-icon.png");
+        background-repeat: no-repeat;
+        background-size: cover;
+        width: 30px;
+        height: 30px;
+        display: inline-block;
+    }
+</style>
+<div class="card">
+    <div class="header">
+        <span class="ia-head">
+            <span class="icon2 setting-icon "></span>
+            Settings
+        </span>
+    </div>
+    <div class="body">
+        <!-- Nav tabs -->
+        <ul class="nav nav-tabs ia-medium-title tab-col-red service" role="tablist">
+            <li role="presentation" class="active"
+                ssif=" myMember.Roles.some( ai => ['VENDOR_SETTING','ADMIN'].includes(ai) )">
+                <a href="#vendorprofile" data-toggle="tab" aria-expanded="true">
+                    Vendor
+                </a>
+            </li>
+            <li role="presentation" ssif=" myMember.Roles.some( ai => ['USER_SETTING','ADMIN'].includes(ai) )">
+                <a href="#usersprofile" data-toggle="tab" aria-expanded="true">
+                    Users
+                </a>
+            </li>
+            <!--<li role="presentation">
+                <a href="#apptab" data-toggle="tab" aria-expanded="true">
+                    App
+                </a>
+            </li>-->
+        </ul>
+
+        <!-- Tab panes -->
+        <div class="tab-content ">
+            <div role="tabpanel" class="tab-pane fade active in" id="vendorprofile" ssif=" myMember.Roles.some( ai => ['VENDOR_SETTING','ADMIN'].includes(ai) )">
+                 <div sspage-load="../vendor/views/iavendor.vendor.edit.view.html"
+                 sspage-load-after="ssbindRender()"></div>
+            </div>
+            <div role="tabpanel" class="tab-pane fade" id="usersprofile" ssif=" myMember.Roles.some( ai => ['USER_SETTING','ADMIN'].includes(ai) )">
+                 <div sspage-load="../vendor/views/iavendor.vendor.users.view.html"
+                 sspage-load-after="ssbindRender()"></div>
+            </div>
+            <div role="tabpanel" class="tab-pane " id="apptab">
+                <div class="card">
+                    <div class="body">
+                        <h5 class="col-red ia-medium-title">Signing out</h5>
+                        <li class="col-grey">Are you going to sign out?</li>
+
+                        <button class="btn btn-primary-ia ia-big-title m-t-10" onclick="logout();return false;">Sign out</button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

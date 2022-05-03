@@ -1,0 +1,273 @@
+<style>
+    .iabt-pan {
+        max-width: 300px;
+    }
+
+    @media (max-width: 767px){
+        .iabt-pan {
+            max-width: 96vw;
+            min-width: 96vw;
+            /*min-height: 90vh;*/
+            border: 2px solid grey !important;
+        }
+
+        .iabt-icon-small {
+            top: 0px !important;
+            position: inherit !important;
+        }
+    }
+
+    .iabt-pan .header {
+        background-image: url("images/iabt-header-gray.jpg");
+        background-size: cover;
+        height: 5.5pc;
+        border-bottom: 2px solid grey;
+    }
+
+    .iabt-icon-small {
+        background-image: url(images/IABT_icon.svg);
+        width: 1.4pc;
+        height: 1.4pc;
+        background-size: contain;
+        background-repeat: no-repeat;
+        display: block;
+        color: transparent;
+        top: -5px;
+        position: relative;
+    }
+
+    .balancelist .icon2 {
+        position: relative;
+        left: 16px;
+        top: 3px;
+    }
+
+    .iabt-icon {
+        background-image: url("images/Token card_logo.png");
+        user-select: none;
+        background-size: contain;
+        margin-top: 1pc;
+        color: white;
+        font-size: 5.5pc;
+        text-shadow: 1px 6px 6px #5D5D5D7d;
+        -webkit-animation: glow 3s ease-in-out infinite alternate;
+        -moz-animation: glow 3s ease-in-out infinite alternate;
+        animation: glow 3s ease-in-out infinite alternate;
+        height: 8pc;
+        background-position-x: 50%;
+        background-repeat: no-repeat;
+    }
+
+    @-webkit-keyframes glow {
+        /*from {
+            !*text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #2a6be6, 0 0 40px #7cbae6, 0 0 50px #e60073, 0 0 60px #e60073, 0 0 70px #e60073;*!
+            !*filter: drop-shadow( 1px 6px 6px #5D5D5D7d);*!
+        }
+        to {
+            !*filter: drop-shadow( 0 0 1px #aaa, 0 0 20px #fff, 0 0 30px #f9ffa6, 0 0 40px #ffd23d, 0 0 50px #ffe63a, 0 0 60px #ff4da6);*!
+            !*transform:rotate(30deg);*!
+            !*color: #ffe846;*!
+            transform: scale(.95,.95)
+        }*/
+        0% {
+            transform: perspective(120px) /*rotateX(0deg)*/ rotateY(0deg);
+            -webkit-transform: perspective(120px) /*rotateX(0deg)*/ rotateY(0deg);
+        } 50% {
+              transform: perspective(120px) /*rotateX(-180.1deg)*/ rotateY(0deg);
+              -webkit-transform: perspective(120px) /*rotateX(-180.1deg)*/ rotateY(0deg);
+          } 100% {
+                transform: perspective(120px) /*rotateX(-180deg)*/ rotateY(-179.9deg);
+                -webkit-transform: perspective(120px) /*rotateX(-180deg)*/ rotateY(-179.9deg);
+                /*background-color: #ec407a;*/
+            }
+    }
+
+    .iabt-icon-text {
+        display: grid;
+        margin-top: -5.5pc;
+        color: #9f7201;
+        text-shadow: 2px 2px 2px silver;
+    }
+
+    .iabt-history {
+
+    }
+
+    .iabt-time {
+        font-size: 9px;
+        white-space: nowrap;
+        text-align: right;
+        padding-right: 2px;
+        padding-left: 0;
+        /*margin-top: .2pc;*/
+    }
+
+    .iabt-case {
+        font-size: 12px;
+        font-weight: bold;
+        color: #555;
+        /*width: 100%;*/
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        margin: -.2pc 0 .1pc 0;
+    }
+
+    .iabt-history .row {
+        background-color: #eee;
+        margin-top: 2px;
+        border-radius: 3px;
+        padding: 1px 0;
+    }
+
+    .iabt-history .col-red {
+        color: red !important;
+    }
+</style>
+<script>
+    function shortenLargeNumber(num, digits) {
+        var units = ['k', 'M', 'G', 'T', 'P', 'E', 'Z', 'Y'],
+            decimal;
+
+        for(var i=units.length-1; i>=0; i--) {
+            decimal = Math.pow(1000, i+1);
+
+            if(num <= -decimal || num >= decimal) {
+                return +(num / decimal).toFixed(digits) + units[i];
+            }
+        }
+
+        return num;
+    }
+
+    function getIcon(caseMode, caseType) {
+        /*
+         SERVICE_INSTALL : 100,
+        SERVICE_RUN : 101,
+        SERVICE_TRANSFER : 102,
+        VOUCHER_EXTRACT: 300,
+        VOUCHER_IMPORT: 301,
+        TRANSFER_TO_EMAIL:201,
+        BONUS_FOR_PAYLOAD: 501,
+        BURN_TOKEN: 900
+         */
+        var img = '';
+        switch (caseType){
+            case 102:
+                if(caseMode==='-'){
+                    img = 'Consume.png';
+                } else {
+                    img = 'Import.png';
+                }
+                break;
+            case 201:
+                if(caseMode==='-'){
+                    img = 'Transfer.png';
+                } else {
+                    img = 'Import.png';
+                }
+                break;
+            case 300:
+                img = 'Extract.png';
+                break;
+            case 301:
+                img = 'Import.png';
+                break;
+            case 501:
+                img = 'Import.png';
+                break;
+            default:
+                img = 'Consume.png';
+                break;
+
+        }
+        img = 'images/' + img;
+        return img;
+    }
+
+</script>
+<a href="javascript:void(0);" class="dropdown-toggle font-24" data-toggle="dropdown" role="button">
+    <i class="mdiXX mdi-diamond-stoneXX col-amberXX iabt-icon-small"></i>
+    <!--<span class="label-count" style="margin-top: -7px; background-color: rgba(41,41,41,0.56)" sslevelXX="notifies" ssbindXX="text:22">202k</span>-->
+</a>
+<div class="dropdown-menu iabt-pan p-t-0" sspage-load-json="/customer/iabt/last" sspage-load-json-var="balance" sspage-load-after="ssbindRenderLevel('balance')">
+    <div class="header"><!--<span sslevel="notifies" ssbind="text:IA_Notifies.Messages.length">0</span>-->
+        <div class="iabt-icon mdiXX mdi-diamondXX">
+            <!--<b class="ia-big-title iabt-icon-text">BKC</b>-->
+        </div>
+    </div>
+    <div class="body ">
+        <h1 class="align-center m-t-70 m-b-30 col-green ia-bigger-title" style="font-size: 3pc !important;" sslevel="balance" ssbind="text:balance.balance">
+            ?
+        </h1>
+        <div class="m-t--35 align-center font-10 col-green font-bold">BKC Tokens</div>
+
+        <div class="align-center ">
+
+            <span class=" btn  btn-link font-30 " onclick="$('#iabtpan').hide();show_sspage('/customer/views/iabt.pan.view.html','$(`#iabtpan`).fadeIn()','#iabtpan')">
+            <i class="mdi mdi-refresh font-20"></i>
+            </span>
+            <br>
+
+            <span class="bg-white btn btn-link  col-grey " sspage="/customer/views/iabt.list.view.html" onclick="$('body').click();">
+                <img src="images/Wallet.png" style="width:13pt">
+                Open Wallet</span><br>
+
+        </div>
+
+        <div class="iabt-history m-l-10 m-r-10 m-b-5 col-grey p-t-10 p-l-10 p-r-10 ">
+            <div class="font-bold font-10">
+                History
+            </div>
+            <div class="balancelist">
+                <div class="row" ssfor="balance.records" sslevel="balance" ssemptylist="You have no transaction yet">
+                    <nobr>
+                    <div class="col-sm-9 col-xs-9  font-20 p-l-0">
+                        <i sslevel="balance" ssbind="class:balance.records[ssIndex].caseMode=='-' ? 'mdi mdi-minus col-red' : 'mdi mdi-plus col-green'"></i>
+
+                        <span sslevel="balance" ssbind="text: balance.records[ssIndex].Amount ; class:balance.records[ssIndex].caseMode=='-' ? 'col-red' : 'col-green'">0</span>
+                    </div>
+
+                    <div class="col-sm-2 col-xs-2  " >
+                        <img class="icon2" sslevel="balance" ssbind="src: getIcon(balance.records[ssIndex].caseMode,balance.records[ssIndex].CaseType)">
+                    </div>
+                    </nobr>
+
+                    <nobr>
+                    <div class="col-sm-9 col-xs-9 iabt-case p-l-5" sslevel="balance" ssbind="text: balance.records[ssIndex].CaseComment">[transfer reason]</div>
+
+                    <div class="col-sm-3 col-xs-3 iabt-time receivetime" sslevel="balance" ssbind="text:moment(balance.records[ssIndex].createdAt).fromNow(); data-value:moment(balance.records[ssIndex].createdAt).valueOf() ">
+                        [-0 mins ago]
+                    </div>
+                    </nobr>
+
+                </div>
+            </div>
+            <!--<div class="row">
+                <div class="col-sm-2 col-xs-2 align-center">
+                    <i class="mdi mdi-plus col-green font-20"></i>
+                </div>
+
+                <div class="col-sm-7 col-xs-7">
+                    <div class="row iabt-case">Your Service Installed For fdafja dasfkj asfkjdasf</div>
+                    <div class="row iabt-time">
+                        2 hours ago
+                    </div>
+                </div>
+                <div class="col-sm-3 col-xs-3 ia-big-title col-green">12</div>
+            </div>-->
+
+
+        </div>
+    </div>
+    <!--<div class="footer panel" style="border-width: 0;">
+        <span class=" float-right m-r-5 ia-btn-small font-10" sslevelXXX="balance" ssifXXX="balance.records.length > 0" sspage="/customer/views/iabt.list.view.html" sspage-after="$('.dropdown.open').removeClass('open');">
+            See All
+        </span>
+
+        <span class=" float-left m-r&#45;&#45;15 ia-btn-small font-10" onclick="$('#iabtpan').hide();show_sspage('/customer/views/iabt.pan.view.html','$(`#iabtpan`).fadeIn()','#iabtpan')">
+            Refresh
+        </span>
+    </div>-->
+
+</div>

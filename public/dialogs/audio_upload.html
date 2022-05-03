@@ -1,0 +1,1602 @@
+<!--Audio Modal Dialog-->
+<style>
+    .audio-dialog {
+        height: 50vh;
+    }
+    .file-list-body {
+        padding: 0;
+    }
+    .audio-list {
+        height: 24vh;
+        overflow-y: scroll;
+        overflow-x: hidden;
+        margin-top: -1px;
+        /*border: 1px solid silver;*/
+    }
+    .audio-list .afile {
+        cursor: pointer;
+        /*padding: .2pc;*/
+    }
+    .audio-list .afile:hover .file-name {
+        font-xweight: bold;
+    }
+    .audio-list .file-name input {
+        width: 100%;
+        border: none;
+        background-color: transparent;
+    }
+    .audio-list .afile:hover {
+        background-color: #eeeeee;
+        color: #d42021;
+    }
+    .audio-list .afile:active {
+        background-color: #DDDDDD;
+    }
+
+    .audio-list .dropdown-menu a{
+        text-align: left;
+    }
+
+    #ia-uploader-place .addtoplaylist, #ia-uploader-place .deletefile
+    /* , #record-uploader-place .addtoplaylist*/ {
+        display: none;
+    }
+
+    .audio-list .afile:hover .removefromplaylist,
+    .audio-list .afile:hover .addtoplaylist,
+    .audio-list .afile:hover .helpfile,
+    .audio-list .afile:hover .deletefile,
+    .audio-list .afile:hover .editfile,
+    .audio-list .afile:hover .playfile{
+        color: #d42021 !important;
+    }
+
+    /*.afile center:after, .afile center:before {
+        content: "";!*important to be*!
+        display: inline-block;
+        border-top: 2px solid #888;
+        width: 36%;
+        margin: 2%;
+        position: relative;
+        top: 7px;
+    }*/
+
+    #audio-preview {
+        width: 100%;
+        height: 30px;
+        outline: none;
+        margin: 1pc 0 0 0;
+    }
+
+    .tabheader {
+        width: 50%;
+        text-align: center;
+    }
+
+    .accordion span {
+        float: right;
+        font-xsize: x-large;
+        margin-top: -6px;
+        font-xweight: bold;
+    }
+
+    .accordion.collapsed span {
+        transform: rotate(-90deg);
+    }
+
+    div#radio_station_list {
+        height: 50vh;
+        overflow-x: hidden;
+        overflow-y: auto;
+    }
+
+    /*div.radio-station {
+        height: 13pc;
+        width: 100%;
+        margin-top: 1pc;
+        overflow: hidden;
+        cursor: pointer;
+        display: flex;
+        flex-direction: column-reverse;
+    }
+
+    div.radio-station > span {
+        overflow: hidden;
+        display: flex;
+        border: 1px solid #eeeeee;
+    }
+
+    div.radio-station > span img {
+        !*min-height: 50px;*!
+        width: 100%;
+        !*height: 100%;*!
+        !*float: left;*!
+    }
+
+    div.radio-station div.footer {
+        !*align-self: flex-end;*!
+    }
+    div.radio-station div.footer label{
+        !*background-color: #d42021;*!
+        color: dimgrey;
+        padding: 0 .5pc .5pc .5pc;
+        width: 80%;
+        display: inline-block;
+    }
+
+    div.radio-station a.radio-preview {
+        font-size: 15px;
+        float: right;
+        margin-top: 6px;
+        margin-right: 1px;
+        display: inline-block;
+        width: 23px;
+        height: 23px;
+        padding: 1px 4px;
+        color: grey;
+        background-color: #eee;
+        border-radius: 3px;
+    }
+
+    div.radio-station div.footer i{
+        font-size: 11px;
+        margin-top: -8px;
+        display: block;
+        font-weight: normal;
+
+
+    }*/
+
+    figure.radio-station {
+        padding: 3px;
+
+        /*background-color: #eee;*/
+    }
+    figure.radio-station img{
+        float: left;
+        height: 2.5pc;
+        width: 2.5pc;
+        margin-right: .5pc;
+    }
+
+    figure.radio-station figcaption {
+        display: inline-block;
+        width: 90%;
+        /* background: #ff00006e; */
+        max-width: 70% !important;
+    }
+    figure.radio-station figcaption header {
+        font-weight: bold;
+        width: 14pc;
+    }
+
+    figure.radio-station figcaption footer {
+        font-weight: normal;
+        font-style: italic;
+        color: grey;
+        font-size: small;
+    }
+
+    figure.radio-station a{
+        float: right;
+        color: grey;
+        margin-top: .6pc;
+    }
+
+    .playing-audio {
+        font-weight: bold;
+        color: #d42021;
+    }
+
+    #radio-tab select {
+        color: black;
+        height: 30px;
+        width: 100%;
+        /* border-style: none !important; */
+        border-bottom: 2px solid #eee;
+        border-width: 0 0 1px 0;
+    }
+
+    #radio-tab select option.noval {
+        color: #bbbbbb;
+    }
+
+    #playlistcombo {
+        width: 59%;
+        border: none;
+        height: 35px;
+    }
+
+    @media (max-width: 767px) {
+        #playlistcombo {
+            width: 51%;
+        }
+    }
+
+    #recording-pan {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        text-align: center;
+        padding: 1pc;
+        vertical-align: middle;
+    }
+
+    #recordingtimer {
+        display: block;
+        color: #d42021;
+        font-size: 30px;
+        margin-top: 3pc;
+    }
+
+
+    /**
+         * ----------------------------------------
+         * animation scale-up-center
+         * ----------------------------------------
+         */
+    .scale-up-center {
+        -webkit-animation: scale-up-center 0.5s cubic-bezier(0.390, 0.575, 0.565, 1.000) infinite alternate-reverse both;
+        animation: scale-up-center 0.5s cubic-bezier(0.390, 0.575, 0.565, 1.000) infinite alternate-reverse both;
+    }
+
+    @-webkit-keyframes scale-up-center {
+        0% {
+            -webkit-transform: scale(01.5);
+            transform: scale(01.5);
+        }
+        100% {
+            -webkit-transform: scale(1);
+            transform: scale(1);
+        }
+    }
+    @keyframes scale-up-center {
+        0% {
+            -webkit-transform: scale(01.5);
+            transform: scale(01.5);
+        }
+        100% {
+            -webkit-transform: scale(1);
+            transform: scale(1);
+        }
+    }
+
+
+</style>
+<!--<script src="/javascripts/amrnb.js" defer></script>-->
+<script>
+    //todo remove line bellow
+    // ssforcache={}
+
+    var embed_record = true;
+
+    var getDuration = function (url, next) {
+        var _player = new Audio(url);
+        _player.addEventListener("durationchange", function (e) {
+            if (this.duration!=Infinity) {
+                var duration = this.duration
+                _player.remove();
+                next(duration);
+            };
+        }, false);
+        _player.load();
+        _player.currentTime = 24*60*60; //fake big time
+        _player.volume = 0;
+        _player.play();
+        //waiting...
+    };
+
+    var stopStream = function (_stream) {
+        if (!_stream) return;
+
+        _stream.getAudioTracks().forEach(function(track) {
+            track.stop();
+        });
+
+        _stream.getVideoTracks().forEach(function(track) {
+            track.stop();
+        });
+
+        _stream = null;
+    }
+
+</script>
+<div class="modal fade in" id="AudioGalleryModal" tabindex="-1" role="dialog" style="display: none;">
+    <div class="modal-dialog m-t-80" role="document">
+        <div class="modal-content audio-dialog" style1="display: table; width: 50vh; padding: 0 15px;">
+            <!--<div class="modal-head p-l-25 p-t-5">
+                <h5>Select Audio Dialog</h5>
+            </div>-->
+            <div class="modal-body card bg-white col-black" style="display: table; width: 100%">
+                <div class="tabheader">
+                    <button class="btn btn-link btn-circle col-red float-right font-20 font-bold m-t--10"  data-dismiss="modal" aria-label="Close">&times;</button>
+                </div>
+                <!-- Nav tabs -->
+                <ul class="nav nav-tabs nav-justifiedX ia-medium-title tab-col-red " style="border-bottom: 2px solid #eeeeee" role="tablist">
+                    <li role="presentation" class="tabheader active">
+                        <a href="#list-tab" data-toggle="tab" aria-expanded="true">
+                            <span class="mdi mdi-music mdi-24px"> &nbsp;&nbsp;Audio</span>
+                        </a>
+                    </li>
+                    <li role="presentation" class="tabheader">
+                        <a href="#radio-tab" data-toggle="tab" aria-expanded="true" style="background-color: transparent;">
+                            <span class="mdi mdi-radio mdi-24px"> &nbsp;&nbsp;Radio</span>
+                        </a>
+                    </li>
+                </ul>
+                <!-- Tab panes -->
+                <div class="tab-content ">
+                    <div role="tabpanel" class="tab-pane active fade in" id="list-tab">
+                        <div class="panel-group" id="accordion">
+<!--                            <div class="col-grey m-t&#45;&#45;10 small">After select an audio, press the Play button on the device card.</div>-->
+                            <!--IA audio-->
+                            <div class="panel panel-default1">
+                                <div class="panel-heading m-l--15">
+                                    <h4 class="panel-title p-l-0 p-r-0">
+                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse1" class="accordion collapsed">
+                                            <span class="mdi mdi-chevron-down"></span>
+                                            BKC Sounds
+                                        </a>
+                                    </h4>
+                                </div>
+                                <div id="collapse1" class="panel-collapse collapse">
+                                    <div class="file-list-body">
+                                        <div id="ia-uploader-place">
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!--Customer audio-->
+                            <div class="panel panel-default1">
+                                <div class="panel-heading m-l--15">
+                                    <h4 class="panel-title p-l-0 p-r-0">
+                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse2" class="accordion">
+                                            <span class="mdi mdi-chevron-down"></span>
+                                            My Playlists
+                                        </a>
+                                    </h4>
+                                </div>
+                                <div id="collapse2" class="panel-collapse collapse in">
+                                    <div class="file-list-body">
+                                        <div class="b-1 p-t-0 col-grey text-nowrap m-b-5">
+                                            <!--<label class="form-label col-grey font-10" for="playlists">Play List:</label><br>-->
+                                            <tag id="playlistloader" sspage-load-json="/iafs/customer/audio/playlist" sspage-load-json-var="playlists" sspage-load-after="ssbindRenderLevel('playlists')"></tag>
+
+                                            <button class="btn btn-link col-red font-bold mdi mdi-24px mdi-playlist-plus p-b-0 p-r-0 p-t-0" title="New Playlist" data-toggle="tooltip" data-placement="right"  onclick="addPL()">
+                                            </button>
+                                            <select class="btn-link" id="playlistcombo" onchange="changePL()">
+                                                <option value="files">Default Playlist</option>
+                                                <option ssfor="playlists" sslevel="playlists" ssbind="text:playlists[ssIndex].FileName;value:playlists[ssIndex]._id" ssnextlevel="playlistsmenu" ssemptylist='<option class="hidden" ssfor="playlists" sslevel="playlists"/>'></option>
+                                            </select>
+
+                                            <!--<button class="btn btn-link mdi mdi-playlist-plus col-red visible-xs "
+                                                    ssif="$('#playlistcombo').val()==='files'" sslevel="playlistsmenu"
+                                                    title="New Playlist" data-toggle="tooltip" data-placement="right"  onclick="PL_choose()"></button>
+-->
+
+                                            <span class="dropdown btn btn-link " ssif="$('#playlistcombo').val()!=='files'" sslevel="playlistsmenu" >
+                                                <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown"
+                                                   role="button"
+                                                   aria-haspopup="true" aria-expanded="false">
+                                                    <i class=" col-grey mdi  mdi-dots-horizontal"></i>
+                                                </a>
+                                                <ul sslevel="playlistsmenu" ssif="$('#playlistcombo').val()!=='files'" class="dropdown-menu pull-right" >
+                                                    <li><a sslevelXX="playlistsmenu" ssifXX="$('#playlistcombo').val()!=='files'" class="btn btn-link playfile mdi mdi-playlist-edit font-x16  align-left" onclick="editPL()"> Rename Playlist</a></li>
+                                                    <li><a sslevelXX="playlistsmenu" ssifXX="$('#playlistcombo').val()!=='files'" class="btn btn-link deletefile mdi mdi-playlist-minus font-x16  align-left" onclick="deletePL()"> Delete Playlist</a></li>
+                                                    <li><a sslevelXX="playlistsmenu" ssifXX="$('#playlistcombo').val()!=='files'" class="btn btn-link deletefile mdi mdi-play-pause font-x16  align-left" onclick="playLastOfPL()"> Play Last</a></li>
+<!--                                                    <li><a sslevel="playlistsmenu" class="btn btn-link mdi mdi-playlist-plus font-x16  align-left visible-xs" onclick="addPL()"> New Playlist</a></li>-->
+                                                </ul>
+                                            </span>
+
+                                            <button class="bg-red btn col-red float-right m-r-25  pointer" style="height: 35px; padding-top: 3px; margin-right: 23px;" title="Play All" data-toggle="tooltip" data-placement="right"  onclick="PL_choose()" sslevel="playlistsmenu" ssbind="disabled:C_UPLD_U_files.length==0">
+                                                <span class="mdi-24px mdi mdi-play-box-multiple-outline"></span>
+                                                <span class="hidden-xs font-bold" style="vertical-align: super;">Play All</span>
+                                            </button>
+
+
+                                        </div>
+                                        <div id="customer-uploader-place">
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!--Customer Record-->
+                            <div class="panel panel-default1">
+                                <div class="panel-heading m-l--15">
+                                    <h4 class="panel-title p-l-0 p-r-0">
+                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse3" class="accordion collapsed">
+                                            <span class="mdi mdi-chevron-down"></span>
+                                            My Records
+                                        </a>
+                                    </h4>
+                                </div>
+                                <div id="collapse3" class="panel-collapse collapse">
+                                    <div class="file-list-body">
+                                        <div id="record-uploader-place">
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+                            <!--audio object-->
+<!--                            <audio id="audio-preview" controls controlsList="nodownload" onendedx="$('#audio-preview').hide();"></audio>-->
+                            <audio id="audio-preview" controls controlsList="nodownload" onendedx="$('#audio-preview').hide();">
+                                <source type="audio/mpeg">
+                            </audio>
+
+                            <!--recording-show-->
+                            <div class="bg-white collapse" id="recording-pan">
+                                <nobr class="text-center">
+                                <span class="col-red font-30" style="    display: inline-block;
+    vertical-align: middle;
+    position: relative;
+    top: -33px;" id="recordingtext">Recording ... &nbsp; &nbsp;</span>
+                                    <span id="recordingicon" class="mdi mdi-microphone col-red scale-up-center" style="font-size: 5pc;
+                                    animationx: glow 3s ease-in-out infinite alternate;
+    display: inline-block;"></span>
+
+                                </nobr>
+                                <br>
+                                <button class="btn" id="recording-stop" onclick="stopRecording()" style="border: 10px double white;
+    border-radius: 50%;
+    width: 7pc;
+    height: 7pc;
+    background-color: #d42021;
+    color: white;
+    font-size: 1.2pc;
+    margin-top: 3pc;">Stop</button>
+                                <span id="recordingtimer" class="">0 sec</span>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div role="tabpanel" class="tab-pane fade in " id="radio-tab">
+<!--                        <div class="col-grey m-t&#45;&#45;10 small">After select an radio station, press the Play button on the device card.</div>-->
+                        <div class="row">
+                            <div class="col-sm-6 col-xs-6" sspage-load-jsonXX="https://de1.api.radio-browser.info/json/countries" sspage-load-json-varXX="radio_countries" sspage-load-afterXX="ssbindRenderLevel('radiox1')" sspage-cacheXX="true">
+
+                                <input type="radio" name="Type" id="byCountry" value="country" checked class="with-gap m-t-5">
+                                <label for="byCountry">
+                                    <select id="countrylist" class=" m-t--5" onchange="$('#byCountry').prop('checked',true);if(this.value!=='-1') load_sspage($('#radio_station_list'), 'https://de1.api.radio-browser.info/json/stations/bycountry/'+this.value); $('#languagelist').val('-1');localStorage.setItem('radio-country',this.value);lastcombo='country'">
+                                        <option value="-1" class="noval">By Country</option>
+                                        <option ssfor="radio_countries" sslevel="radiox1" ssbind="text: radio_countries[ssIndex].name;value:radio_countries[ssIndex].name"></option>
+                                    </select>
+                                </label>
+                            </div>
+                            <div class="col-sm-6 col-xs-6" sspage-load-jsonXX="https://de1.api.radio-browser.info/json/languages" sspage-load-json-varXX="radio_languages" sspage-load-afterXX="ssbindRenderLevel('radiox12')" sspage-cacheXX="true">
+
+                                <input type="radio" name="Type" id="byLanguage" value="language" class="with-gap m-t-5">
+                                <label for="byLanguage">
+                                    <select id="languagelist" class=" m-t--5" onchange="$('#byLanguage').prop('checked',true);if(this.value!=='-1') load_sspage($('#radio_station_list'), 'https://de1.api.radio-browser.info/json/stations/bylanguage/'+this.value); $('#countrylist').val('-1');localStorage.setItem('radio-lang',this.value);lastcombo='lang'">
+                                        <option value="-1" class="noval">By Language</option>
+                                        <option ssfor="radio_languages" sslevel="radiox12" ssbind="text: radio_languages[ssIndex].name;value:radio_languages[ssIndex].name"></option>
+                                    </select>
+                                </label>
+                            </div>
+                        </div>
+                        <div id="radio_station_list" sspage-load-json-var="radio_stations" sspage-load-after="ssbindRenderLevel('radiox2')" class="row" sspage-cache="true">
+                            <div ssfor="radio_stations with ss2Index2" sslevel="radiox2" class="col-sm-6 col-xs-12 pointer btn btn-link b-b-1 col-grey" ssemptylist="<center>please select a country or language</center>" sslevel="radiox2" ssif="!radio_stations[ss2Index2].url_resolved.endsWith('.m3u8')">
+                                <figure class="radio-station m-t-5 align-left col-black " >
+                                    <!--<img sslevel="radiox2" ssbind="src:radio_stations[ss2Index2].favicon"
+                                         onerror="this.src = 'images/radiostation1.jpg'">-->
+                                    <figcaption onclick="radio_choose(radio_stations[ss2Index2])" class="text-ellipsis" style="overflow-x: hidden;max-width: 100px">
+                                        <header sslevel="radiox2" ssbind="text:radio_stations[ss2Index2].name" class="text-ellipsis"></header>
+                                        <!--<h6 sslevel="radiox2" ssbind="text:radio_stations[ss2Index2].state" class=""></h6>-->
+                                        <footer sslevel="radiox2" ssbind="text:(radio_stations[ss2Index2].language+'&nbsp;')||'&nbsp;'"></footer>
+                                    </figcaption>
+<!--                                    <a class="radio-preview mdi hidden-xs mdi-play-box-outline" onclick="radio_preview(radio_stations[ss2Index2]);return false"></a>-->
+                                </figure>
+                            </div>
+                        </div>
+                        <div class="col-grey p-t-10 small "> * We are not responsible for the radio stations list and content. They are provided by radio-browser.info.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<uploader class="hidden collapse">
+
+    <div class="audio-list" id="UPLD_files" sspage-load-json-notnow="/iafs/UPLURL" sspage-load-json-var="UPLD_files" sspage-load-after="ssbindRenderLevel('UPLD_files');ssbindRenderLevel('playlistsmenu'); document.getElementById('UPLD_files').scrollTop = document.getElementById('UPLD_files').scrollHeight;">
+        <div draggable="true" class="afile row" ssfor="UPLD_files" sslevel="UPLD_files" ssemptylist="No File"
+             ondragstart="event.dataTransfer.setData('text', $(this).index());"
+             ondragover="event.preventDefault();$(this).addClass('bg-black');"
+             ondragleave="event.preventDefault();$(this).removeClass('bg-black')"
+             ondragend=""
+             ondrop="ondropitem(this,event,$(this).index(),UPLD_files[ssIndex])" >
+            <div class="col-sm-8 col-xs-8 file-name pointer" onclick="audio_choose(UPLD_files[ssIndex])">
+                <span class="mdi mdi-play font-x25 float-left m-l-10 m-r-15 col-red"></span>
+                <input readonly sslevel="UPLD_files" class="m-l-10 pointer" ssbind="value:UPLD_files[ssIndex].OriginalFileName">
+            </div>
+            <div class="col-sm-2 col-xs-2 font-x25">
+                    <span class="dropdown p-l-5 p-r-5">
+                        <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown"
+                           role="button"
+                           aria-haspopup="true" aria-expanded="false">
+                            <i class="mdi mdi-dots-horizontal editfile mdi-16 font-x16 col-grey"></i>
+                        </a>
+                        <div class="dropdown-menu pull-right btn-group-xs" style="position: relative;top: 10px; white-space: nowrap">
+
+                            <a sslevel="UPLD_files" class="btn btn-link playfile mdi mdi-18px mdi-play-box-outline col-grey m-r-5 m-l-5" onclick="play_preview(UPLD_files[ssIndex])" data-toggle="tooltip" data-placement="top" title="Preview on panel"></a>
+                            <a sslevel="UPLD_files" class="btn btn-link addtoplaylist mdi mdi-18px mdi-content-copy col-grey m-r-5 m-l-5" onclick="addtopl(UPLD_files[ssIndex],'#UPLD_files',false/*means copy*/)" data-toggle="tooltip" data-placement="top" title="Copy to playlist"></a>
+                            <a sslevel="UPLD_files" class="btn btn-link addtoplaylist mdi mdi-18px mdi-content-cut col-grey m-r-5 m-l-5" onclick="addtopl(UPLD_files[ssIndex],'#UPLD_files',true/*means move*/)" data-toggle="tooltip" data-placement="top" title="Move to playlist"></a>
+                            <a sslevel="UPLD_files" class="btn btn-link deletefile mdi mdi-18px mdi-delete col-grey m-r-5 m-l-5" onclick="deletefile(UPLD_files[ssIndex],'#UPLD_files')" data-toggle="tooltip" data-placement="bottom" title="Delete audio"></a>
+                            <a sslevel="UPLD_files" class="btn btn-link col-grey m-l-5 m-t--15 mdi mdi-close" onclick="return false"></a>
+                            <!--<a sslevel="UPLD_files" class="btn btn-link addtoplaylist mdi mdi-chevron-up font-x16 col-grey" onclick="addtopl(UPLD_files[ssIndex],'#UPLD_files')" data-toggle="tooltip" data-placement="top" title="Move Up"></a>-->
+                            <!--<a sslevel="UPLD_files" class="btn btn-link addtoplaylist mdi mdi-chevron-down font-x16 col-grey" onclick="addtopl(UPLD_files[ssIndex],'#UPLD_files')" data-toggle="tooltip" data-placement="top" title="Move Down"></a>-->
+                            <!--<a sslevel="UPLD_files" class="btn btn-link addtoplaylist mdi mdi-square-edit-outline font-x16 col-grey" onclick="editfile(UPLD_files[ssIndex],'#UPLD_files')" data-toggle="tooltip" data-placement="top" title="Change caption"></a>-->
+                            <!--<a sslevel="UPLD_files" class="btn btn-link helpfile mdi mdi-help font-x16 col-grey" onclick="showtooltips(this)"></a>-->
+                        </div>
+                    </span>
+            </div>
+            <div class="col-sm-2 col-xs-2 font-x25 text-right p-l-10">
+                <span class="font-x16" sslevel="UPLD_files" ssbind="text:formatDuration(UPLD_files[ssIndex].Duration)">[Duration]</span>
+            </div>
+        </div>
+    </div>
+
+    <!--UPSECTION-->
+
+    <div class="afile">
+        <div class="align-right">
+            <label class="btn mdi UPLICON mdi-18px bg-red m-t-5 m-b-5" for="UPLD-file" id="UPLD-file-label"><b style="vertical-align: text-bottom; margin-left: 11px;">UPLTITLE</b></label>
+        </div>
+        <form id="UPLD-form" method="post" enctype="multipart/form-data" class="bg-silver col-black file-name p-t-10 p-l-10 p-b-15 collapse">
+            <input name="audio-file" type="file" accept="audio/*" id="UPLD-file" class="hidden">
+            <input name="file-duration" id="UPLD-duration" type="hidden">
+            <input name="folder" value="UPLD-folder" type="hidden">
+            <table class="file-name" cellpadding="0" cellspacing="0" style="width: 100%; background-color: #E8E7E6">
+            <tr>
+                <td>
+                    <input name="file-name" id="UPLD-file-name" class="collapse" placeholder="Add audio file"
+                           style="width:100%; height:29px; border: 1px solid silver; border-radius: 2px;"/>
+                </td>
+                <td nowrap width="20%">
+                    <button type="button" id="UPLD-btn2" class="btn btn-sm bg-red font-10 collapse font-bold" style="margin-left: 2px"
+                          onclick="UPLD_run()">Upload</button>
+                    <button type="button" id="UPLD-cancel" class="btn btn-link font-16 collapse font-bold"
+                          onclick="UPLD_cancel()">&times;</button>
+                    <span id="UPLD-size"          class="font-13 col-grey" style="display: block; position: absolute; left: 36px; margin-top: -2px;"></span>
+                    <span id="UPLD-duration-show" class="font-13 col-grey" style="display: block; position: absolute; left: 130px;margin-top: -2px;"></span>
+                </td>
+            </tr>
+            </table>
+        </form>
+    </div>
+
+    <script>
+        const UPLD_file = document.getElementById('UPLD-file');
+
+
+        var share_blob = null;
+        var UPLD_placeholder = '';
+
+        UPLD_file.addEventListener('change', UPLD_filechange );
+
+        $("#UPLD-form").submit(function (e) {
+            e.preventDefault();
+            document.getElementById('audio-preview').pause();
+            $('#audio-preview').hide();
+            var formData = new FormData(this);
+
+            if(share_blob){
+                formData.append("audio-file", share_blob);
+                share_blob = null;
+            }
+
+            console.log(formData);
+            $('#UPLD-file-name').hide();
+            $('#UPLD-file-label').show();
+            // $('#UPLD-btn').removeClass("mdi-arrow-up-bold-hexagon-outline").addClass("disabled mdi-hexagon-outline");
+            $('#UPLD-btn2').hide();
+            $('#UPLD-cancel').hide();
+            $('#UPLD-duration-show').hide();
+            $('#UPLD-size').html('<span class="col-red font-14">Uploading...</span>');
+            $.ajax({
+                type: "POST",
+                url: "/iafs",
+                data: formData,
+                processData: false,
+                contentType: false,
+                xhr: function(){
+                    var xhr = new window.XMLHttpRequest();
+                    var classnew = '';
+                    var classold = 'mdi-hexagon-outline';
+
+                    // Handle progress
+                    //Upload progress
+                    xhr.upload.addEventListener("progress", function(evt){
+                        if (evt.lengthComputable) {
+                            /*var hex = Math.round((evt.loaded*6) / evt.total);
+                            classnew = 'mdi-hexagon-slice-'+hex;
+                            if(hex===0) classnew = 'mdi-hexagon-outline';
+                            // $('#UPLD-btn').removeClass(classold).addClass(classnew);
+                            classold = classnew;
+                            console.log(hex);*/
+                            $('#UPLD-size').html('<span class="col-red font-14">Uploading... ('+Math.round((evt.loaded*100) / evt.total) +'%)</span>');
+                        }
+                    }, false);
+                    //Download progress
+                    xhr.addEventListener("progress", function(evt){
+                        if (evt.lengthComputable) {
+                            var percentComplete = 'downloaded = '+evt.loaded / evt.total;
+                            //Do something with download progress
+                            console.log(percentComplete);
+                        }
+                    }, false);
+
+                    return xhr;
+                },
+                complete:function(){
+                    UPLD_file.value = '';
+                    console.log("Request finished.");
+                    load_sspage($('#UPLD_files'));
+                    $('#UPLD-size').text('');//Added
+                    $('#UPLD-file-name').val('').hide();
+                    $('#UPLD-file-name').attr('placeholder',UPLD_placeholder);
+                    $('#UPLD-duration').val('');
+                    $('#UPLD-duration-show').text('');
+                    $('#UPLD-file-label').show();
+                    $('form#UPLD-form').hide();
+                    // $('#UPLD-btn').removeClass("col-red mdi-hexagon-slice-6").addClass("col-grey disabled UPLICON");
+                },
+                success: function(r){
+                    /* swal.fire({
+                     title: "Done",
+                     html: "File uploaded Successfully",
+                     //                    timer: 2000,
+                     icon: "success",
+                     showConfirmButton: true
+                     });*/
+                },
+                error: function (e) {
+                    console.error("some error", e);
+                }
+            });
+        });
+
+        function UPLD_filechange(e) {
+            var pre_player = document.getElementById('audio-preview');
+            const file = e.target.files[0];
+            $('form#UPLD-form').show();
+            $('#UPLD-file-name').val(file.name).show();
+            UPLD_placeholder = $('#UPLD-file-name').attr('placeholder');
+            $('#UPLD-file-label').hide();
+            $('#UPLD-file-name').attr('placeholder','Set a name for this audio file');
+            // $('#UPLD-file-label').removeClass("col-grey UPLICON disabled").addClass("col-red mdi-arrow-up-bold-hexagon-outline");
+            $('#UPLD-btn2').show();
+            $('#UPLD-cancel').show();
+//        $('#audio-upload').removeClass('disabled');
+
+            var url = URL.createObjectURL(file);
+            console.log('url is ',url);
+
+            pre_player.onloadedmetadata = pre_player.onerror = function() {
+                URL.revokeObjectURL(url);
+            };
+
+
+            // Do something with the audio file.
+//            JL().log('file type', file.type);
+//            alert('filetype is '+ file.type);
+            if(/*file.type === '' || */file.name.toLowerCase().endsWith('.amr')){
+                if(file.name.toLowerCase().endsWith('.amr')){
+                    console.log('come to try on amr file');
+                    fetchBlob(url, function(blob) {
+                        convertAmrBlobToWav(blob);
+                    });
+                    setTimeout(function () {
+                        try{
+                            $('#UPLD-duration').val(pre_player.duration);
+                            var dur = formatDuration(pre_player.duration);
+                            $('#UPLD-duration-show').text('Duration: '+dur);
+                            $(pre_player).show();
+                        } catch (e){
+                            console.error(e)
+                        }
+                    }, 2500);
+                } else {
+                    console.warn('file type is not supported', file.name);
+                }
+            } else {
+                if(file.type === ''){//try with source audio/mpeg type
+                    $(pre_player).removeAttr('src').find('source').attr('src', url);
+                } else{
+                    pre_player.src = url;
+                    $(pre_player).find('source').removeAttr('src');
+                }
+                $(pre_player).show();
+                getDuration (url, function (duration) {
+                    $('#UPLD-duration').val(duration);
+                    var dur = formatDuration(duration);
+                    $('#UPLD-duration-show').text('Duration: '+dur);
+                });
+            }
+
+            var size = file.size;
+            if(size >= 1000000) size = Math.round(size/1000000,2) + ' MB';
+            else if(size >= 1000) size = Math.round(size/1000,0) + ' KB';
+            $('#UPLD-size').text('Size: '+size);
+
+
+
+            /*setTimeout(function () {
+                try{
+                    $('#UPLD-duration').val(pre_player.duration);
+                    var dur = formatDuration(pre_player.duration);
+                    $('#UPLD-duration-show').text(dur);
+                    $(pre_player).show();
+                } catch (e){
+                    console.error(e)
+                }
+            }, 2500);*/
+
+        }
+
+        if(embed_record && 'UPLD'==='R_UP'+'LD_C') {//the + is important don't merge!
+            /*if (navigator.mediaDevices.getUserMedia) {
+                var mediaRecorder = null;
+
+                console.log('getUserMedia supported.');
+
+                const constraints = {audio: true};
+                let chunks = [];
+
+
+
+                let onSuccess = function (stream) {
+//                const mediaRecorder = new MediaRecorder(stream);
+                    /!*var options = {
+                        audioBitsPerSecond: 128000,
+                        bitsPerSecond: 128000,
+                        // mimeType: 'audio/vaw'
+                    }*!/
+                    mediaRecorder = new MediaRecorder(stream, /!*options*!/);
+
+//                visualize(stream);
+
+
+                    mediaRecorder.onstop = function (e) {
+                        console.log("data available after MediaRecorder.stop() called.");
+
+                        const audio = document.getElementById('audio-preview');
+
+                        audio.controls = true;
+
+                        debugger
+                        //converting chunks to mp3
+                        chunks = ToMp3(chunks);
+                        share_blob = new Blob(chunks, {type: 'audio/mp3'});
+                        chunks = [];
+
+                        // share_blob = ToMp3(share_blob);
+
+                        const audioURL = window.URL.createObjectURL(share_blob);
+                        console.log('sssssssssssssssss', audioURL)
+                        audio.src = audioURL;
+                        $(audio).show();
+
+                        getDuration (audioURL, function (duration) {
+                            $('#UPLD-duration').val(duration);
+                            var dur = formatDuration(duration);
+                            $('#UPLD-duration-show').text(dur);
+                        });
+
+                        console.log("recorder stopped");
+
+                        $('#recording-pan').fadeOut();
+
+
+                        $('#UPLD-file-name').show();
+                        $('#UPLD-file-label').hide();//.removeClass("mdi-stop-circle mdi-spin").addClass("UPLICON");//.unbind("click").click(UPLD_run);
+                        $('#UPLD-btn2').show();
+                        $('#UPLD-cancel').show();
+                        $('#UPLD-file-name').val('Recorded'+Date.now());
+                        $('#UPLD-file-name').attr('placeholder','Set a name for this voice');
+
+                        var size = share_blob.size;
+                        if(size >= 1000000) size = Math.round(size/1000000,2) + ' MB';
+                        else if(size >= 1000) size = Math.round(size/1000,0) + ' KB';
+                        $('#UPLD-size').text(size);
+
+                        stopStream(stream);
+                        mediaRecorder = null;
+                    }
+
+                    mediaRecorder.ondataavailable = function (e) {
+                        chunks.push(e.data);
+                    }
+
+                    mediaRecorder.start();
+                    // UPLD_placeholder = $('#UPLD-file-name').attr('placeholder');
+                    // $('#UPLD-file-name').show().attr('placeholder', 'Recording...');
+                    // $('#UPLD-file-label').removeClass("UPLICON").addClass("mdi-stop-circle mdi-spin").removeAttr('onclick').unbind("click").click(on_embed_record);
+                    $('#recording-pan').fadeIn();
+                };
+
+                let onError = function (err) {
+                    if(err.name === 'NotAllowedError' || err.message === 'Permission denied'){
+                        swal.fire("Info", "Please give permission to access BKC Control Panel to microphone", "info", {closeOnClickOutside: true});
+                    }
+                    console.log('The following error occured: ' + err);
+                };
+
+
+
+                function on_embed_record(e) {
+
+                    if(mediaRecorder) {
+                        if (mediaRecorder.state === 'recording') {
+//                        alert('record stopped');
+                            mediaRecorder.stop();
+                        } else {
+                            /!*mediaRecorder.start();
+                            UPLD_placeholder = $('#UPLD-file-name').attr('placeholder');
+                            $('#UPLD-file-name').attr('placeholder', 'Recording...');
+                            ////$('#UPLD-btn').removeClass("col-grey UPLICON disabled").addClass("col-red mdi-stop-circle mdi-spin").removeAttr('onclick').unbind("click").click(on_embed_record);*!/
+                        }
+                    } else {
+                        navigator.mediaDevices.getUserMedia(constraints).then(onSuccess, onError);
+                    }
+                }
+
+            }
+            else {
+                console.log('getUserMedia not supported on your browser!');
+            }*/
+        }
+
+        function UPLD_run() {
+            $("#UPLD-form").submit();
+        }
+
+        function UPLD_cancel() {
+            UPLD_file.value = '';
+            $('#UPLD-cancel').hide();
+            $('#UPLD-btn2').hide();
+            $('form#UPLD-form').hide();
+            $('#UPLD-file-name').val('').hide();
+            $('#UPLD-file-name').attr('placeholder',UPLD_placeholder);
+            $('#UPLD-size').text('');
+            $('#UPLD-duration').val('');
+            $('#UPLD-duration-show').text('');
+            $('#UPLD-file-label').show();
+            // $('#UPLD-btn').removeClass("col-red mdi-hexagon-slice-6").addClass("col-grey disabled UPLICON");
+            document.getElementById('audio-preview').pause();
+            $('#audio-preview').hide();
+        }
+
+        function ondropitem(t, event,ssIndex, file){
+            console.log(event.dataTransfer.getData('text')+' drop to '+ssIndex+' ');$(t).removeClass('bg-black');
+            // $('#C_UP'+'LD_U_files').children()[ssIndex].after($('#C_UP'+'LD_U_files').children()[parseInt(event.dataTransfer.getData('text'))]);
+            reorderPL(parseInt(event.dataTransfer.getData('text')), ssIndex, file);
+        }
+    </script>
+
+</uploader>
+
+<script>
+
+    //intialize lastcombo
+    if(!window.lastcombo) window.lastcombo = 'country';
+
+    $('#AudioGalleryModal').on('shown.bs.modal', function() {
+        $(document).off('focusin.modal');
+    });
+
+    function showAudioDialog(target) {
+        $("#AudioGalleryModal").modal('show',target);
+    }
+    window.showAudioDialog = showAudioDialog;
+
+    /*try {
+        if (jQuery.browser.mobile) {
+            $('.nav-justified').removeClass('nav-justified');
+            embed_record = false;
+        }
+    }catch (e){
+
+    }*/
+
+    const pre_player = document.getElementById('audio-preview');
+    $(pre_player).hide();
+
+    /*.amr files support*/
+    function readBlob(blob, callback) {
+        var reader = new FileReader();
+        reader.onload = function(e) {
+            var data = new Uint8Array(e.target.result);
+            callback(data);
+        };
+        reader.readAsArrayBuffer(blob);
+    }
+    function convertAmrBlobToWav(blob) {
+        readBlob(blob, function(data) {
+            var buffer = AMR.toWAV(data);
+            // E('pre').textContent = toHex(buffer);
+            var url = URL.createObjectURL(new Blob([buffer], { type: 'audio/x-wav' }));
+            // Play wav buffer
+            var audio = pre_player;// new Audio(url);
+
+            audio.onloadedmetadata = audio.onerror = function() {
+                URL.revokeObjectURL(url);
+            };
+            audio.src = url;
+//            audio.play();
+            $(audio).show();
+        });
+    }
+    function fetchBlob(url, callback) {
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', url);
+        xhr.responseType = 'blob';
+        xhr.onload = function() {
+            callback(this.response);
+        };
+        xhr.onerror = function() {
+            alert('Failed to fetch ' + url);
+        };
+        xhr.send();
+    }
+
+    var audio_dialog_luncher = null;
+
+    function highlightFile(currentfilename) {
+        $('div.file-name span').removeClass('playing-audio');
+        $('div.file-name:contains("' + currentfilename + '") > span').addClass('playing-audio');
+    }
+    $('#AudioGalleryModal').on('show.bs.modal', function (e) {
+        var luncher = e.relatedTarget;
+
+        //initial selected country for radio
+        // if($('#countrylist').val() === '-1') {
+            // load_sspage($('#radio_station_list'), 'https://de1.api.radio-browser.info/json/stations/bycountry/' + home.Address.Country );
+            if(lastcombo==='country') {
+                if (localStorage.getItem("radio-country"))
+                    load_sspage($('#radio_station_list'), 'https://de1.api.radio-browser.info/json/stations/bycountry/' + localStorage.getItem("radio-country"));
+                $('#countrylist').val(localStorage.getItem("radio-country") || -1);
+            } else if(lastcombo==='lang'){
+                $('#byLanguage').prop('checked',true);
+                if (localStorage.getItem("radio-lang"))
+                    load_sspage($('#radio_station_list'), 'https://de1.api.radio-browser.info/json/stations/bylanguage/' + localStorage.getItem("radio-lang"));
+                $('#languagelist').val(localStorage.getItem("radio-lang") || -1);
+            }
+            // $('#countrylist').val(home.Address.Country );
+
+        // }
+
+        if (luncher !== null) {
+            audio_dialog_luncher = luncher;
+
+            if(typeof audio_dialog_luncher === 'function'){
+
+            } else {
+                var currentfilename = $(audio_dialog_luncher).attr('file-name');
+                highlightFile(currentfilename);
+            }
+        }
+    }).on('hide.bs.modal', function (e) {
+        audio_dialog_luncher = null;
+        pre_player.pause();
+        $(pre_player).hide();
+        /*if(typeof mediaRecorder !== 'undefined'){
+            if (mediaRecorder.state === 'recording') {
+                mediaRecorder.stop();
+            }
+        }*/
+        $('#recording-pan').hide();
+        UPLD_cancel();
+        if(radioplayerwindow)radioplayerwindow.close();
+    });
+
+    function formatDuration(duration) {
+        var s = Math.round(duration);
+        if(isNaN(s)){
+            return '?';
+        }
+        s = (s - (s %= 60)) / 60 + (9 < s ? ':' : ':0') + s;
+        return s;
+    }
+
+
+
+    var uploaderhtml = $('uploader').html();
+    uploaderhtml = uploaderhtml.replace('sspage-load-json-notnow','sspage-load-json');
+    //ia files
+    var iafilelist = uploaderhtml
+        .replace(/UPLICON/g,'mdi-music-note-plus')
+        .replace(/UPLTITLE/g,'Add New Audio')
+//        .replace('UPLFILELIST','UPLD_files')
+        .replace('UPLURL','ia/audio/sounds')
+        .replace('UPLD-folder','ia/sounds')
+        .replace(/UPLD/g,'I_UPLD_A');
+
+    //TODO add security admin isfiles
+    if(typeof iafileschange === 'undefined') {
+        iafilelist = iafilelist.replace('class="deletefile', 'class="hidden collapse');
+        iafilelist = iafilelist.substr(0, iafilelist.indexOf('<!--UPSECTION-->'));
+    }
+    $('#ia-uploader-place').html(iafilelist);
+    // load_sspage($('#I_UPLD_A_files'));
+
+    //customer files
+    var customerfilelist = uploaderhtml
+        .replace(/UPLICON/g,'mdi-music-note-plus')
+        .replace(/UPLTITLE/g,'Add New Audio')
+//        .replace('UPLFILELIST','ia_audio_files')
+        .replace('UPLURL','customer/audio/files')
+        .replace('UPLD-folder','files')
+        .replace(/UPLD/g,'C_UPLD_U');
+    $('#customer-uploader-place').html(customerfilelist);
+    // load_sspage($('#C_UPLD_U_files'));
+
+    //record files
+    var recordlist = uploaderhtml
+        .replace(/UPLICON/g,'mdi-microphone-plus')
+        .replace(/UPLTITLE/g,'Record New Voice')
+        .replace('Add audio file','Record new voice')
+        .replace('UPLURL','customer/audio/records')
+        .replace('UPLD-folder','records')
+        .replace(/UPLD/g,'R_UPLD_C');
+    if(embed_record){
+        recordlist = recordlist.replace('type="file"','type="edit" onclick="startRecording()" ')
+    } else {
+        recordlist = recordlist.replace('type="file"','type="file" capture ')// accept="audio/*;capture=microphone"
+    }
+    $('#record-uploader-place').html(recordlist);
+    // load_sspage($('#R_UPLD_C_files'));
+
+
+
+
+
+
+    function deletefile(file, listselector) {
+        swal.fire({
+            title: "Delete file",
+            html: 'Do you want to delete "'+file.OriginalFileName+'" ?',
+            //icon: "warning",
+            imageUrl: "images/error.png",
+            imageWidth: 50,
+            showCancelButton: true,
+            confirmButtonText: 'Yes'
+        }).then((result) => {
+            if (result.value) {
+                $.ajax({
+                    type: "DELETE",
+                    url: "/iafs/"+file._id+'/'+file.FileName,
+                    contentType: false,
+                    success: function(r){
+                        load_sspage($(listselector));
+                    },
+                    error: function (e) {
+                        console.error("some error", e);
+                        JL().error(e);
+                    }
+                });
+            }
+        });
+
+
+    }
+
+    function audio_choose(file) {
+        if(typeof audio_dialog_luncher === 'function'){
+            audio_dialog_luncher({
+                'file-name' : file.OriginalFileName,
+                'file-url': domainUrl + '/fileserver/' + file.FileName,
+                'file-extension' : file.FileExtention,
+                'file-save': "SAVE"
+            })
+        } else {
+            $(audio_dialog_luncher).text(file.OriginalFileName);
+            $(audio_dialog_luncher).attr('file-name', file.OriginalFileName);//unique name of file
+            $(audio_dialog_luncher).attr('file-url', domainUrl + '/fileserver/' + file.FileName);
+            $(audio_dialog_luncher).attr('file-extension', file.FileExtention);
+            $(audio_dialog_luncher).attr('file-save', "SAVE");
+            $(audio_dialog_luncher).removeAttr('playlist');
+        }
+        pre_player.pause();
+        $("#AudioGalleryModal").modal('hide');
+    }
+
+    function play_preview(file) {
+        if(file.FileExtention.toLowerCase()==='amr'){
+            console.log('come to try on amr file');
+            fetchBlob(domainUrl + '/fileserver/' + file.FileName, function(blob) {
+                convertAmrBlobToWav(blob);
+            });
+        } else {
+            pre_player.src = domainUrl + '/fileserver/' + file.FileName;
+            $(pre_player).show();
+            pre_player.play();
+        }
+    }
+
+    function radio_choose(radio) {console.log(radio)
+        if(typeof audio_dialog_luncher === 'function'){
+            audio_dialog_luncher({
+                'file-name' : 'radio:/' + radio.name,
+                'file-url': radio.url_resolved,
+                'file-extension' : radio.codec,
+                'file-save': "STREAM"
+            })
+        } else {
+            $(audio_dialog_luncher).text('radio:/' + radio.name);
+            $(audio_dialog_luncher).attr('file-name', 'radio:/' + radio.name);
+            $(audio_dialog_luncher).attr('file-url', radio.url_resolved);
+            $(audio_dialog_luncher).attr('file-extension', radio.codec);
+            $(audio_dialog_luncher).attr('file-save', "STREAM");
+            $(audio_dialog_luncher).removeAttr('playlist');
+        }
+        pre_player.pause();
+        $("#AudioGalleryModal").modal('hide');
+    }
+
+    var radioplayerwindow = null;
+    function radio_preview(radio) {
+        pre_player.pause();
+        if(radioplayerwindow) radioplayerwindow.close();
+        radioplayerwindow = window.open('','radioplayer','toolbar=no,fullscreen=yes,titlebar=no,status=no,menubar=no,scrollbars=no,resizable=no,left=0, top=0,width='+screen.width+',height='+screen.height+',visible=none, alwaysLowered=no,close=no');
+        radioplayerwindow.document.write('<html><head><meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport"><title>Radio Preview</title></head><body><table width="300px" align="center"><tr><td align="center"><img width="150px" src="'+radio.favicon+'" onerror="this.src = \'../share/images/radiostation2.jpg\'"></td></tr><tr><td><h4 align="center">'+radio.name+'</h4><h5 align="center">'+radio.state+'</h5></td></tr><tr><td><audio controls controlsList="nodownload" src="'+radio.url_resolved+'" autoplay onerror="document.getElementById(\'radiomessage\').innerText=\'This radio station could not play here, You may listen to it by the smart speaker.\'" style="width: 100%"></audio></td></tr><tr><td id="radiomessage" style="color: red"></td></tr></body></html>');
+    }
+
+
+
+    /*function setHeights() {
+        setTimeout(function () {
+            $('.radio-station span').css('height',$($('.radio-station span')[0]).css('width'));
+        }, 5000);
+    }*/
+
+    //playlist issues
+//    var playlists = [{_id:1, Name: "Playlist 1"}, {_id:2, Name:"Playlist 2"}];
+//    ssbindRenderLevel('playlists');
+
+    function addPL() {
+        swal.fire({
+            title: "New Playlist",
+            html: "Please specify a name for the new playlist",
+//            icon: "warning",
+            input: 'text',
+//            inputValue: 'ddd',
+//            imageUrl: "images/error.png",
+//            imageWidth: 50,
+            showCancelButton: true,
+            confirmButtonText: 'Save',
+            inputValidator: (value) => {
+                if (!value) {
+                    return 'Plase set true name for the new playlist'
+                } else if(playlists.find(pl=>pl.FileName.toUpperCase().trim()===value.toUpperCase().trim())){
+                    return 'You already have a playlist by this name, Please choose another name for the new playlist'
+                }
+            }
+        }).then((result) => {
+            if (result.value) {
+                $.ajax({
+                    url: '/iafs/playlist',
+                    type: 'PUT',
+                    data: { Name: result.value},
+                    cache: false,
+                    dataType: "json",
+                    success: function (newplaylist) {
+                        /*swal.fire({
+                            title: "P",
+                            html: "Device name changed successfully",
+//                    timer: 2000,
+                            icon: "success",
+                            showConfirmButton: true
+                        });*/
+
+                        load_sspage($('#playlistloader'), null, function () {
+                            ssbindRenderLevel('playlists');
+                            $('#playlistcombo').val(newplaylist._id).change();
+                            var selectedPL = $('#playlistcombo').val();
+                            $('form#C_UPLD_U-form input[name="folder"]').val(selectedPL);
+                        });
+//                        $('#playlistcombo').append( new Option(result.value,newplaylist._id) );
+//                        console.log('new playlist id',newplaylist, newplaylist._id)
+                    }
+                });
+            }
+        });
+    }
+
+    function deletePL() {
+        var PLname = $('#playlistcombo option:selected').text();
+        var PL_id = $('#playlistcombo').val();
+
+        if(PL_id === 'files'){
+            return;
+        }
+
+        swal.fire({
+            title: "Delete Playlist",
+            html: "Are you sure to delete playlist "+PLname+ " ?<br>" +
+            "<input type='checkbox' id='PLdeletefiles' class='chk-col-red filled-in'> <label for='PLdeletefiles' class='col-red m-t-20'>" +
+            "<b>Permanently delete all files in this playlist</b></label><br>" +
+            "<small class='col-grey'>If you don't check above checkbox, after delete the playlist, all files in this playlist will be moved to the Default Playlist</small> ",
+            icon: 'warning',
+//            input: 'checkbox',
+//            inputValue: 1,
+//            inputPlaceholder: 'Delete Permanently',
+            showCancelButton: true,
+//            confirmButtonColor: '#3085d6',
+//            cancelButtonColor: '#d33',
+            confirmButtonText: 'Delete',
+        }).then((result) => {
+            if (result.value) {
+                $.ajax({
+                    url: '/iafs/playlist',
+                    type: 'DELETE',
+                    data: { PL_id: PL_id, PL_delete_files: document.querySelector('#PLdeletefiles').checked},
+                    cache: false,
+                    dataType: "json",
+                    success: function (result) {
+                        /*swal.fire({
+                         title: "P",
+                         html: "Device name changed successfully",
+                         //                    timer: 2000,
+                         icon: "success",
+                         showConfirmButton: true
+                         });*/
+                        $('#C_UPLD_U_files').attr('sspage-load-json', '/iafs/customer/audio/files');
+                        load_sspage($('#C_UPLD_U_files'));
+                        load_sspage($('#playlistloader'));
+//                        $('#playlistcombo').change();
+                    }
+                });
+            }
+        });
+    }
+
+    function editPL() {
+        var PLname = $('#playlistcombo option:selected').text();
+        var PL_id = $('#playlistcombo').val();
+
+        if(PL_id === 'files'){
+            return;
+        }
+
+        swal.fire({
+            title: "Edit Playlist",
+            html: "Rename playlist "+PLname+" to ",
+//            icon: "warning",
+            input: 'text',
+            inputValue: PLname,
+//            imageUrl: "images/error.png",
+//            imageWidth: 50,
+            showCancelButton: true,
+            confirmButtonText: 'Save',
+            inputValidator: (value) => {
+                if (!value) {
+                    return 'Plase get a true name for playlist'
+                } else if(value.toUpperCase().trim() === PLname.toUpperCase().trim()){
+                    return 'The new name you have chosen is exactly the same as before. If you do not want to change the name of the playlist, you can click the Cancel button.'
+                } else if(playlists.find(pl=>pl.FileName.toUpperCase().trim()===value.toUpperCase().trim())){
+                    return 'You already have a playlist by this name'
+                }
+            }
+        }).then((result) => {
+            if (result.value) {
+                if(result.value === 'Default Playlist'){
+                    //todo warning
+                } else {
+                    $.ajax({
+                        url: '/iafs/playlist',
+                        type: 'POST',
+                        data: { PL_id: PL_id, New_Name: result.value},
+                        cache: false,
+                        dataType: "json",
+                        success: function (newplaylist) {
+                            /*swal.fire({
+                             title: "P",
+                             html: "Device name changed successfully",
+                             //                    timer: 2000,
+                             icon: "success",
+                             showConfirmButton: true
+                             });*/
+//                        load_sspage($('#playlistloader'));
+//                        $('#playlistcombo').append( new Option(result.value,newplaylist._id) );
+//                        console.log('new playlist id',newplaylist, newplaylist._id)
+                            $('#playlistcombo option:selected').text(result.value);
+                        }
+                    });
+                }
+            }
+        });
+    }
+
+    function reorderPL(PreOrder, NewOrder, file) {
+        var PLname = $('#playlistcombo option:selected').text();
+        var PL_id = $('#playlistcombo').val();
+
+        /*swal.fire({
+            title: "Edit Playlist",
+            html: "Rename playlist "+PLname+" to ",
+//            icon: "warning",
+            input: 'text',
+            inputValue: PLname,
+//            imageUrl: "images/error.png",
+//            imageWidth: 50,
+            showCancelButton: true,
+            confirmButtonText: 'Save',
+            inputValidator: (value) => {
+                if (!value) {
+                    return 'Plase get a true name for playlist'
+                } else if(value.toUpperCase().trim() === PLname.toUpperCase().trim()){
+                    return 'The new name you have chosen is exactly the same as before. If you do not want to change the name of the playlist, you can click the Cancel button.'
+                } else if(playlists.find(pl=>pl.FileName.toUpperCase().trim()===value.toUpperCase().trim())){
+                    return 'You already have a playlist by this name'
+                }
+            }
+        }).then((result) => {
+            if (result.value) {
+                if(result.value === 'Default Playlist'){
+                    //todo warning
+                } else {*/
+                    $.ajax({
+                        url: '/iafs/playlist',
+                        type: 'POST',
+                        data: { PL_id: PL_id, file_id: file._id, Pre_Order: PreOrder, New_Order: NewOrder},
+                        cache: false,
+                        dataType: "json",
+                        success: function (result) {
+                            /*swal.fire({
+                             title: "P",
+                             html: "Device name changed successfully",
+                             //                    timer: 2000,
+                             icon: "success",
+                             showConfirmButton: true
+                             });*/
+//                        load_sspage($('#playlistloader'));
+//                        $('#playlistcombo').append( new Option(result.value,newplaylist._id) );
+//                        console.log('new playlist id',newplaylist, newplaylist._id)
+                            $('#playlistcombo option:selected').text(result.value);
+                            load_sspage($('#C_UP'+'LD_U_files'));
+                        }
+                    });
+                /*}
+            }
+        });*/
+    }
+
+    function changePL() {
+        var selectedPL = $('#playlistcombo').val();
+//        load_sspage($('#C_UPLD_U_files'),'/iafs/customer/audio/'+selectedPL);
+        $('form#C_UPLD_U-form input[name="folder"]').val(selectedPL);
+        $('#C_UPLD_U_files').attr('sspage-load-json', '/iafs/customer/audio/'+selectedPL);
+        load_sspage($('#C_UPLD_U_files'));
+
+    }
+
+    function PL_choose() {
+        var PLname = $('#playlistcombo option:selected').text();
+        var PL_id = $('#playlistcombo').val();
+        var pl_start = 0;
+        var pl_list = [];
+        C_UPLD_U_files.map(function (f) {
+            pl_list.push([f.FileName, f.FileExtention, f.OriginalFileName])
+        })
+        var playlist = {
+            "command": "PLAY_LIST",
+            "pl-name": PL_id,
+            "pl-title": PLname,
+            "file-name": 'playlist:/'+PLname,
+            "pl-url-prefix": domainUrl+"/fileserver/",
+            "pl-list-count": pl_list.length,
+            "pl-list": pl_list,
+            /*"pl-list": [
+                ["3fb9ed7832a0c3ea3a30829c28c801a4"	,"aac", "sample1.aac"],
+                ["95789d640fdad97a56e15b8643e23d22"	,"amr", "gs-16b-1c-8000hz.amr"],
+                ["59879442fe5294432341fc09242f40de"	,"wav", "file_example_WAV_1MG.wav"],
+                ["c6031a2bb555f634878f850c1ab2a9dd"	,"aac", "Voice 001.aac"],
+                ["ee198f50e4884a7d3aec0867ed5b5bc5"	,"amr", "20201211_111548.amr"],
+                ["982b5eba71b64c2b934e803a12515d34"	,"mp3", "1.mp3"],
+                ["3ce07de0ef4dc892943551f193be2bcd"	,"mp3", "Billie_Eilish _Everything_I_ wanted.mp3"]
+            ],*/
+            "pl-start": pl_start+1,
+            "pl-repeat": false,
+            "pl-shuffle": false
+        };
+
+        if(typeof audio_dialog_luncher === 'function'){
+            audio_dialog_luncher({
+                'file-name' : "playlist:/"+PLname,
+                'file-url': "playlist:/"+PLname,
+                'playlist': "playlist:/"+PL_id,
+                'file-save': "SAVE",
+                'command': JSON.stringify(playlist)
+            })
+        } else {
+            $(audio_dialog_luncher).text("playlist:/"+PLname);
+            $(audio_dialog_luncher).attr("file-name","playlist:/"+PLname);
+            $(audio_dialog_luncher).attr("file-url","playlist:/"+PLname);
+            $(audio_dialog_luncher).attr('playlist', "playlist:/"+PL_id);
+            $(audio_dialog_luncher).attr('command', JSON.stringify(playlist));
+        }
+        pre_player.pause();
+        $("#AudioGalleryModal").modal('hide');
+    }
+
+    function playLastOfPL() {
+        var PLname = $('#playlistcombo option:selected').text();
+        var PL_id = $('#playlistcombo').val();
+        var pl_start = 0;
+        var pl_list = [];
+
+        /*var playlist = {
+            "command": "PLAY_LIST",
+            "pl-name": PL_id,
+            "pl-title": PLname,
+            "file-name": 'playlist:/'+PLname,
+            "pl-url-prefix": domainUrl+"/fileserver/",
+            "pl-list-count": pl_list.length,
+            "pl-list": pl_list,
+            /!*"pl-list": [
+                ["3fb9ed7832a0c3ea3a30829c28c801a4"	,"aac", "sample1.aac"],
+                ["95789d640fdad97a56e15b8643e23d22"	,"amr", "gs-16b-1c-8000hz.amr"],
+                ["59879442fe5294432341fc09242f40de"	,"wav", "file_example_WAV_1MG.wav"],
+                ["c6031a2bb555f634878f850c1ab2a9dd"	,"aac", "Voice 001.aac"],
+                ["ee198f50e4884a7d3aec0867ed5b5bc5"	,"amr", "20201211_111548.amr"],
+                ["982b5eba71b64c2b934e803a12515d34"	,"mp3", "1.mp3"],
+                ["3ce07de0ef4dc892943551f193be2bcd"	,"mp3", "Billie_Eilish _Everything_I_ wanted.mp3"]
+            ],*!/
+            "pl-start": pl_start+1,
+            "pl-repeat": false,
+            "pl-shuffle": false
+        };
+*/
+
+        if(typeof audio_dialog_luncher === 'function'){
+            audio_dialog_luncher({
+                'file-name' : "playlist:/"+PLname,
+                'file-url': domainUrl + '/customer/playlist/last/' + PL_id,
+                'file-save': "SAVE",
+            })
+        } else {
+            $(audio_dialog_luncher).text("playlist:/"+PLname);
+            $(audio_dialog_luncher).attr("file-name","playlist:/"+PLname);
+            $(audio_dialog_luncher).attr("file-url",domainUrl + '/customer/playlist/last/' + PL_id);
+            $(audio_dialog_luncher).attr('playlist', "playlist:/"+PL_id);
+        }
+        pre_player.pause();
+        $("#AudioGalleryModal").modal('hide');
+    }
+
+    function addtopl(f, x, move) {
+        var PLname = $('#playlistcombo option:selected').text();
+        var PL_id = $('#playlistcombo').val();
+        var playlistslist = "<div size='5' class='text-left p-l-20 audio-list m-t-10'>";
+        if(PLname !== 'Default Playlist'){
+            playlistslist += "<br><input name='selectedPL' type='radio' class='with-gap' value='files' id='PLselfiles'/><label for='PLselfiles'>Default Playlist</label>";
+        }
+        for(var pl of playlists){
+            if(pl.FileName !== PLname)
+            playlistslist += "<br><input name='selectedPL' type='radio' class='with-gap' value='"+pl._id+"' id='PLsel"+pl._id+"'/><label for='PLsel"+pl._id+"'>"+pl.FileName+"</label>";
+        }
+        playlistslist += "</div>";
+        swal.fire({
+            // title: "Copy to Playlist",
+            html: "<div><b>"+(move?"Move":"Copy")+"</b> file \"<i class='col-grey'>'"+f.OriginalFileName+"'</i>\" "+(move?"to":"in")+" <br><br>" +
+                playlistslist+
+            // "<input type='checkbox' id='PLmove' class='chk-col-red filled-in'> <label for='PLmove' class='col-red m-t-20'>" +
+            // "<b>Move, Not Copy</b></label><br>" +
+            // "<small class='col-grey'>If you check above checkbox, selected file will be moved to selected playlist above and deleted from previous playlist</small> " +
+            "</div>",
+            showCancelButton: true,
+//            confirmButtonColor: '#3085d6',
+//            cancelButtonColor: '#d33',
+            confirmButtonText: 'OK',
+        }).then((result) => {
+            if (result.value) {
+                if($('input[name="selectedPL"]:checked').val() === undefined){
+                    alert('please select')
+                    return;
+                }
+                $.ajax({
+                    url: '/iafs/playlist',
+                    type: 'PATCH',
+                    data: { file_id: f._id, move: move /*document.querySelector('#PLmove').checked*/, PL_id: $('input[name="selectedPL"]:checked').val()},
+                    cache: false,
+                    dataType: "json",
+                    success: function (result) {
+                        /*swal.fire({
+                         title: "P",
+                         html: "Device name changed successfully",
+                         //                    timer: 2000,
+                         icon: "success",
+                         showConfirmButton: true
+                         });*/
+//                        $('#C_UPLD_U_files').attr('sspage-load-json', '/iafs/customer/audio/files');
+                        load_sspage($('#C_UPLD_U_files'));
+//                        load_sspage($('#playlistloader'));
+//                        $('#playlistcombo').change();
+                    }
+                });
+            }
+        });
+    }
+
+    function showtooltips(t) {
+        $(this).siblings('[data-toggle="tooltip"]').tooltip('show');
+        return false;
+    }
+
+    function ToMp3(samples){
+        channels = 1; //1 for mono or 2 for stereo
+        sampleRate = 44100; //44.1khz (normal mp3 samplerate)
+        kbps = 128; //encode 128kbps mp3
+        mp3encoder = new lamejs.Mp3Encoder(channels, sampleRate, kbps);
+        var mp3Data = [];
+
+        // samples = new Int16Array(44100); //one second of silence (get your data from the source you have)
+        samples = new Int16Array(samples)
+        sampleBlockSize = 1152; //can be anything but make it a multiple of 576 to make encoders life easier
+
+        // var mp3Data = [];
+        for (var i = 0; i < samples.length; i += sampleBlockSize) {
+            sampleChunk = samples.subarray(i, i + sampleBlockSize);
+            var mp3buf = mp3encoder.encodeBuffer(sampleChunk);
+            if (mp3buf.length > 0) {
+                mp3Data.push(mp3buf);
+            }
+        }
+
+        /*for (var sampleChunk of chunks){
+            var mp3buf = mp3encoder.encodeBuffer(sampleChunk);
+            if (mp3buf.length > 0) {
+                mp3Data.push(mp3buf);
+            }
+        }*/
+
+        var mp3buf = mp3encoder.flush();   //finish writing mp3
+
+        if (mp3buf.length > 0) {
+            mp3Data.push(new Int8Array(mp3buf));
+        }
+
+        var blob = new Blob(mp3Data, {type: 'audio/mp3'});
+        var url = window.URL.createObjectURL(blob);
+        console.log('MP3 URl: ', url);
+
+        return blob;
+    }
+
+    ssbindRenderLevel('radiox1')
+    ssbindRenderLevel('radiox12')
+
+</script>
+
+<script src="../dialogs/web-audio-recorder/js/WebAudioRecorder.min.js"></script>
+<script src="../dialogs/web-audio-recorder/js/mp3recordscript.js"></script>
+
+<!--<div ssfor="radio_stations with ss2Index2" sslevel="radiox2" class="col-sm-4 col-xs-6" ssemptylist="please select a country or language">
+                                <div class="radio-station m-t-5 align-left btn-link " >
+
+                                    <div class="footer">
+                                        <label onclick="radio_choose(radio_stations[ss2Index2])" class="text-ellipsis" style="overflow-x: hidden;max-width: 100px">
+                                            <h5 sslevel="radiox2" ssbind="text:radio_stations[ss2Index2].name" class="text-ellipsis"></h5>
+                                            &lt;!&ndash;<h6 sslevel="radiox2" ssbind="text:radio_stations[ss2Index2].state" class=""></h6>&ndash;&gt;
+                                            <i sslevel="radiox2" ssbind="text:(radio_stations[ss2Index2].language+'&nbsp;')||'&nbsp;'"></i>
+                                        </label>
+                                        <a class="radio-preview mdi  mdi-play-box-outline" onclick="radio_preview(radio_stations[ss2Index2]);return false"></a>
+                                    </div>
+
+                                    <span onclick="radio_choose(radio_stations[ss2Index2])">
+                                        <img sslevel="radiox2" ssbind="src:radio_stations[ss2Index2].favicon"
+                                             class="img-responsive" onerror="this.src = 'images/radiostation2.jpg'">
+                                    </span>
+
+                                </div>
+                            </div>-->

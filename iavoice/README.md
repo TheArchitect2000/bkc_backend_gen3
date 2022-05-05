@@ -16,7 +16,7 @@ $ node src/index.js
 $ pm2 start src/index.js
 ```
 3. Update your Nginx web server config file to redirect https traffic from `https://your.node.server/webhook_alexa` and `https://your.node.server/webhook_google`
-   to port 4122 like bellow
+   to port 9122 like bellow
    ```
    sample Nginx redirect
    ```

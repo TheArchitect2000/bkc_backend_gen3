@@ -67,10 +67,11 @@ $ node -v
 ```
 ## 4- Clone the BKC Node source files.
 ```clone
-$ git clone https://XXXXXXXXXX@github.com/gramezan/bkc-node-cpvanda-cl.git
+$ git clone https://XXXXXXXXXX@github.com/gramezan/bkc-node-source-development.git
 ```
 ```clone
-$ cd home/bkc-node-cpvanda-cl
+$ cd home/bkc-node-source-development
+
 ```
 ```clone
 $ sudo npm install -g node-gyp@3.8.0

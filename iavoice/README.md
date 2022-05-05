@@ -1,4 +1,3 @@
-<centr><img src="https://panel.blocklychain.io/share/images/logo-h-blocklychain.png" width="200px" align="center"></img></center>
 
 [![bkc-node](https://i.pcmag.com/imagery/articles/02cAFHgCLcU6qsNAQgUrfl2-14.fit_lim.size_1600x900.v1623939967.jpg)]()
 

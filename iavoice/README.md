@@ -11,7 +11,7 @@ In order to enable voice commands via Alexa or Google Assistant for a node, foll
 2. Run the code on the server using NodeJs or PM2.
 ```sh
 $ cd iavoice
-
+$ sudo npm install
 $ node src/index.js
 ## Alternative
 $ pm2 start src/index.js

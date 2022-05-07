@@ -25,14 +25,15 @@ $ pm2 start src/index.js
 ### 2. Alexa Setting
 1. Create an <a href="https://developer.amazon.com/alexa/console/ask">Amazon developer account</a>.
 2. Download the schema definition file named <a href="assets/BKC-Alexa-schema.json">BKC-Alexa-Schema.json</a> from the BKC git repository.
-3. Navigate to the "Json Editor" page in the Alexa console and upload the json file.
-4. Click on the "Save Model" button.
-5. Click on the "Build Model" button.
-6. Go to the Endpoint menu.
-7. Select "HTTPS".
-8. In the "Default Region" box, set your webhook URL `i.e. https://your.node.server/webhook_alexa`
-9. In the certificate box, select the "My development endpoint has a certificate from a trusted certificate authority" item.
-10. Click the "Save Endpoints" button.
+3. Create a skill (custom).
+4. Navigate to the "Json Editor" page in the Alexa console and upload the json file.
+5. Click on the "Save Model" button.
+6. Click on the "Build Model" button.
+7. Go to the Endpoint menu.
+8. Select "HTTPS".
+9. In the "Default Region" box, set your webhook URL `i.e. https://your.node.server/webhook_alexa`
+10. In the certificate box, select the "My development endpoint has a certificate from a trusted certificate authority" item.
+11. Click the "Save Endpoints" button.
     ![img.png](assets/alexa-endpoints.png)
 
 ### 3. Google Assistant Setting

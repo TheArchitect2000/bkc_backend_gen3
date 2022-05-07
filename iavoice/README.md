@@ -15,7 +15,7 @@ $ node src/index.js
 ## Alternative
 $ pm2 start src/index.js
 ```
-3. Update your Nginx web server config file to redirect https traffic from `https://your.node.server/webhook_alexa` and `https://your.node.server/webhook_google`
+3. Update your Nginx web server config file to redirect https traffic from `https://your.node.server/webhook_alexa` and `https://your.node.server/webhook`
    to port 9122 like bellow
    ```
    ## This config is set in "6- Install nginx web server" readme bkc-node-source-development

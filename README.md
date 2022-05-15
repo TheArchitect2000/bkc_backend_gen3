@@ -297,13 +297,18 @@ $ pm2 start pm2.json
 
 ## How to set Token cycle on your server
 
-### function awardBonusTokens in file controllers/iaactivity.controller.js:17
-### When you set time in config file then above line will run
-### All chanige in config file:
+```comming
+# function awardBonusTokens in file controllers/iaactivity.controller.js:17
+# When you set time in config file then above line will run
+```
+
 ```con
+# All changes in config.js file:
 // These lines are for token distribution in /controllers/iaactivity.controller.js
  module.exports.BonusRuntime = "1 1   *"; // cron, 1:01AM every day, the bkc node admin distributes BKC tokens between his users
  module.exports.BonusRuntimezone = "America/Vancouver <SET YOUR TIMEZONE>"; // cron, time zone
 ````
-### Change server date to your timezone
+```server
+# Change server date to your timezone
+```
 

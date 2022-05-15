@@ -299,7 +299,7 @@ $ pm2 start pm2.json
 
 ```comming
 # function awardBonusTokens in file controllers/iaactivity.controller.js:17
-# When you set time in config file then above line will run
+# When you set the time in the config.js file, the top line is executed.
 ```
 
 ```con
@@ -309,6 +309,6 @@ $ pm2 start pm2.json
  module.exports.BonusRuntimezone = "America/Vancouver <SET YOUR TIMEZONE>"; // cron, time zone
 ````
 ```server
-# Change server date to your timezone
+# Change server date to your timezone.
 ```
 

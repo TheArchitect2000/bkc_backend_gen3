@@ -157,15 +157,15 @@ router.post('/', (req, res, next) => {
 router.post('/signup', (req, res, next) => {
     console.log('sign up');
 
-    //check captcha- Commented by Hramezan
-  /*  console.error(req.signedCookies['captcha']);
+    //check captcha-
+    console.error(req.signedCookies['captcha']);
     if(req.signedCookies['captcha'] !== req.body.captcha) {
         res.status(500).send({
             message: "Entered CAPTCHA code does not match"
         });
         return;
     }
-  */
+  
 
     let newpassword = IACustomer.hashPassword(req.body.Password);
     let newcustomer = new IACustomer({

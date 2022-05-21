@@ -7,12 +7,12 @@ const IAVendor = require('../models/iavendor.model');
 
 const IACustomerSchema = mongoose.Schema(
     {
-        FirstName: {type: String, required: true, match: [/^(?=.{1,50}$)[a-z]+(?:['_.\s][a-z]+)*$/i, 'Please fill a true Firstname']},
-        LastName: {type: String, required: true, match: [/^(?=.{1,50}$)[a-z]+(?:['_.\s][a-z]+)*$/i, 'Please fill a true Lastname']},
+       // FirstName: {type: String, required: true, match: [/^(?=.{1,50}$)[a-z]+(?:['_.\s][a-z]+)*$/i, 'Please fill a true Firstname']},
+       // LastName: {type: String, required: true, match: [/^(?=.{1,50}$)[a-z]+(?:['_.\s][a-z]+)*$/i, 'Please fill a true Lastname']},
         Username: {type: String, required: true, index: true, unique: true},
         Password: {type: String, required: true},
         UserId: {type: String/*, required: false, index: true, unique: false*/},
-        Mobile: {type:String, match: [/^(\+|00|0)?(\d{0,2})?[ -]?(\d{3,4})?[ -]?(\d{7})$/gm , 'Please fill a correct Mobile Number']},
+       // Mobile: {type:String, match: [/^(\+|00|0)?(\d{0,2})?[ -]?(\d{3,4})?[ -]?(\d{7})$/gm , 'Please fill a correct Mobile Number']},
         Email: {type: String, required: true, index: true, /*unique: true,*/ sparse: true, match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, 'Please fill a valid email address']},
         NotifySubscription: String,//subscription in web notification
         IsActive: {type: Boolean, default: false},

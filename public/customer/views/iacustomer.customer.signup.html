@@ -2,6 +2,9 @@
 <html>
 
 <head>
+    <!-- Google reCAPTCHA on your website -->
+    <script src='https://www.google.com/recaptcha/api.js'></script>
+
     <!-- Chrome, Firefox OS and Opera -->
     <meta name="theme-color" content="#F44336">
     <!-- Windows Phone -->
@@ -126,39 +129,41 @@
                             </div>
                         </div>
 
-
+                        <!--
                         <div class="col-sm-6">
                             <label for="firstname"><span class=" ia-big-title ">First Name *</span></label>
                             <div class="form-line ">
                                 <input type="text" name="FirstName" id="firstname" placeholder="First Name" class="form-control b-1" required >
-                                <!--<label class="form-label">First Name</label>-->
                             </div>
                         </div>
+
                         <div class="col-sm-6">
                             <label for="lastname"><span class=" ia-big-title ">Last Name *</span></label>
                             <div class="form-line ">
                                 <input type="text" name="LastName" id="lastname" placeholder="Last Name" class="form-control b-1" required >
-                                <!--<label class="form-label">Last Name</label>-->
                             </div>
                         </div>
+
                         <div class="col-sm-12">
                             <label for="mobile"><span class=" ia-big-title ">Mobile</span></label>
                             <div class="form-line ">
                                 <input type="text" name="Mobile" id="mobile" placeholder="To receive text messages (Optional)" class="form-control b-1" >
-<!--                                <label class="form-label">To receive text messages (Optional)</label>-->
                             </div>
                         </div>
+                        -->
 
 
                         <div class="col-sm-12">
-<!--                            <label for="captcha"><span class=" ia-big-title ">I am not Robot</span></label>-->
                             <div class="form-line ">
+        	                    <div class="g-recaptcha" data-sitekey="6LfBAQkgAAAAAIF4el0lAiBhI69APOkZ9j3CpfJs"></div>
+                                <!--
                                 <img id="captchaimg" border="1" src="/customer/captcha.png">
                                 <a onclick='$("#captchaimg").attr("src", "/customer/captcha.png?timestamp=" + new Date().getTime());return false' class="btn btn mdi mdi-refresh btn-link col-red" tabindex="-1"></a>
                                 <input type="text" name="captcha" id="captcha" placeholder="Type the above 4-digit number (CAPTCHA)" class="form-control b-1" >
-<!--                                <span class="col-grey small">For detecting you are not a robot</span>-->
+                                -->
                             </div>
                         </div>
+                       
 
 
 

@@ -375,8 +375,8 @@
 </div>
 <script>
     var ssdevIndex = -1;
-    var devoptions = {};
-    var devdata = {};
+    var devoptions = [];
+    var devdata = [];
     var devacts = [];
     var devcontrollers = [];
     var devChart;
@@ -388,8 +388,8 @@
 
     function showDevicePanelDialog(devindex) {
         ssdevIndex = devindex;
-        devdata = {};
-        devoptions = {};
+        devdata = [];
+        devoptions = [];
         devacts = [];
         for(let key in devicetemps[devices[ssdevIndex].DeviceType].data){
             if(devicetemps[devices[ssdevIndex].DeviceType].data[key].isOption){
@@ -425,9 +425,9 @@
             success: function (activities) {
                 //filter command payloads
                 devacts = activities;
-
                 let dd = {...devdata,...devoptions};
-                let kdd = Object.keys(dd);
+                let kdd = Object.keys(dd);  // Added by H.S
+                kdd = kdd.reverse();
                 let vdd = {};
                 for (let a of devacts) {
                     for (let k of kdd) {
@@ -478,7 +478,7 @@
                                 saveAsImage: {
                                     name: devices[ssdevIndex].Name + '-BKC data graph'
                                 },
-                                dataView: {
+                                dataView: {  // Details of dataView are Added by H.S
                                     readOnly: false,
                                     optionToContent: function(opt) {
                                         var axisData = opt.xAxis[0].data;

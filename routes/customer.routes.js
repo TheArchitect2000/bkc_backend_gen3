@@ -157,23 +157,24 @@ router.post('/', (req, res, next) => {
 router.post('/signup', (req, res, next) => {
     console.log('sign up');
 
-    //check captcha
-    console.error(req.signedCookies['captcha']);
+    //check captcha- Commented by Hramezan
+  /*  console.error(req.signedCookies['captcha']);
     if(req.signedCookies['captcha'] !== req.body.captcha) {
         res.status(500).send({
             message: "Entered CAPTCHA code does not match"
         });
         return;
     }
+  */
 
     let newpassword = IACustomer.hashPassword(req.body.Password);
     let newcustomer = new IACustomer({
         Email : req.body.Email,
         Username : req.body.Email,
         Password : newpassword,
-        FirstName : req.body.FirstName,
-        LastName : req.body.LastName,
-        Mobile : req.body.Mobile,
+        FirstName : ' ', //req.body.FirstName,
+        LastName : ' ', //req.body.LastName,
+        Mobile : ' ', //req.body.Mobile,
         IsActive: false
     });
     newcustomer.save((err,newcustomer) => {

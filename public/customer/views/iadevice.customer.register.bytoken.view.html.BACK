@@ -189,7 +189,7 @@
         var p = JSON.parse(event.data);
 
         if(p.CONNECTED === 'checking'){
-            consol.log('checking...')
+            alert('chccj')
         } else
         if(p.CONNECTED === true) {
             clearTimeout(timeouts.timeout3);
@@ -260,7 +260,7 @@
                     $('#backbtn').show();
                     swal.fire("Cannot find the device", "Couldn't connect to the device's Wi-Fi network. Please connect your laptop or mobile to the device's Wi-Fi network which is <i>"+devicetemps[$('[name=devicetype]:checked').val()].title.replace(' ','_') || '???'+"</i>. Then, click on the <b>Next</b> button.", "error", {closeOnClickOutside: true});
                 }
-            },7000);
+            },14000);
             var bhost = brokerUrl.split('://')[1];
             var bd = 'bh='+btoa(bhost.split(':')[0])+'&bp='+btoa('8883')+'&du='+btoa(domainUrl);
             w1 = window.open("http://192.168.100.100/p1?"+bd, 'w1', 'toolbar=no,titlebar=no,status=no,menubar=no,scrollbars=no,resizable=no,left=200, top=200,width=200px,height=200px,visible=none, alwaysLowered=on,close=no');
@@ -478,7 +478,7 @@ Please check your Wi-Fi password and also, bring your device close to your Wi-Fi
                     <!--it is important ssfor="Object.keys(devicetemps) " was different of ssfor="Object.keys(devicetemps) in iadevice.customer.register.view.html"-->
                     <label ssfor="Object.keys(devicetemps) " ssifXXNONEEDED="!devicetemps[Object.keys(devicetemps)[ssIndex]].vendor"
                            class=" col-sm-2 col-xs-6  hover-zoom-effect">
-                        <input type="radio" name="devicetype" onchange="event.stopPropagation();nextStepToken()"
+                        <input type="radio" name="devicetype" onchange="nextStepToken()"
                                ssbind="value:Object.keys(devicetemps)[ssIndex] ; disabled:!devicetemps[Object.keys(devicetemps)[ssIndex]].active" >
                         <div ssbind="class:'device p-t-10 '+  (devicetemps[Object.keys(devicetemps)[ssIndex]].active ? '':' disabled ')">
                             <!--devicetemps[Object.keys(devicetemps)[ssIndex]].color +-->
@@ -620,9 +620,9 @@ Please check your Wi-Fi password and also, bring your device close to your Wi-Fi
                     sspage-load-after="localStorage.removeItem('NewDeviceType');localStorage.removeItem('NewMacAddress');">
                 Cancel
             </button>
-            <button class="btn btn-primary-ia ia-big-title" onclick="event.stopPropagation();preStepToken()" id="backbtn"> Back  </button>
-            <button class="btn btn-primary-ia ia-big-title" onclick="event.stopPropagation();nextStepToken()" id="nextbtn"> Next </button>
-            <button class="btn btn-primary-ia ia-big-title collapse" onclick="event.stopPropagation();finishInstall()" id="closebtn"> Show Devices </button>
+            <button class="btn btn-primary-ia ia-big-title" onclick="preStepToken()" id="backbtn"> Back  </button>
+            <button class="btn btn-primary-ia ia-big-title" onclick="nextStepToken()" id="nextbtn"> Next </button>
+            <button class="btn btn-primary-ia ia-big-title collapse" onclick="finishInstall()" id="closebtn"> Show Devices </button>
         </div>
     </div>
     </form>

@@ -375,8 +375,8 @@
 </div>
 <script>
     var ssdevIndex = -1;
-    var devoptions = {};
-    var devdata = {};
+    var devoptions = [];
+    var devdata = [];
     var devacts = [];
     var devcontrollers = [];
     var devChart;
@@ -388,8 +388,8 @@
 
     function showDevicePanelDialog(devindex) {
         ssdevIndex = devindex;
-        devdata = {};
-        devoptions = {};
+        devdata = [];
+        devoptions = [];
         devacts = [];
         for(let key in devicetemps[devices[ssdevIndex].DeviceType].data){
             if(devicetemps[devices[ssdevIndex].DeviceType].data[key].isOption){
@@ -425,9 +425,9 @@
             success: function (activities) {
                 //filter command payloads
                 devacts = activities;
-
                 let dd = {...devdata,...devoptions};
-                let kdd = Object.keys(dd);
+                let kdd = Object.keys(dd);  // Added by H.S
+                kdd = kdd.reverse();
                 let vdd = {};
                 for (let a of devacts) {
                     for (let k of kdd) {
@@ -455,28 +455,20 @@
                         tooltip: {
                             trigger: 'axis'
                         },
-                        /*
-                            Edited by H.S
-                        */
                         dataZoom: [{
-                            type: 'slider',
-                            height: 20,
-                            bottom: 20
-                        },{
-                            type: 'inside',
+                            // startValue: '2014-06-01'
+                        }, {
+                            type: 'inside'
                         }],
                         legend: {
                             orient: 'vertical', right: 0, align: 'left', top: 0,width: wid/16,
                             data: kdd
                         },
-                        /*
-                            Edited by H.S
-                        */
                         grid: {
                             left: 0,
                             top: 15,
                             right: wid/4,
-                            bottom: '50',     // To adjust dataZoom margin with xAxis label
+                            bottom: '3%',
                             containLabel: true,
                         },
                         toolbox: {
@@ -486,7 +478,7 @@
                                 saveAsImage: {
                                     name: devices[ssdevIndex].Name + '-BKC data graph'
                                 },
-                                dataView: {
+                                dataView: {  // Details of dataView are Added by H.S
                                     readOnly: false,
                                     optionToContent: function(opt) {
                                         var axisData = opt.xAxis[0].data;
@@ -517,13 +509,7 @@
                             },
                             type: 'category',
                             boundaryGap: [0, 0], //In the absence of min and max values, [0,0] means that there is no blank on both sides of the coordinate axis, and the graph is close to the coordinate axis, [0.3,0.8] means that the distance between the graph and the axis is 3*a scale value on the left side and 8*a scale value on the right side.
-                            /* axisLabel: { rotate: 90 }, */
-                            axisLabel: {
-                                inside: false,
-                                margin: 10,
-                                fontSize: 13,
-                                rotate: 90
-                            },
+                            axisLabel: { rotate: 90 },
                             data: Array.from(devacts, act=> moment(act.createdAt).format('DD MMM HH:mm:ss'))
                         },
                         yAxis: {

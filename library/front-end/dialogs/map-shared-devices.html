@@ -1,0 +1,71 @@
+<head>
+
+    <!-- required js-->
+
+    <!--	  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>-->
+    <!--	  <script src="https://www.openlayers.org/api/OpenLayers.js"></script>-->
+    <script src="../resources/plugins/osm/openlayers.js"></script>
+    <!--	  <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places"></script>-->
+
+
+    <!--    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">-->
+    <!--    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>-->
+
+
+    <!-- location picker plugin -->
+    <script src="../resources/plugins/osm/location-picker.js"></script>
+
+    <!-- sample init -->
+    <script>
+        var _pickedLocation;//first time map loaded in location-picker.js this variable gets value
+
+        function initMapDevicesDialog(combo, _showdevices) {
+            $('#mapdevices').empty();
+            var locationPicker = $('.location-picker').locationPicker({
+                locationChanged: function (data) {
+                    _pickedLocation = {lat:data.location.lat, long: data.location.long};
+                    console.log(data, _pickedLocation)
+                    //$('#output').text(JSON.stringify(data));
+                },
+                init: {
+                    current_location: true,
+                    fix_location: true,
+                    devices: _showdevices,
+                    deviceSelect: function (selecteddevice){
+                        _selectedDeviceInMap = selecteddevice;
+                        $('#selectedDev').html(`
+                        <div>Device Name: <b>${selecteddevice.Name}</b></div>
+                        <div>Shared for <b>${selecteddevice.Share.Tokens} BKC</b></div>
+                        `)
+
+                        $('#selectDeviceMapBtn').off().click(function (e){
+                            $('[name="'+combo.name+'"] option:last').before(`<option style="color:blue" selected="selected" value="${selecteddevice.id}">${selecteddevice.Name} - ${selecteddevice.Share.Tokens} BKC</option>`)
+                            $("#ShareDevicesMapModal").modal('hide');
+                        })
+                    }
+                }
+            });
+        }
+
+    </script>
+</head>
+
+
+<div class="modal fade in" id="ShareDevicesMapModal" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" style="display: none;">
+    <div class="modal-dialog" style="" role="document">
+        <div class="modal-content" style="overflow: hidden;height: 80vh;">
+            <div class="modal-body">
+                <h4 class="mdi mdi-eye-outline"> Select a shared IoT device in the world</h4>
+
+                <div id="mapdevices" data-type='map' style="height: 300px"></div>
+
+                <div class="p-t-20">
+                    <div id="selectedDev"></div>
+                    <button class="btn btn-link" onclick="$('#ShareDevicesMapModal').modal('hide');">Cancel</button>
+                    <button class="btn btn-primary-ia" id="selectDeviceMapBtn">Select</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

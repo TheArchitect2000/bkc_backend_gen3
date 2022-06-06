@@ -1,0 +1,65 @@
+<head>
+
+    <!-- required js-->
+
+    <!--	  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>-->
+    <!--	  <script src="https://www.openlayers.org/api/OpenLayers.js"></script>-->
+    <script src="../resources/plugins/osm/openlayers.js"></script>
+    <!--	  <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places"></script>-->
+
+
+    <!--    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">-->
+    <!--    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>-->
+
+
+    <!-- location picker plugin -->
+    <script src="../resources/plugins/osm/location-picker.js"></script>
+
+    <!-- sample init -->
+    <script>
+        var _pickedLocation;//first time map loaded in location-picker.js this variable gets value
+
+        function initMapDialog() {
+            $('#map').empty();
+            var locationPicker = $('.location-picker').locationPicker({
+                locationChanged: function (data) {
+                    _pickedLocation = {lat:data.location.lat, long: data.location.long};
+                    console.log(data, _pickedLocation)
+                    //$('#output').text(JSON.stringify(data));
+                },
+                init: {current_location: true}
+            });
+        }
+    </script>
+</head>
+
+
+<div class="modal fade in" id="DeviceShareModal" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false" style="display: none;">
+    <div class="modal-dialog" style="" role="document">
+        <div class="modal-content" style="overflow: hidden;height: 80vh;">
+            <div class="modal-body">
+                <h4 class="mdi mdi-eye-outline"> Device Sharing</h4>
+                <div class="row">
+                    <div class="col-sm-12 ">
+                        <label>1. Choose the location of your device</label>
+                        <div class="location-picker p-t-0">
+                            <div class='map-container'>
+                                <div id="map" data-type='map' style="height: 270px"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 m-t-10">
+                        <label for="shareTokens">2. Choose how many BKC tokens you would like to receive for each read from your device?</label>
+                        <input type="number" id="shareTokens" value="0" min="0" max="100"> BKC
+
+                        <div class="float-right">
+                            <button class="btn btn-link" onclick="$('#DeviceShareModal').modal('hide');">Cancel</button>
+                            <button class="btn btn-primary-ia" id="DeviceShareBtn">Save</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

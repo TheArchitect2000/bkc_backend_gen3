@@ -2,10 +2,10 @@ var express = require('express');
 var router = express.Router();
 const iafileserver = require('../controllers/iafileserver.controller');
 var multer  = require('multer');
-var upload = multer({ dest: 'resources/fileserver/' });
+var upload = multer({ dest: 'library/front-end/resources/fileserver/' });
 let fstorage = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, 'public/firmwares/');
+        cb(null, 'library/front-end/resources/firmwares/');
     },
     filename: function (req, file, cb) {
         let filename = req.body['DeviceType']

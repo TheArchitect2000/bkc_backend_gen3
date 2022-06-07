@@ -215,7 +215,7 @@ router.post('/signup', (req, res, next) => {
                 },
                 attachments: [{
                     filename: 'BKCLogo.png',
-                    path: __dirname +`/../public/share/images/logo-bkcnode.png`,
+                    path: __dirname +`/../../../library/front-end/resources/images/logo-bkcnode.png`,
                     cid: 'logo' //my mistake was putting "cid:logo@cid" here!
                 }]
 /*
@@ -322,7 +322,7 @@ router.post('/resetpasswordrequest', (req, res, next) => {
                             },
                             attachments: [{
                                 filename: 'BKCLogo.png',
-                                path: __dirname +`/../public/share/images/logo-bkcnode.png`,
+                                path: __dirname +`/../../../library/front-end/resources/images/logo-bkcnode.png`,
                                 cid: 'logo' //my mistake was putting "cid:logo@cid" here!
                             }]
 /*

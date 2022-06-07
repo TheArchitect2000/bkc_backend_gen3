@@ -104,12 +104,14 @@ dist
 .tern-port
 
 # Project configuration files
-back-end/configs/email.config.js
-back-end/configs/webprivate.key
-back-end/configs/webprivate.pem
-back-end/configs/webpublic.crt
-back-end/configs/webpublic.pem
-back-end/configs/which.config.js
-back-end/configs/iabroker.certificate.crt
-back-end/configs/iabroker.certificate.key
-public/share/js/configs.js
+configs/email.config.js
+configs/webprivate.key
+configs/webprivate.pem
+configs/webpublic.crt
+configs/webpublic.pem
+configs/which.config.js
+configs/iabroker.certificate.crt
+configs/iabroker.certificate.key
+configs/configs.js
+library/front-end/configs/configs.js
+library/front-end/configs/which.server.js

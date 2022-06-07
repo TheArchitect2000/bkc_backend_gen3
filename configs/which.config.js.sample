@@ -3,16 +3,16 @@
 let brokerconfig = {};
 
 brokerconfig = {
-        SECURE_KEY : 'config/webprivate.pem',
-        SECURE_CERT : 'config/webpublic.pem',
-        SECURE_KEY20 : 'config/iabroker.certificate.key',
-        SECURE_CERT20 : 'config/iabroker.certificate.crt',
+        SECURE_KEY : 'configs/webprivate.pem',
+        SECURE_CERT : 'configs/webpublic.pem',
+        SECURE_KEY20 : 'configs/iabroker.certificate.key',
+        SECURE_CERT20 : 'configs/iabroker.certificate.crt',
 
         // These lines are for token distribution in /controllers/iaactivity.controller.js
         BonusRuntime : "55 05 * * *", // cron, 05:55AM every day, the bkc node admin distributes BKC tokens between his users
-        BonusRuntimezone : "America/New_York", // cron, time zone
+        BonusRuntimezone : "America/Vancouver", // cron, time zone
         // Change your finger print
-        fingerprint : '41:DC:04:1A:BC:2B:27:04:AE:F6:0B:DC:48:14:77:A3:59:B9:2B:B5',
+        fingerprint : '2C:93:89:B1:68:7B:81:BE:D3:69:AB:18:41:17:A3:AB:E6:2D:87:41',
              
         whichserver : 'bkcnode',
         debugmongoose : false

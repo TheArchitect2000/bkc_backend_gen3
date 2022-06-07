@@ -1,7 +1,12 @@
 {
     "apps" : [
         {
-            "name"        : "BKC system",
+            "name"        : "Voice Assistant",
+            "script"      : "servers/voice-assistant/src/index.js",
+            "log_date_format" : "YYYY-MM-DD HH:mm:ss Z"
+        },
+        {
+            "name"        : "BKC Control Panel",
             "script"      : "app-launcher.js",
             "log_date_format" : "YYYY-MM-DD HH:mm:ss Z"
         }

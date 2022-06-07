@@ -8,7 +8,7 @@ mailconfig = {
             pass: 'salam1234'
     },
     tls: {rejectUnauthorized: false},
-    templates: 'views/emailtemplates/'
+    templates: 'library/front-end/templates/email-templates/'
 }
 
 module.exports = {

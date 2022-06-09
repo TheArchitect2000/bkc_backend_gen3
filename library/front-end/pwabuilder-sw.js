@@ -72,7 +72,7 @@ self.addEventListener('push', function(e) {
                 const title = 'BKC Smart Home';
                 const options = {
                     body: e.data.text(),
-                    icon:  '/share/images/iasign_white.png',
+                    icon:  '/resources/images/iasign_white.png',
                     badge: 'images/badge.png',
                     actions: [
                         {

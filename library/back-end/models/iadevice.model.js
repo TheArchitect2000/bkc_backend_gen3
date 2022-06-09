@@ -86,7 +86,7 @@ IADeviceSchema.methods.SendPasswordToDevice = function () {
     };
 
 
-    let server = require('../IAbroker');
+    let server = require('../../IAbroker');
     server.publish(message, function () {
         console.log('password sent to device'/*, this._id.toString(), this.Name*/);
     });
@@ -107,7 +107,7 @@ IADeviceSchema.methods.DeviceDelete = function () {
         qos: 1, // 0, 1, or 2
         retain: false // or true
     };
-    let server = require('../IAbroker');
+    let server = require('../../IAbroker');
     server.publish(message, function () {
         console.log('device reset command sent to it', message);
     });
@@ -142,7 +142,7 @@ IADeviceSchema.methods.SendFirmwareUpdate = function (firmurl, fingerprint, firm
     };
 
 
-    let server = require('../IAbroker');
+    let server = require('../../IAbroker');
     server.publish(message, function () {
         console.log('firmware update sent to device', _id.toString(), name);
     });

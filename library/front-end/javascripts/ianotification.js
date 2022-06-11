@@ -38,7 +38,7 @@ function IA_Notify(title, text) {
         return;
     }
     // var title = 'Title '+Date.now();
-    var img = '/share/images/iasign_white.png';
+    var img = '/images/iasign_white.png';
     // var text = 'HEY! Your task "' + title + '" is now overdue.';
     var notification = new Notification(title, { body: text, icon: img });
     setTimeout(notification.close.bind(notification), 4000);

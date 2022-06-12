@@ -115,3 +115,5 @@ configs/iabroker.certificate.key
 configs/configs.js
 library/front-end/configs/configs.js
 library/front-end/configs/which.server.js
+library/front-end/resources/firmwares/
+library/front-end/resources/fileserver/

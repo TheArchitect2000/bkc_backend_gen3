@@ -340,7 +340,7 @@ exports.firmwareupdate = (req, res) => {//todo change to findandArchive
                 filename += '-' + iadevice.FirmwareSeries;
             filename += '-' + firmversion;
             filename += '.bin';
-            let firmurl = `${durl}/firmwares/${filename}`;
+            let firmurl = `${durl}/resources/firmwares/${filename}`;
 
             iadevice.SendFirmwareUpdate(firmurl, fingerprint, firmversion);
 

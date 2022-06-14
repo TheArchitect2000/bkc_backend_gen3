@@ -598,7 +598,7 @@
 <script src="../../resources/plugins/blockly/blockly_compressed.js"></script>
 <script src="../../resources/plugins/blockly/blocks_compressed.js"></script>
 <script src="../../resources/plugins/blockly/javascript_compressed.js"></script>
-<script src="../../msg/js/en.js"></script>
+<script src="../../resources/plugins/blockly/msg/js/en.js"></script>
 
 <script>
     /*define("DynHighlightRules", [], function(require, exports, module) {
@@ -1095,7 +1095,7 @@
                         },
                         {
                             "type": "field_image",
-                            "src": "../../../../share/images/devices/motion-detector.svg",
+                            "src": "../../resources/images/devices/motion-detector.svg",
                             "width": 20,
                             "height": 20,
                             "alt": "MD"
@@ -1150,7 +1150,7 @@
                         },
                         {
                             "type": "field_image",
-                            "src": "../../../../share/images/devices/door-sensor.svg",
+                            "src": "../../resources/images/devices/door-sensor.svg",
                             "width": 20,
                             "height": 20,
                             "alt": "MD"
@@ -1188,7 +1188,7 @@
                         },
                         {
                             "type": "field_image",
-                            "src": "../../../../share/images/devices/ia-shortcut.svg",
+                            "src": "../../resources/images/devices/ia-shortcut.svg",
                             "width": 20,
                             "height": 20,
                             "alt": "DS"
@@ -1244,7 +1244,7 @@
                         },
                         {
                             "type": "field_image",
-                            "src": "../../../../share/images/devices/temp_hum.svg",
+                            "src": "../../resources/images/devices/temp_hum.svg",
                             "width": 20,
                             "height": 20,
                             "alt": "MD"
@@ -1348,7 +1348,7 @@
                         },
                         {
                             "type": "field_image",
-                            "src": "../../../../share/images/devices/light-switch.svg",
+                            "src": "../../resources/images/devices/light-switch.svg",
                             "width": 20,
                             "height": 20,
                             "alt": "DS"
@@ -1398,7 +1398,7 @@
                         },
                         {
                             "type": "field_image",
-                            "src": "../../../../share/images/devices/power-plug.svg",
+                            "src": "../../resources/images/devices/power-plug.svg",
                             "width": 20,
                             "height": 20,
                             "alt": "DS"
@@ -1451,7 +1451,7 @@
                         },
                         {
                             "type": "field_image",
-                            "src": "../../../../share/images/devices/power-plug.svg",
+                            "src": "../../resources/images/devices/power-plug.svg",
                             "width": 20,
                             "height": 20,
                             "alt": "MD"
@@ -1555,7 +1555,7 @@
         Blockly.Blocks['SMART_SPEAKER'] = {
             init: function () {
                 this.appendDummyInput()
-                    .appendField(new Blockly.FieldImage("../../../../share/images/devices/ia-speaker.svg", 20, 20, "DS"))
+                    .appendField(new Blockly.FieldImage("../../resources/images/devices/ia-speaker.svg", 20, 20, "DS"))
                     .appendField('BKC Speaker')
                     .appendField(new Blockly.FieldVariable(
                         'Speaker1',
@@ -1569,7 +1569,7 @@
                     ]), 'COMMAND')
                     .appendField(new Blockly.FieldLabelSerializable("audio file"), "AUDIOFILE")
                     .appendField(new Blockly.FieldLabelSerializable("audio file"), "AUDIOFILETITLE")
-                    .appendField(new Blockly.FieldImage("../../../../share/images/playlist-dialog.svg", 20, 20, "*", onSelectAudio), "FILEBTN")
+                    .appendField(new Blockly.FieldImage("../../resources/images/playlist-dialog.svg", 20, 20, "*", onSelectAudio), "FILEBTN")
                     .appendField(new Blockly.FieldDropdown([
                         ["Device Volume", "CURRENT"],
                         ["100%", "100"],
@@ -1666,7 +1666,7 @@
                         },
                         {
                             "type": "field_image",
-                            "src": "../../../../share/images/devices/ia-speaker.svg",
+                            "src": "../../resources/images/devices/ia-speaker.svg",
                             "width": 20,
                             "height": 20,
                             "alt": "MD"
@@ -1719,7 +1719,7 @@
                     "args0": [
                         {
                             "type": "field_image",
-                            "src": "../../../../share/images/devices/guard.svg",
+                            "src": "../../resources/images/devices/guard.svg",
                             "width": 20,
                             "height": 20,
                             "alt": "GR"
@@ -1748,7 +1748,7 @@
                     "args0": [
                         {
                             "type": "field_image",
-                            "src": "../../../../share/images/devices/service-button.svg",
+                            "src": "../../resources/images/devices/service-button.svg",
                             /*"width": 55,
                             "height": 45,*/
                             "width": 20,
@@ -1785,7 +1785,7 @@
                     "args0": [
                         {
                             "type": "field_image",
-                            "src": "../../../../share/images/devices/ia-schedule.svg",
+                            "src": "../../resources/images/devices/ia-schedule.svg",
                             "width": 20,
                             "height": 20,
                             "alt": "GR"
@@ -1824,7 +1824,7 @@
                         },
                         {
                             "type": "field_image",
-                            "src": "../../../../share/images/devices/Blockly_send_email.svg",
+                            "src": "../../resources/images/devices/Blockly_send_email.svg",
                             "width": 20,
                             "height": 20,
                             "alt": "Email"
@@ -1861,7 +1861,7 @@
                         },
                         {
                             "type": "field_image",
-                            "src": "../../../../share/images/devices/Blockly_send_sms.svg",
+                            "src": "../../resources/images/devices/Blockly_send_sms.svg",
                             "width": 20,
                             "height": 20,
                             "alt": "Email"
@@ -1896,7 +1896,7 @@
                         },
                         {
                             "type": "field_image",
-                            "src": "../../../../share/images/devices/Blockly_notification.svg",
+                            "src": "../../resources/images/devices/Blockly_notification.svg",
                             "width": 20,
                             "height": 20,
                             "alt": "Push"
@@ -1928,7 +1928,7 @@
                     "args0": [
                         {
                             "type": "field_image",
-                            "src": "../../../../share/images/Logo_BKC_polygon2.svg",
+                            "src": "../../resources/images/Logo_BKC_polygon2.svg",
                             "width": 20,
                             "height": 20,
                             "alt": "Service Contract"
@@ -2006,7 +2006,7 @@
 
     var demoWorkspace = Blockly.inject(blocklyDiv,
         {
-            media: '../../media/',
+            media: '../../resources/plugins/blockly/media/',
             toolbox: document.getElementById('toolbox'),
             grid:
                 {spacing: 20,

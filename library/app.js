@@ -47,7 +47,7 @@ app.use(function(req, res, next) {
     if(! isBot(req.get('user-agent')) ){
         next();
     } else {
-        if(req.originalUrl.startsWith('/firmwares') || req.originalUrl.startsWith('/fileserver') || req.originalUrl.startsWith('/customer/playlist/last')){
+        if(req.originalUrl.startsWith('/resources/firmwares') || req.originalUrl.startsWith('/resources/fileserver') || req.originalUrl.startsWith('/customer/playlist/last')){
             console.debug("firmware download");
             next();
         } else {

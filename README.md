@@ -276,23 +276,23 @@ var domainName = 'Blocklychain';
 ```
 ### Step 5- Update images
   
-  in public/share/images make a copy of logo-bkcnode.png and save it with the name logo-your_domain_name_without_extension.png
+  in library/front-end/resources/images make a copy of logo-bkcnode.png and save it with the name logo-your_domain_name_without_extension.png
 	and make a copy of logo-h-bkcnode.png and save it with the name logo-h-your_domain_name_without_extension.png
   edit two lines of .gitignore file and replace cpvanda with your domain name without extension as follows:
   
 ```s5
-public/share/images/logo-cpvanda.png
-public/share/images/logo-h-cpvanda.png
+library/front-end/resources/images/logo-cpvanda.png
+library/front-end/resources/images/logo-h-cpvanda.png
 ```
 
 ## 9- Run your BKC Node
 in the root folder of project run the program:
 ```run
-$ node bin/iabroker-server
+$ node app-launcher.js
 ```
 OR
 ```run
-$ pm2 start pm2.json
+$ pm2 start pm2-launcher.json
 ```
 
 

@@ -384,7 +384,7 @@ router.get('/resetpassword/:verifyid', (req, res, next) => {
 
     // res.sendFile(path.resolve('public/customer/views/iacustomer.customer.resetpassword.html'));
 
-    fs.readFile('public/customer/views/iacustomer.customer.resetpassword.html', (err, html) => {
+    fs.readFile('library/front-end/customer/views/iacustomer.customer.resetpassword.html', (err, html) => {
         let htmlPlusData = html.toString().replace("BXCID", verifyid);
         res.send(htmlPlusData);
     });

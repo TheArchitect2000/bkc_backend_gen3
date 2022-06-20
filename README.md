@@ -83,7 +83,7 @@ $ sudo npm install
 $ sudo npm install jsonschema@1.2.6
 ```
 ```clone
-# Enter in the folder servers and type:
+# Enter in the folder servers/voice-assistant and type:
 $ sudo npm install
 ```
 

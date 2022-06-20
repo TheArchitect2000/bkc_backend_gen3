@@ -52,7 +52,7 @@ note: If you need unzip your files, you can use these commands:
 $ sudo apt install unzip
 $ unzip <your file>.zip
 ```
-## 3- Install Node.js v11.x
+## 3- Install Node.js v16.x (Recommended v16.14.2)
 ```node
 $ cd ~
 ```

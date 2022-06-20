@@ -82,6 +82,10 @@ $ sudo npm install
 ```clone
 $ sudo npm install jsonschema@1.2.6
 ```
+```clone
+# Enter in the folder servers and type:
+$ sudo npm install
+```
 
 ## 5- Install pm2 
 (see: https://www.tecmint.com/install-pm2-to-run-nodejs-apps-on-linux-server/ )

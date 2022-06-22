@@ -1,12 +1,12 @@
-var domainUrl = 'https://cl.cpvanda.com';
-var brokerUrl = 'mqtts://cl.cpvanda.com:3008'; //secure https or wss
+var domainUrl = 'https://<YOUR DOMAIN>';
+var brokerUrl = 'mqtts://<YOUR DOMAIN>:3008'; //secure https or wss
 var domainName = 'cpBlocklychain';
 var fingerprint = '';
 var developmentMode = false;
 
 try {
     if(typeof require !== 'undefined') {
-        fingerprint = require('../../../config/which.config').fingerprint;
+        fingerprint = require('../../../configs/which.config').fingerprint;
     }
 } catch (e){
     console.error('which.server load error 1',e);

@@ -6,7 +6,7 @@ var developmentMode = false;
 
 try {
     if(typeof require !== 'undefined') {
-        fingerprint = require('../../../config/which.config').fingerprint;
+        fingerprint = require('../../../configs/which.config').fingerprint;
     }
 } catch (e){
     console.error('which.server load error 1',e);

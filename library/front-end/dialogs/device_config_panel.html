@@ -322,20 +322,21 @@
                             </div>
                             <!-- Firmware -->
                             <div class="col-sm-6 col-xs-12 config-list firmware">
-                                <header class="header">Firmware</header>
+                                <header class="header">Device details</header>
                                 <ul style="list-style: none">
                                     <li>
-                                        Device Version:
+                                        Firmware Version:
                                         <span class="pull-right">
                                             <b ssbind="text:getmyval(devices[ssdevIndex]._encid,'FV')" sslevel="devpanel" id="FVval"
                                                data="FV" data-update="$('#FVval').html('<span class=\'bg-green badge\'>'+getmyval(devices[ssdevIndex]._encid,'FV')+'</span>')">FV</b></span>
                                     </li>
                                     <li>
-                                        Device Series:
+                                        Hardware Version:
                                         <span class="pull-right">
                                             <b ssbind="text:devices[ssdevIndex].FirmwareSeries || 'Primary'" sslevel="devpanel"></b></span>
                                     </li>
                                     <hr/>
+                                    <!--  Commented By H.S
                                     <li>
                                         Last Update Version:
                                         <span class="pull-right">
@@ -347,6 +348,7 @@
                                                                     ssbind="text:moment(devices[ssdevIndex].FirmwareUpdateTime).format('DD MMM YYYY') ; title:devices[ssdevIndex].FirmwareUpdateTime">...</b></span>
                                     </li>
                                     <hr/>
+                                    -->
                                     <li id="newversionpan">
                                         <span class="col-red" href="javascript:void(0);"
                                               ssif="getLastDevVersion(ssdevIndex) && (getLastDevVersion(ssdevIndex)> (parseInt(getmyval(devices[ssdevIndex]._encid,'FV'))||0))"

@@ -1,11 +1,11 @@
 let mailconfig = {};
 
 mailconfig = {
-    host: 'mail.bkcnode.com',
+    host: 'mail.yourmailserver.com',
     port: 587,
     auth: {
-        user: 'panel@bkcnode.io',
-        pass: 'Hello123'
+            user: 'username',
+            pass: 'password'
     },
     tls: {rejectUnauthorized: false},
     templates: 'library/front-end/templates/email-templates/'

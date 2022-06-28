@@ -129,43 +129,43 @@ http {
 	##
 	
 	sendfile            on;
-   tcp_nopush          on;
-   tcp_nodelay         on;
-   # keepalive_timeout   6000;
-   # types_hash_max_size 2048;
-   client_max_body_size 100M;
+    tcp_nopush          on;
+    tcp_nodelay         on;
+    # keepalive_timeout   6000;
+    # types_hash_max_size 2048;
+    client_max_body_size 100M;
 
-   include             /etc/nginx/mime.types;
-   default_type        application/octet-stream;
+    include             /etc/nginx/mime.types;
+    default_type        application/octet-stream;
 	
 	##
 	# Virtual Host Configs
 	##
 
-   # Load modular configuration files from the /etc/nginx/conf.d directory.
-   # See http://nginx.org/en/docs/ngx_core_module.html#include
-   # for more information.
-   include /etc/nginx/conf.d/*.conf;
+    # Load modular configuration files from the /etc/nginx/conf.d directory.
+    # See http://nginx.org/en/docs/ngx_core_module.html#include
+    # for more information.
+    include /etc/nginx/conf.d/*.conf;
 	
 	
 	##
 	# Logging Settings
 	##
 	
-   log_format  main  '$remote_addr - $remote_user [$time_local] "$request" '
-                     '$status $body_bytes_sent "$http_referer" '
-                     '"$http_user_agent" "$http_x_forwarded_for"';
+    log_format  main  '$remote_addr - $remote_user [$time_local] "$request" '
+                      '$status $body_bytes_sent "$http_referer" '
+                      '"$http_user_agent" "$http_x_forwarded_for"';
 
-   access_log  /var/log/nginx/access.log  main;
+    access_log  /var/log/nginx/access.log  main;
 
     
 	
-   server {
-      gzip on;
-      listen 80;
+    server {
+        gzip on;
+        listen 80;
     
-      server_name  _;
-      root         /usr/share/nginx/html;
+        server_name  _;
+        root         /usr/share/nginx/html;
 		
 		##
 		# SSL Settings
@@ -175,24 +175,24 @@ http {
 		ssl_certificate_key ssl/webprivate.pem;
 		
 		server_name  cl.blocklychain.io;    
-      return 301 https://$host$request_uri;
-   }
+        return 301 https://$host$request_uri;
+    }
 	
 
-   server {
+    server {
 		gzip on;
-	   listen       443 ssl;
+	    listen       443 ssl;
 		
 		##
 		# SSL Settings
 		##
 	  
-	   ssl_certificate  ssl/webpublic.pem;
-	   ssl_certificate_key ssl/webprivate.pem;
+	    ssl_certificate  ssl/webpublic.pem;
+	    ssl_certificate_key ssl/webprivate.pem;
 
-      #This line for iavoice controller to forward /webhook_google to port 9122
-      location /webhook {
-	   	proxy_pass http://localhost:9122;
+        #This line for iavoice controller to forward /webhook_google to port 9122
+        location /webhook {
+			proxy_pass http://localhost:9122;
 			proxy_http_version 1.1;
 			proxy_set_header Upgrade $http_upgrade;
 			proxy_set_header Connection 'upgrade';
@@ -217,7 +217,7 @@ http {
 		}
 
 
-	   location / {
+	    location / {
 			proxy_pass http://localhost:50500;
 			proxy_http_version 1.1;
 			proxy_set_header Upgrade $http_upgrade;
@@ -232,8 +232,7 @@ http {
 			if_modified_since off;
 			expires off;
 			etag off;
-	   }
-		
+	    }
 	}
 }
 

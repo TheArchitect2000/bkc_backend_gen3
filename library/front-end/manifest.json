@@ -1,0 +1,10 @@
+{
+  "background_color": "#ffffff",
+  "display": "standalone",
+  "name": "programming.cpvanda",
+  "orientation": "any",
+  "scope": "/",
+  "short_name": "programming.cpvanda",
+  "start_url": "/",
+  "theme_color": "#ffffff"
+}

@@ -174,7 +174,7 @@ http {
 		ssl_certificate  ssl/webpublic.pem;
 		ssl_certificate_key ssl/webprivate.pem;
 		
-		server_name  cl.blocklychain.io;    
+		server_name  yourdomain.com;    
         return 301 https://$host$request_uri;
     }
 	

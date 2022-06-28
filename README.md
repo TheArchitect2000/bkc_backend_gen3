@@ -47,13 +47,13 @@ $ sudo mongorestore --db iabroker --drop /root/db-dump/iabroker
 ```db
 $ sudo mongorestore --db iabroker --drop /root/db-dump/iasystem
 ```
-note: If you need unzip your files, you can use these commands:
+Note: If you need unzip your files, you can use these commands:
 ```zip
 $ sudo apt install unzip
 $ unzip <your file>.zip
 ```
 ## 3- Install Node.js v16.x
-note: Recommended node.js version: v16.14.2  &  npm version: v8.12.2
+Note: Recommended node.js version: v16.14.2  &  npm version: v8.12.2
 ```node
 $ cd ~
 ```
@@ -89,7 +89,7 @@ $ sudo npm install
 ```
 
 ## 5- Install pm2 
-(see: https://www.tecmint.com/install-pm2-to-run-nodejs-apps-on-linux-server/ )
+(See: https://www.tecmint.com/install-pm2-to-run-nodejs-apps-on-linux-server/ )
 ```pm2
 $ sudo npm install -g pm2
 ```

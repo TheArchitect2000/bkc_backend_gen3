@@ -16,6 +16,7 @@ let login = function (username, password, res, vendorlogin) {
     IACustomer.findOne({Username: username, IsActive: true})
         .then(customer => {
             if (!customer) {
+                console.log("Username: ", username, "Password: ", password)
                 //res.redirect('/customer/');
                 console.error('not customer', username, password);
                 res.status(404).send({
@@ -147,6 +148,7 @@ let login = function (username, password, res, vendorlogin) {
 router.post('/', (req, res, next) => {
     console.log('login');
 
+    console.log("req.body: ", req.body);
     let username = req.body.username;
     let password = req.body.password;
     let vendorlogin = req.body.vendorlogin;

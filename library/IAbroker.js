@@ -533,7 +533,13 @@ const authenticate = async function(client, username, password, callback) {
         "username": username
     };
 
+    console.debug('Client ---> ', client);
+    console.debug('username ---> ', username);
+    console.debug('password ---> ', password);
+
     let _password = password ? password.toString() : '';
+    console.debug('_password ---> ', _password);
+    
     let authorized = false;
     if( _password === 'I_HAVE_NO_PASSWORD'){
         client.needpassword = true;

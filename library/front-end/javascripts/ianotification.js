@@ -1,7 +1,9 @@
 function notifyMe() {
     // Let's check if the browser supports notifications
     if (!("Notification" in window)) {
+        /* Commented By H.S
         alert("This browser does not support system notifications");
+        */
         // This is not how you would really do things if they aren't supported. :)
     }
 

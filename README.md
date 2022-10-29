@@ -311,7 +311,29 @@ library/front-end/resources/images/logo-cpvanda.png
 library/front-end/resources/images/logo-h-cpvanda.png
 ```
 
-## 9- Run your BKC Node
+## 9- Congigure Firewall 
+Allow ssh connection:
+```run
+$ sudo ufw allow OpenSSH
+```
+Allow nginx connection
+```run
+$ sudo ufw allow 'nginx full'
+```
+Allow devices connect to MQTT server through port 8883 
+```run
+$ sudo ufw allow 8883
+```
+Enable firewall 
+```run
+$ sudo ufw enable
+```
+Check firewall status
+```run
+$ sudo ufw status
+```
+
+## 10- Run your BKC Node
 in the root folder of project run the program:
 ```run
 $ node app-launcher.js

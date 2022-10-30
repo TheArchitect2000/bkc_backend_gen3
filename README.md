@@ -311,7 +311,7 @@ library/front-end/resources/images/logo-cpvanda.png
 library/front-end/resources/images/logo-h-cpvanda.png
 ```
 
-## 9- Congigure Firewall 
+## 9- Configure Firewall 
 Allow ssh connection:
 ```run
 $ sudo ufw allow OpenSSH

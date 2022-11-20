@@ -54,19 +54,19 @@ $ unzip <your file>.zip
 ```
 ## 3- Install Node.js v16.x
 Note: Recommended node.js version: v16.14.2  &  npm version: v8.12.2
-```node
+```bash
 $ sudo apt install npm
 ```
-```node
+```bash
 $ npm i -g npm@8.12.2
 ```
-```node
+```bash
 $ sudo npm install -g n
 ```
-```node
+```bash
 $ n 16.14.2
 ```
-```node
+```bash
 $ node -v
 ```
 ## 4- Clone the BKC Node source files.

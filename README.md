@@ -324,6 +324,10 @@ Allow devices connect to MQTT server through port 8883
 ```run
 $ sudo ufw allow 8883
 ```
+Allow mobile smart phones connect to MQTT server through port 8883 
+```run
+$ sudo ufw allow 3008
+```
 Enable firewall 
 ```run
 $ sudo ufw enable

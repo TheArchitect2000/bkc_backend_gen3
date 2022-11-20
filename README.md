@@ -55,13 +55,16 @@ $ unzip <your file>.zip
 ## 3- Install Node.js v16.x
 Note: Recommended node.js version: v16.14.2  &  npm version: v8.12.2
 ```node
-$ cd ~
+$ sudo apt install npm
 ```
 ```node
-$ curl -sL https://deb.nodesource.com/setup_16.x -o nodesource_setup.sh
+$ npm i -g npm@8.12.2
 ```
 ```node
-$ sudo apt install nodejs
+$ sudo npm install -g n
+```
+```node
+$ n 16.14.2
 ```
 ```node
 $ node -v
@@ -324,7 +327,7 @@ Allow devices connect to MQTT server through port 8883
 ```run
 $ sudo ufw allow 8883
 ```
-Allow mobile smart phones connect to MQTT server through port 8883 
+Allow mobile smart phones connect to MQTT server through port 3008 
 ```run
 $ sudo ufw allow 3008
 ```

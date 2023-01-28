@@ -286,12 +286,12 @@ auth: {
 ### Step 3- put these files in following directory
 
 ```s3
-config/webprivate.pem
-config/webprivate.key
-config/webpublic.pem
-config/webpublic.crt
-config/iabroker.certificate.key
-config/iabroker.certificate.crt	
+configs/webprivate.pem
+configs/webprivate.key
+configs/webpublic.pem
+configs/webpublic.crt
+configs/iabroker.certificate.key
+configs/iabroker.certificate.crt	
 ```
 
 ### Step 4- create public/share/js/config/configs.js and Update
